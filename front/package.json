@@ -7,8 +7,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
+    "react-chatbot-kit": "^2.1.2",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "react-simple-chatbot": "^0.6.1",
+    "remixicon": "^3.3.0",
+    "styled-components": "^5.3.11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
