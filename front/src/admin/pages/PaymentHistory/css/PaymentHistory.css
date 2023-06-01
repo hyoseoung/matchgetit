@@ -1,0 +1,72 @@
+.payment-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 10px;
+}
+
+.search-container a:last-child {
+margin-left: 50px;
+}
+
+table {
+border-collapse: collapse;
+width: 100%;
+}
+
+th, td {
+border: 1px solid black;
+padding: 8px;
+text-align: center;
+
+}
+.search-container {
+margin-bottom:15px;
+}
+
+.buttons-container {
+display: flex;
+justify-content: center;
+margin-bottom: 10px;
+}
+.container {
+margin-bottom: 10px;
+}
+
+.button-label {
+margin-left: 70px;
+}
+
+.status-label {
+margin-left: 90px;
+}
+.buttons-container {
+display: flex;
+justify-content: center;
+}
+
+.search-button, .reset-button {
+background-color: #A3EDAA;
+color: #000000;
+font-size: 18px;
+padding: 5px 10px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.search-button {
+margin-right: 10px;
+}
+.download-button {
+display: inline-block;
+background-color: #14841F;
+color: #000000;
+font-size: 18px;
+padding: 5px 10px;
+border: none;
+border-radius: 5px;
+text-decoration: none;
+cursor: pointer;
+margin-bottom:15px;
+}
