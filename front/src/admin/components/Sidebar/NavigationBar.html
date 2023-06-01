@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Navigation Bar</title>
+  <style>
+    /* 네비게이션 바 스타일 */
+    .nav {
+      position: fixed;
+      top: 90;
+      left: 0;
+      width: 250px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #f1f1f1;
+    }
+
+    .nav-item {
+      padding: 10px;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background-color: #E0F8DB;
+    }
+
+    /* 조회 목록 스타일 */
+    .sub-menu {
+      display: none;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+	<header id="admin-header"></header>
+	
+  <nav class="nav">
+    <a href="#" class="nav-item" data-tab="manager-list">매니저 관리</a>
+    <ul id="manager-list" class="sub-menu">
+      <li><a href="#">등록된 매니저 조회</a></li>
+      <li><a href="#">매니저 지원자 조회</a></li>
+    </ul>
+    <a href="#" class="nav-item" data-tab="user-list">유저 관리</a>
+    <ul id="user-list" class="sub-menu">
+      <li><a href="#">유저 조회</a></li>
+      <li><a href="#">결제 기록 조회</a></li>
+      <li><a href="#">채팅 상담 기록</a></li>
+      <li><a href="#">문의 게시판</a></li>
+    </ul>
+    <a href="#" class="nav-item" data-tab="game-list">경기 관리</a>
+    <a href="#" class="nav-item" data-tab="stadium-list">구장 관리</a>
+  </nav>
+
+  <script src="../js/CommonFactor/adminNB.js"></script>
+
+</body>
+</html>
