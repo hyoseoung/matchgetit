@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/AdminpageLayout}">
+
+<th:block layout:fragment="css">
+    <style>
+        .info-header {
+            width: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .info-header h2 {
+            font-size: 1.5em;
+            color: #336633;
+        }
+
+        .info-header button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 1em;
+            background-color: #99cc99;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</th:block>
+
+<section layout:fragment="content">
+    <div class="info-header">
+        <div>
+            <h2>000 회원의 정보</h2>
+        </div>
+        <div>
+            <button onclick="location.href='../MatchGetIt/admin/editUser?userId=01'">수정</button>
+            <button onclick="confirmDelete()">삭제</button>
+            <button onclick="banUser()">계정 정지</button>
+        </div>
+    </div>
+    <p>유저 번호: <span text="${user.id}">123</span></p>
+    <p>유저 이름: <span text="${user.name}">김00</span></p>
+    <p>닉네임: <span text="${user.nickname}">000</span></p>
+    <p>이메일 주소: <span text="${user.email}">0000@0000.com</span></p>
+    <p>연락처: <span text="${user.telNum}">010-0000-0000</span></p>
+    <p>성별: <span text="${user.gender}"></span></p>
+    <p>점수: <span text="${user.score}">300</span>점 (레벨: <span>B</span>)</p><br>
+    <p>가입일: <span text="${user.regDate}"></span></p>
+    <p>최근 접속일: <span text="${user.loginDate}"></span></p>
+</section>
+
+</html>
