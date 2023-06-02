@@ -1,5 +1,5 @@
 .fContainer {
-    background-image: linear-gradient(rgba(233, 233, 233, 0.2), rgba(233, 233, 233, 0.2)), url("../../../../Img/first.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../../../../Img/first.jpg");
   }
   .fButton{
     background-color:rgb(146, 163, 243);
@@ -10,12 +10,12 @@
     color:rgb(45, 175, 226);
 }
 .fTitle{
-  background-color: rgb(21, 21, 156);
-  color: white;
+  color: #344690;
+  text-shadow: 2px 2px 4px blue;
 }
 .fSubTitle{
   color:white;
-  background-color: rgb(130, 130, 243);
+  text-shadow: 2px 2px 4px blue;
 }
 .fInputAddress:hover{
   border: 1px solid skyblue;
