@@ -21,43 +21,42 @@
   </style>
 </head>
 <body>
-  <header id="admin-header"></header>
+<header id="admin-header"></header>
 
-  <div id="admin-nb"></div>
+<div id="admin-nb"></div>
 
-  <div style="padding-left: 255px">
+<div style="padding-left: 255px">
     <div class="manager-header">
-      <h2>매니저 목록</h2>
-      <div class="search">
-        <input type="text" placeholder="검색어를 입력하세요">
-        <button>검색</button>
-      </div>
+        <h2>매니저 목록</h2>
+        <div class="search">
+            <input type="text" placeholder="검색어를 입력하세요">
+            <button>검색</button>
+        </div>
     </div>
-    
-	<div class="row" style="padding: 10px;">
-	  <th:block th:each="manager, rowStatus: ${managerList}">
-	    <div class="col-md-4 margin" style="display: inline-block;">
-	      <div class="card" style="border: 1px solid gray; padding: 10px; box-sizing: border-box;">
-	        <img th:src="${manager.image}" class="card-img-top" alt="매니저 이미지">
-	        <div class="card-body">
-	          <h4 class="card-title" th:text="${manager.name}">매니저 이름</h4>
-	          <p class="card-text">연락처: <span th:text="${manager.contact}">010-0000-0000</span></p>
-	          <p class="card-text">현재 배정된 경기: <span th:text="${manager.assignedGame}">경기 없음</span></p>
-	        </div>
-	      </div>
-	    </div>
-	    <!-- Add a new row after every 3 cards -->
-	    <th:block th:if="${rowStatus.count % 3 == 2}">
-	      </div><div class="row" style="padding: 10px;">
-	    </th:block>
-	  </th:block>
-	</div>
+
+    <div class="row" style="padding: 10px;">
+        <div class="col-md-4 margin" th:each="manager, rowStatus: ${managerList}" style="display: inline-block;">
+            <div class="card" style="border: 1px solid gray; padding: 10px; box-sizing: border-box; text-align: center;">
+<!--                        <a th:href="@{/ManagerInfo.html?id={id}(id=${manager.id})}" style="cursor: pointer;">-->
+<!--                        &lt;!&ndash; 매니저 상세 정보 페이지로의 링크 &ndash;&gt;-->
+                    <a href="ManagerInfo.html">
+                        <img th:src="${manager.image}" class="card-img-top" alt="매니저 이미지">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="${manager.name}">매니저 이름</h4>
+                            <p class="card-text">연락처: <span th:text="${manager.contact}">010-0000-0000</span></p>
+                            <p class="card-text">현재 배정된 경기: <span th:text="${manager.assignedGame}">경기 없음</span></p>
+                        </div>
+                    </a>
+            </div>
+        </div>
+    </div>
+
 
 					
     
-  </div>
+</div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="../../components/js/loadAdminNB.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../../components/js/loadAdminNB.js"></script>
 </body>
 </html>

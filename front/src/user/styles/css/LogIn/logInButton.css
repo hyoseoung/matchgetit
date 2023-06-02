@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.LogInbtnArea {
+  text-align: center;
+  width: 100%;
+}
+
+.logInBtn {
+  width: 80%;
+  padding: 10px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border-radius: 0.6em;
+  border: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  margin: 1em;
+  padding: 1.2em 2.8rem;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  color: rgb(33, 177, 235);
+  background-image: linear-gradient(45deg, rgb(179, 223, 240) 50%, transparent 50%);
+  background-position: 100%;
+  background-size: 400%;
+  transition: background 300ms ease-in-out;
+}
+
+.logInBtn:hover {
+  background-position: 0;
+}
+
