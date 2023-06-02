@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/AdminpageLayout}">
+
+<th:block layout:fragment="css">
+    <style>
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+            text-align: center;
+        }
+
+        table td {
+            border: 1px solid black;
+        }
+    </style>
+</th:block>
+
+<section layout:fragment="content">
+
+    <h2>회원 목록</h2>
+
+    <form method="post" onsubmit="return checkbox(this);">
+        <div style="">
+            <button type="submit">선택한 회원 삭제하기</button>
+            <button type="button" id="downloadBtn" onclick="location.href='../MatchGetIt/admin/download';">Excel 파일로 다운로드</button><br>
+        </div>
+        <br>
+
+        <table>
+            <tr>
+                <td><input type="checkbox" name="checkAll" onclick="checkAllBox(this);" ></td>
+                <td>회원 번호</td>
+                <td>회원 성함</td>
+                <td>닉네임</td>
+                <td>이메일 주소</td>
+                <td>연락처</td>
+                <td>가입일</td>
+                <td>최근 접속일</td>
+                <td>계정 정지 여부</td>
+            </tr>
+
+            <tr>
+                <td colspan="9">등록된 회원이 없습니다.</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="checkbox" name="selectedMember" value="${member.memberId}">
+                </td>
+                <td>
+                    <a href="../MatchGetIt/admin/userInfo?userId=01">${member.memberId}</a>
+                </td>
+                <td>${member.memberName}</td>
+                <td>${member.nickName}</td>
+                <td>${member.email}</td>
+                <td>${member.phoneNumber}</td>
+                <td>${member.regDate}</td>
+                <td>${member.lastLoginDate}</td>
+                <td>${member.isBanned}</td>
+            </tr>
+        </table>
+
+        <br>
+        <div id="bottom" style="text-align: center">
+            <span>${map.pagingStr}</span>
+        </div>
+    </form>
+
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <td>-->
+<!--                -->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </table>-->
+    <br>
+
+    <form method="get">
+        <div id="search">
+            <div style="display: flex; justify-content: flex-end;">
+                <select name="searchType">
+                    <option value="M_id">회원 번호</option>
+                    <option value="M_name">회원 이름</option>
+                    <option value="nickname">닉네임</option>
+                    <option value="email">이메일 주소</option>
+                    <option value="P_number">연락처</option>
+                    <option value="reg_date">가입일</option>
+                    <option value="">최근 접속일</option>
+                    <option value="">계정 정지 여부</option>
+                </select>
+                <input type="search" name="searchValue" value="${map.searchValue}" />
+                <input type="submit" value="검색" />
+            </div>
+            <br>
+            <div style="display: flex; justify-content: flex-end;">
+                <select name="pageSize">
+                    <option value="">한 페이지에 보여줄 회원 수</option>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>50</option>
+                    <option>70</option>
+                    <option>100</option>
+                </select>
+                <input type="submit" value="적용">
+            </div>
+        </div>
+    </form>
+<!--    <br>-->
+</section>
+
+</html>
