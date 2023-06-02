@@ -25,7 +25,7 @@
     <form method="post" onsubmit="return checkbox(this);">
         <div style="">
             <button type="submit">선택한 회원 삭제하기</button>
-            <button type="button" id="downloadBtn" onclick="location.href='../MatchGetIt/admin/download';">Excel 파일로 다운로드</button><br>
+            <button type="button" id="downloadBtn" onclick="location.href='download';">Excel 파일로 다운로드</button><br>
         </div>
         <br>
 
@@ -39,7 +39,7 @@
                 <td>연락처</td>
                 <td>가입일</td>
                 <td>최근 접속일</td>
-                <td>계정 정지 여부</td>
+                <td>계정 상태</td>
             </tr>
 
             <tr>
@@ -51,21 +51,21 @@
                     <input type="checkbox" name="selectedMember" value="${member.memberId}">
                 </td>
                 <td>
-                    <a href="../MatchGetIt/admin/userInfo?userId=01">${member.memberId}</a>
+                    <a th:href="@{userInfo(userId=123)}">123</a>
                 </td>
-                <td>${member.memberName}</td>
-                <td>${member.nickName}</td>
-                <td>${member.email}</td>
-                <td>${member.phoneNumber}</td>
-                <td>${member.regDate}</td>
-                <td>${member.lastLoginDate}</td>
-                <td>${member.isBanned}</td>
+                <td text="${user.name}">김00</td>
+                <td text="${user.nickname}">000</td>
+                <td text="${user.email}">0000@0000.com</td>
+                <td text="${user.telNum}">010-0000-0000</td>
+                <td text="${user.regDate}">2023-00-00</td>
+                <td text="${user.loginDate}">2023-00-00</td>
+                <td text="${user.isBanned}">활동 중/정지/휴면</td>
             </tr>
         </table>
 
         <br>
         <div id="bottom" style="text-align: center">
-            <span>${map.pagingStr}</span>
+            <span text="${map.pagingStr}">[first] < 1 2 3 4 5 > [last]</span>
         </div>
     </form>
 

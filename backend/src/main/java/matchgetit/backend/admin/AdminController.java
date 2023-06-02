@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/MatchGetIt/admin")
 public class AdminController {
 
-    @GetMapping(value = "/")
-    public String mainP() {
+    @GetMapping(value = "")
+    public String mainPage() {
         return "admin/Dashboard";
     }
-
 
     @GetMapping("/userList")
     public String userList() {
@@ -23,6 +22,11 @@ public class AdminController {
     @GetMapping("/userInfo")
     public String userInfo() {
         return "admin/UserInfo";
+    }
+
+    @GetMapping("/editUser")
+    public @ResponseBody String editUserInfo() {
+        return "유저 정보 수정";
     }
 
     @GetMapping("/download")
