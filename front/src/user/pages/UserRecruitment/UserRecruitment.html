@@ -65,15 +65,20 @@
     <h1>인원 급구 게시판</h1>
 
     <div class="search-container">
-        <label for="searchCondition">검색 조건</label>
+        <label for="searchCondition">검색 조건: </label>
         <select name="searchCondition" id="searchCondition">
-            <option>검색 조건</option>
-            <option value="">경기종류</option>
-            <option value="">경기 날짜</option>
-            <option value="">경기 장소</option>
+            <option value="all">전체</option>
+            <option value="league">리그</option>
+            <option value="friendly">친선</option>
         </select>
-        <input type="text" name="searchKeyword">
-        <button>검색</button>
+        <label for="checkStartDate">경기 날짜</label>
+        <input type="date" id="checkStartDate" />
+    </div><br>
+
+    <div class="search-container">
+        <label for="searchLocation">경기 장소</label>
+        <input type="text" name="searchLocation" id="searchLocation">
+        <button onclick="filterTable()">검색</button>
     </div>
     <br><br>
 
