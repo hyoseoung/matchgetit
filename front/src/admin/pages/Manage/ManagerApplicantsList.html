@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ManagerApplicantsList</title>
+
+  <style>
+    .manager-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+
+    }
+
+    button{
+      margin-left: 10px;
+        padding: 5px 10px;
+        font-size: 1em;
+        background-color: #99cc99;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+<header id="admin-header"></header>
+
+<div id="admin-nb"></div>
+
+<div style="padding-left: 255px">
+  <div class="manager-header">
+    <h2>매니저 지원자 목록</h2>
+  </div>
+
+  <div style="margin-bottom: 10px;">
+    <input type="checkbox" id="selectAll" />
+    <label for="selectAll">전체 선택</label>
+    <button onclick="registerSelectedApplicants()">선택한 지원자 등록</button>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th></th>
+      <th>유저 번호</th>
+      <th>지원자 이름</th>
+      <th>연락처</th>
+      <th>숙련도</th>
+      <th>희망 활동 지역</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 더미 값 -->
+    <tr onclick="location.href='ManagerApplicantDetailsView.html'">
+      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
+      <td>1</td>
+      <td>코난</td>
+      <td>010-1234-5678</td>
+      <td>pro</td>
+      <td>서울</td>
+    </tr>
+
+    <tr>
+      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
+      <td>2</td>
+      <td>인어공주</td>
+      <td>010-9876-5432</td>
+      <td>상</td>
+      <td>관악구</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
+      <td>3</td>
+      <td>손오공</td>
+      <td>010-3214-5432</td>
+      <td>하</td>
+      <td>지구</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
+      <td>4</td>
+      <td>공승환</td>
+      <td>010-5123-5432</td>
+      <td>pro</td>
+      <td>중랑구</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
+      <td>5</td>
+      <td>천진반</td>
+      <td>010-9876-3123</td>
+      <td>중</td>
+      <td>중구</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
+      <td>6</td>
+      <td>크리링</td>
+      <td>010-1242-3243</td>
+      <td>상</td>
+      <td>은평구</td>
+    </tr>
+    <!-- 더미 값 -->
+    <tr th:each="applicant, rowStatus : ${applicantList}" onclick="viewUserDetails('${applicant.userNumber}')">
+      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
+      <td th:text="${applicant.userNumber}"></td>
+      <td th:text="${applicant.name}"></td>
+      <td th:text="${applicant.contact}"></td>
+      <td th:text="${applicant.skillLevel}"></td>
+      <td th:text="${applicant.activityArea}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../../components/js/loadAdminNB.js"></script>
+<script>
+  // 전체 선택 체크박스 동작
+  const selectAllCheckbox = document.getElementById('selectAll');
+  const checkboxes = document.getElementsByName('selectedApplicant');
+
+  selectAllCheckbox.addEventListener('change', function() {
+    checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+  });
+
+
+  // 선택한 지원자 등록 버튼 동작
+  function registerSelectedApplicants() {
+    const selectedApplicants = Array.from(checkboxes)
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.value);
+
+    if (selectedApplicants.length === 0) {
+      alert("선택된 인원이 없습니다.");
+      return;
+    }
+
+    if (confirm("등록하시겠습니까?")) {
+      const selectedApplicants = Array.from(checkboxes)
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.value);
+
+      // 선택한 지원자 등록 로직 추가
+      console.log('Selected Applicants:', selectedApplicants);
+      alert("등록이 완료되었습니다.");
+
+      // 페이지 새로고침
+      location.reload();
+    }
+  }
+
+
+  // 유저 상세 정보 페이지로 이동
+  function viewUserDetails(userNumber) {
+    // 해당 유저의 상세 정보 페이지 URL 생성
+    const userDetailsUrl = `/user/details?userNumber=${userNumber}`;
+    // 페이지 이동
+    window.location.href = userDetailsUrl;
+  }
+</script>
+</body>
+</html>

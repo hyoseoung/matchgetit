@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PaymentHistory</title>
+
+  <link rel="stylesheet" href="css/PaymentHistory.css"/>
+
+</head>
+<body>
+<header id="admin-header"></header>
+
+<div id="admin-nb"></div>
+
+<div style="padding-left: 255px">
+
+
+  <div class="payment-header">
+    <h2>결제 기록 조회</h2>
+  </div>
+
+  <hr>
+
+  <div class="search-container">
+    <label>
+        <a>조회기간</a>
+        <input type="date" id="checkStartDate" name="checkStartDate">
+        ~
+        <input type="date" id="checkEndDate" name="checkEndDate">
+        <a >기록 검색</a>
+    </label>
+    <select name="searchCondition">
+      <option>검색 조건</option>
+      <option value="name">이름</option>
+      <option value="email">이메일</option>
+    </select>
+    <input type="text" name="searchKeyword">
+    <button>검색</button>
+  </div>
+
+
+    <div class="container">
+      <label class="button-label">
+        <button onclick="setDateRange(0)">오늘</button>
+        <button onclick="setDateRange(7)">1주일</button>
+        <button onclick="setDateRange(30)">1개월</button>
+        <button onclick="setDateRange(90)">3개월</button>
+      </label>
+
+
+      <label class="status-label">
+        <a>거래 상태</a>
+        <label>
+          <input type="checkbox" name="paymentStatus" value="completed">
+          결제 완료
+        </label>
+        <label>
+          <input type="checkbox" name="paymentStatus" value="canceled">
+          결제 취소
+        </label>
+        <label>
+          <input type="checkbox" name="paymentStatus" value="refunded">
+          부분 환불
+        </label>
+      </label>
+
+    </div>
+
+  <div class="buttons-container">
+    <button class="search-button" style="margin-right: 10px;">검색</button>
+    <button class="reset-button">초기화</button>
+  </div>
+  <hr>
+  <a href="path/to/your/excel/file.xlsx" download class="download-button">Excel 파일 다운로드</a>
+
+  <table>
+    <thead>
+    <tr>
+      <th></th>
+      <th>결재 번호</th>
+      <th>거래 일시</th>
+      <th>취소 일시</th>
+      <th>경기 번호</th>
+      <th>회원 번호</th>
+      <th>회원 이름</th>
+      <th>거래 상태</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 더미 값 -->
+    <tr onclick="location.href='ManagerApplicantDetailsView.html'">
+      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
+      <td>1</td>
+      <td>2023.06.01</td>
+      <td></td>
+      <td>FEF648</td>
+      <td>#1543</td>
+      <td>코난</td>
+      <td>결제 완료</td>
+    </tr>
+
+
+    <!-- 더미 값 -->
+    <tr th:each="applicant, rowStatus : ${applicantList}" onclick="viewUserDetails('${applicant.userNumber}')">
+      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
+      <td th:text="${applicant.userNumber}"></td>
+      <td th:text="${applicant.name}"></td>
+      <td th:text="${applicant.contact}"></td>
+      <td th:text="${applicant.skillLevel}"></td>
+      <td th:text="${applicant.userNumber}"></td>
+      <td th:text="${applicant.name}"></td>
+      <td>결제 완료</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../../components/js/loadAdminNB.js"></script>
+<script src="js/PaymentHistory.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ManagerInfo</title>
+    <style>
+    .manager-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .user-info-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .user-info-title h2 {
+        font-size: 1.5em;
+        color: #336633;
+    }
+
+    .user-info-title button {
+        margin-left: 10px;
+        padding: 5px 10px;
+        font-size: 1em;
+        background-color: #99cc99;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<header id="admin-header"></header>
+
+<div id="admin-nb"></div>
+
+<div id="user-info" style="padding-left: 255px">
+
+    <div class="user-info-title">
+        <!-- 매니저 지원자 유저 정보를 표시할 부분 -->
+        <h2>
+            <span th:text="${manager.name}"></span>지원자의 정보
+            <button onclick="registerManager()" style="margin-left: 100px;">등록</button>
+            <button onclick="rejectRegistration()">등록 거절</button>
+        </h2>
+    </div>
+    <p>유저 번호: <span th:text="${user.userNumber}"></span></p><br>
+    <p>지원자 이름: <span th:text="${user.name}"></span></p>
+    <p>연락처: <span th:text="${user.contact}"></span></p>
+    <p>성별: <span th:text="${user.gender}"></span></p><br>
+    <p>숙련도: <span th:text="${user.skillLevel}"></span></p><br>
+    <p>가입일: <span th:text="${user.hireDate}"></span></p><br>
+    <p>희망 활동 지역: <span th:text="${user.activityArea}"></span></p><br>
+    <p>지원일: <span th:text="${user.applicationDate}"></span></p><br>
+
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../../components/js/loadAdminNB.js"></script>
+<script>
+    function registerManager() {
+        if (confirm("등록하시겠습니까?")) {
+            // 등록 처리를 수행하는 코드 작성
+            // 매니저로 상태값 변경 등 필요한 작업 수행
+            alert("등록이 완료되었습니다.");
+        }
+    }
+
+    function rejectRegistration() {
+        if (confirm("등록을 거절하시겠습니까?")) {
+            // 거절 처리를 수행하는 코드 작성
+            // 해당 유저를 삭제하는 등 필요한 작업 수행
+            alert("등록 거절이 완료되었습니다.");
+            // ManagerApplicantsList 페이지로 이동하는 코드 작성
+            window.location.href = "ManagerApplicantsList.html";
+        }
+    }
+</script>
+</body>
+</html>

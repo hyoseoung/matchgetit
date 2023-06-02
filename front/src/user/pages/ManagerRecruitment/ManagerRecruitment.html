@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Match Get It</title>
+  <link rel="icon" href="../../styles/img/PageLogo.png" type="img/png"/><!--웹브라우저 아이콘-->
+
+
+  <link rel="stylesheet" href="../../styles/css/CommonFactor/menuBar.css"/>
+  <link rel="stylesheet" href="../../styles/css/CommonFactor/button.css"/>
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:200,300,400,500" rel="stylesheet"/><!--폰트 관련 라이브러리-->
+
+
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"/><!--css 초기화 관련 라이브러리-->
+  <link rel="stylesheet" href="../../styles/css/CommonFactor/header.css"/>
+
+
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /><!--슬라이드 효과 관련 swiper 라이브러리-->
+  <link rel="stylesheet" href="../../styles/css/swipePage.css"/>
+  <link rel="stylesheet" href="../../styles/css/rankBoardPage.css"/>
+  <link rel="stylesheet" href="../../styles/css/MatchingPage/matchingPage.css"/>
+  <link rel="stylesheet" href="../../styles/css/thirdSlide.css"/>
+  <link rel="stylesheet" href="../../styles/css/LogIn/socialButton.css"/>
+  <link rel="stylesheet" href="../../styles/css/LogIn/signUp.css"/>
+
+  <link rel="stylesheet" href="../../styles/css/ManagerRecruitment.css"/>
+
+</head>
+<body>
+
+
+<!--좌상단 메뉴바 part-->
+<div id="menu-bar">
+  <div class="menu-icon">
+    <span class="menu-icon__line menu-icon__line-left"></span>
+    <span class="menu-icon__line"></span>
+    <span class="menu-icon__line menu-icon__line-right"></span>
+  </div>
+  <div class="nav">
+    <div class="nav__content">
+      <div class="nav__list">
+        <div class="nav__list-item">홈페이지</div>
+        <div class="nav__list-item">게시판</div>
+        <div class="nav__list-item">마이페이지</div>
+        <div class="nav__list-item">로그인/회원가입</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--로그아웃 버튼-->
+<div class="btnArea"><button class="logOutBtn">Log In</button></div>
+
+
+<!-- 지원서 폼 -->
+<div class="ApplyManager">
+
+  <form action="submit-form.php" method="POST">
+
+    <div style="margin-bottom: 15px;">
+    <h1 class="form-title">지원 양식</h1>
+    </div><br><br><br>
+
+    <div class="form-row">
+      <label for="name">성함: </label>
+      <input type="text" id="name" name="name" value="(로그인된유저 이름)" readonly>
+    </div><br><br>
+    <div class="form-row">
+      <label for="contact">연락처: </label>
+      <input type="text" id="contact" name="contact" value="(로그인된 유저의 연락처)" readonly>
+    </div><br><br>
+    <div class="form-row">
+      <label for="gender">성별: </label>
+      <input type="text" id="gender" name="gender" value="(로그인된 유저의 성별)" readonly>
+    </div><br><br>
+    <div class="form-row">
+      <label for="region">활동권역: </label>
+      <select id="region" name="region">
+        <option value="서울">서울</option>
+        <option value="경기">경기</option>
+        <option value="인천">인천</option>
+        <!-- 여기에 다른 지역 옵션 추가 -->
+      </select><br><br><br>
+    </div>
+    <div class="form-row form-row-button">
+      <input type="submit" value="제출하기">
+    </div>
+  </form>
+</div>
+
+
+
+<!--하단 메뉴바 part-->
+<div class="menu">
+  <a href="./MainPage.html" class="link" data-slide="1">
+    <!-- icon -->
+    <span class="link-icon">
+<img src="../../styles/img/rankIcon.svg" alt="rankIcon"/>
+      <!-- /icon -->
+</span>
+    <span class="link-title">Rank</span>
+  </a>
+  <a href="#" class="link" data-slide="2">
+<span class="link-icon">
+<!-- icon -->
+<img src="../../styles/img/BallIcon.svg" alt="BallIcon"/>
+  <!-- icon  #3700ff-->
+</span>
+    <span class="link-title">Match</span>
+  </a>
+
+  <a href="#" class="link" data-slide="3">
+<span class="link-icon">
+<!-- icon -->
+<img src="../../styles/img/ProfileIcon.svg" alt="ProfileIcon"/>
+  <!-- /icon -->
+</span>
+    <span class="link-title">Profile</span>
+  </a>
+</div>
+
+
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="../../styles/js/CommonFactor/header.js"></script>
+<script src="../../styles/js/swiperPage.js"></script>
+<script src="../../styles/js/subPage.js"></script>
+<script src="../../styles/js/LogIn/signUp.js"></script>
+</body>
+</html>
+
+
+</body>
+</html>
