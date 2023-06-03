@@ -35,7 +35,7 @@
             <h2>000 회원의 정보</h2>
         </div>
         <div>
-            <button onclick="location.href='../MatchGetIt/admin/editUser?userId=01'">수정</button>
+            <button onclick="location.href='editUser?userId=01'">수정</button>
             <button onclick="confirmDelete()">삭제</button>
             <button onclick="banUser()">계정 정지</button>
         </div>
@@ -45,10 +45,10 @@
     <p>닉네임: <span text="${user.nickname}">000</span></p>
     <p>이메일 주소: <span text="${user.email}">0000@0000.com</span></p>
     <p>연락처: <span text="${user.telNum}">010-0000-0000</span></p>
-    <p>성별: <span text="${user.gender}"></span></p>
+    <p>성별: <span text="${user.gender}">남성</span></p>
     <p>점수: <span text="${user.score}">300</span>점 (레벨: <span>B</span>)</p><br>
-    <p>가입일: <span text="${user.regDate}"></span></p>
-    <p>최근 접속일: <span text="${user.loginDate}"></span></p>
+    <p>가입일: <span text="${user.regDate}">2023년 00월 00일 00:00</span></p>
+    <p>최근 접속일: <span text="${user.loginDate}">2023년 00월 00일 00:00</span></p>
 </section>
 
 </html>
