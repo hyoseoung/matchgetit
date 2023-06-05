@@ -1,4 +1,4 @@
-package com.teampkg.matchgetit.entity;
+package Entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

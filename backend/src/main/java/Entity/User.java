@@ -1,4 +1,4 @@
-package com.teampkg.matchgetit.entity;
+package Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

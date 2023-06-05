@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class UserController {
-    @GetMapping(value="/")
+    @GetMapping("/")
     public String main(){
-        return "index";
+        return "index.html";
     }
 }

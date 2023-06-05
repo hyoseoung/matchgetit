@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Matchgetit.iml" filepath="$PROJECT_DIR$/Matchgetit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/matchgetit.iml" filepath="$PROJECT_DIR$/.idea/modules/matchgetit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/matchgetit.main.iml" filepath="$PROJECT_DIR$/.idea/modules/matchgetit.main.iml" />
     </modules>
   </component>
 </project>
