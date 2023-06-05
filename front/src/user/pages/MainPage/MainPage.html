@@ -31,7 +31,7 @@
   <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1859d1a3cc07166365149da03346b54c&libraries=services"></script>
 </head>
 <body>
-  <div class="background"></div>
+  <!--<div class="background"></div>-->
 
   <!-- 좌상단 메뉴바 part -->
   <div id="menu-bar">
@@ -145,7 +145,7 @@
           <div class="subPage subPage1 active">
             <div class="subcontainer">
               <div class="applicationContainer fContainer">
-                <div class="matchingTitle fTitle">친선 매칭</div>
+                <div class="matchingTitle fTitle">Friendly Match</div>
                 <form action="">
                   <div class="address">
                     <div class="fSubTitle subTitle addressTitle">선택한 지역</div>
@@ -156,8 +156,8 @@
                   </div>
                   <div class="time">
                     <div class="fSubTitle subTitle timeTitle">선택 시간</div>
-                    <input type="date"class="mDate" id="fDate" name="fDate" value="" >
-                    <select id="fTime" name="fTime">
+                    <input type="date" class="timeSelect mDate" name="fDate" value="" >
+                    <select class="mTime" name="fTime">
                       <option value="A">오전 10시~오후 12시</option>
                       <option value="B">오후 12시~오후 2시</option>
                       <option value="C">오후 2시~오후 4시</option>
@@ -179,7 +179,7 @@
           <div class="subPage subPage2 inactive">
             <div class="subcontainer">
               <div class="applicationContainer lContainer">
-                <div class="matchingTitle lTitle">리그 매칭</div>
+                <div class="matchingTitle lTitle">League Match</div>
                 <div id="weather"></div>
                 <form action="">
                   <div class="address">
@@ -191,8 +191,8 @@
                   </div>
                   <div class="time">
                     <div class="lSubTitle subTitle timeTitle">선택 시간</div>
-                    <input type="date"  id="lDate" name="lDate" value="" >
-                    <select id="lTime" name="lTime">
+                    <input type="date" class="timeSelect mDate" name="lDate" value="" >
+                    <select class="mTime" name="lTime">
                       <option value="A">오전 10시~오후 12시</option>
                       <option value="B">오후 12시~오후 2시</option>
                       <option value="C">오후 2시~오후 4시</option>
