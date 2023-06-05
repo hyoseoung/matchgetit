@@ -1,7 +1,4 @@
-import React, {useEffect, useState} from "react";
-// import Header from "./user/components/Header";
-// import Main from "./user/components/Main";
-// import Footer from "./user/components/Footer";
+import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -12,6 +9,7 @@ function App () {
         fetch('/api/hello')
             .then(response => response.text())
             .then(message => {
+                console.log(message);
                 setMessage(message);
             });
     },[])
@@ -22,15 +20,10 @@ function App () {
                 <h1 className="App-title">{message}</h1>
             </header>
             <p className="App-intro">
-                To get started, edit <code>/src/App.js</code> and save to reload.
+                To get started, edit <code>src/App.js</code> and save to reload.
             </p>
         </div>
-      // <>
-      //   {/*<Header/>*/}
-      //   {/*<Main/>*/}
-      //   {/*<Footer/>*/}
-      // </>
-  );
+    )
 }
 
-export default App
+export default App;
