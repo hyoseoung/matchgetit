@@ -4,12 +4,12 @@ import Main from "./user/components/Main";
 import Footer from "./user/components/Footer";
 
 function App() {
-    return (<>
-            <Header/>
-            <Main/>
-            <Footer/>
-        </>
-    );
+  return (<>
+        <Header/>
+        <Main/>
+        <Footer/>
+      </>
+  );
 }
 
 export default App

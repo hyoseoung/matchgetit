@@ -1,14 +1,14 @@
 .react-chatbot-kit-chat-container {
-  position: fixed;
-  right: 30px;
-  bottom: 25px;
-  width: 370px;
-  height: 80%;
-  min-height: 520px;
-  max-height: 680px;
-  overflow: hidden;
-  border-radius: 25px;
-  box-shadow: rgb(0 0 0 / 30%) 0px 12px 60px 5px;
+    position: fixed;
+    right: 10px;
+    bottom: 25px;
+    width: 370px;
+    height: 80%;
+    min-height: 520px;
+    max-height: 680px;
+    overflow: hidden;
+    border-radius: 25px;
+    box-shadow: rgb(0 0 0 / 30%) 0px 12px 60px 5px;
 }
 
 .react-chatbot-kit-chat-inner-container {
