@@ -48,18 +48,18 @@
 
             <tr>
                 <td>
-                    <input type="checkbox" name="selectedMember" value="${member.memberId}">
+                    <input type="checkbox" name="selectedUser" value="${user.id}">
                 </td>
                 <td>
                     <a th:href="@{userInfo(userId=123)}">123</a>
                 </td>
                 <td text="${user.name}">김00</td>
-                <td text="${user.nickname}">000</td>
+<!--                <td text="${user.nickname}">000</td>-->
                 <td text="${user.email}">0000@0000.com</td>
-                <td text="${user.telNum}">010-0000-0000</td>
+                <td text="${user.phoneNum}">010-0000-0000</td>
                 <td text="${user.regDate}">2023-00-00</td>
                 <td text="${user.loginDate}">2023-00-00</td>
-                <td text="${user.isBanned}">활동 중/정지/휴면</td>
+                <td text="${user.state}">활동 중/정지/휴면</td>
             </tr>
         </table>
 
@@ -91,7 +91,7 @@
                     <option value="">최근 접속일</option>
                     <option value="">계정 정지 여부</option>
                 </select>
-                <input type="search" name="searchValue" value="${map.searchValue}" />
+                <input type="search" name="searchValue" th:value="${param.searchValue}" />
                 <input type="submit" value="검색" />
             </div>
             <br>

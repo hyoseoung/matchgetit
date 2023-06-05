@@ -25,8 +25,13 @@ public class AdminController {
     }
 
     @GetMapping("/editUser")
-    public @ResponseBody String editUserInfo() {
-        return "유저 정보 수정";
+    public String editUserView() {
+        return "admin/UserEdit";
+    }
+
+    @PostMapping("/editUser")
+    public String editUserInfo() {
+        return "redirect:/userInfo";
     }
 
     @GetMapping("/download")
