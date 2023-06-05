@@ -28,13 +28,15 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
     implementation("in.yajnesh.util:java-util:1.0.0")
-    compileOnly("org.projectlombok:lombok")
+	implementation("org.modelmapper:modelmapper:3.1.1")
+	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.springframework.batch:spring-batch-test")
 	testImplementation("org.springframework.security:spring-security-test")
+	runtimeOnly ("com.oracle.database.jdbc:ojdbc8:19.3.0.0")
 }
 
 tasks.withType<Test> {
