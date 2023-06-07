@@ -1,5 +1,6 @@
-package entity;
+package com.project.matchgetit.entity;
 
+import com.project.matchgetit.admin.AdminPageUserDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import lombok.ToString;
 import java.sql.Date;
 
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 @Getter @Setter @ToString
 public class User {
     @Id
@@ -36,7 +37,17 @@ public class User {
     private String score;
 
     private Date regDate;
-
+    private Date loginDate;
     private String state;
+
+
+    public void updateUser(AdminPageUserDto userDto) {
+        this.name = userDto.getName();
+        this.email = userDto.getEmail();
+        this.phoneNum = userDto.getPhoneNum();
+        this.gender = userDto.getGender();
+        this.birthday = Date.valueOf(userDto.getBirthday());
+        this.score = userDto.getScore();
+    }
 
 }
