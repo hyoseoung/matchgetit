@@ -1,0 +1,300 @@
+/* CSS Document */
+@charset "UTF-8";
+
+body,
+html {
+    margin: 0;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    color: #282B33;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    transition: 0.25s;
+    -webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    box-sizing: border-box;
+
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}
+
+img {
+    border: 0 none;
+}
+
+a {
+    outline: none;
+    color: #282B33;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+pre,
+textarea {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: keep-all;
+    overflow: auto;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+.cancelText {
+    text-decoration: line-through;
+}
+
+html, body, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+section {
+    padding: 24px 20px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    word-break: keep-all;
+}
+
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+}
+
+ol, ul, li {
+    list-style: none;
+}
+.content-body_left-wrap{
+    overflow: auto;
+    height: 100%;
+}
+.my-status {
+    padding-top: 20px;
+    display: inline-block;
+    width: 100%;
+}
+.my-profile__name {
+    margin-bottom: 3px;
+    margin-right: 5px;
+    font-size: 24px;
+    line-height: 120%;
+}
+.my-status_content {
+    line-height: 24px;
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 15px;
+}
+.my-account_type {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.my-account_type p {
+    font-size: 12px;
+    margin-right: 5px;
+}
+.my-status_content img {
+    vertical-align: bottom;
+    margin-right: 5px;
+}
+
+
+
+element.style {
+    font-size: 20px;
+    font-weight: 700;
+}
+.my-status_item-double:first-child {
+    float: left;
+}
+.my-status_label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 20px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.badge {
+    padding: 3px 5px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-right: 10px;
+    background-color: #D9E0E6;
+    display: inline-block;
+}
+.badge_lv-system {
+    min-width: 54px;
+    width: 54px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.my-status_content .badge_lv-system {
+     min-width: 20px !important;
+     width: 20px !important;
+     font-size: 12px !important;
+     line-height: 15px !important;
+     margin-bottom: 0;
+     padding: 0px;
+     height: 4px;
+     margin-top: 2px;
+ }
+.my-status_content .badge-rookie {
+      background-color: #D9E0E6;
+      color: #1570FF;
+      height: 20px;
+      line-height: 20px !important;
+  }
+.lv-system_title {
+    display: flex;
+    margin-bottom: 20px;
+}
+.my-status_content .lv-system_title {
+    margin-bottom: 0 !important;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.my-status_item {
+    border-radius: 12px;
+    padding: 12px;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #F8FAFB;
+}
+.my-status_item-double {
+    width: 48%;
+    display: inline-block;
+    float: right;
+}
+
+.my-status_item-cash {
+    border-radius: 20px;
+    padding: 5px 30px;
+    background-color: #1570FF;
+    color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.my-status_item-cash .my-cash span {
+    background-color: #FFCF0A;
+    color: #282B33;
+    font-size: 14px;
+    border-radius: 6px;
+    padding: 10px 10px;
+}
+.my-status_item:last-child {
+    margin-bottom: 0;
+}
+
+.section.profile-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+}
+
+.btn.sm.gray {
+    margin-top: 10px;
+    display: flex;
+    background-color: #F2F5F7;
+    color: #282B33;
+    width: 100%;
+    border-radius: 25px;
+    font-size: 14px;
+
+    justify-content: center;
+}
+
+.profile-view.btn.sm.gray p {
+    font-size: 15px;
+}
+
+.my-content-title {
+    padding-bottom: 10px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+}
+.content-label img {
+    width: 24px;
+    margin-right: 10px;
+}
+.content-label{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.empty-state {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    text-align: center;
+}
+
+.empty-state img {
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.empty-state p {
+    font-size: 16px;
+    margin: 20px 0;
+}
+
+
+.main-container {
+    margin: 0 auto;
+}
+
+.main-container .swipe-tabs-container {
+    margin-bottom: 20px;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.main-container .bottomBanner {
+    margin-top: 20px;
+}
