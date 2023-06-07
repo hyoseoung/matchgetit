@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

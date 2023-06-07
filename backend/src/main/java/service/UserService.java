@@ -1,7 +1,7 @@
-package Service;
+package service;
 
-import Entity.UserEntity;
-import Repository.UserRepository;
+import entity.UserEntity;
+import repository.UserRepository;
 import dto.UserDTO;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
