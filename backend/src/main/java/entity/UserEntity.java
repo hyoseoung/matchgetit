@@ -1,7 +1,6 @@
-package Entity;
+package entity;
 
 
-import Constant.AccountType;
 import jakarta.persistence.*;
 import lombok.*;
 

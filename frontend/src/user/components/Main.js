@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import '../styles/swipePage.css';
 import LogIn from './LogIn/LogIn';
 import Match from './Match/Match';
+import Mypage from '../pages/MyPage/Mypage'
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
 
@@ -62,7 +63,8 @@ function Main() {
           </div>
           <div className="swiper-slide">
             <div className="slideContainer">
-              <div className="slide-page">마이 페이지</div>
+              <div className="slide-page"><Mypage/>
+              </div>
             </div>
           </div>
         </div>
