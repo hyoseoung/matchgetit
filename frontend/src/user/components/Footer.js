@@ -72,27 +72,27 @@ function Footer() {
   }, []);
 
   return (
-    <div className="menu">
-      <button className="link" data-slide="1">
+      <div className="menu">
+        <button className="link" data-slide="1">
         <span className="link-icon">
           <img src={process.env.PUBLIC_URL + '/images/rankIcon.svg'} alt="rankIcon" />
         </span>
-        <span className="link-title">Rank</span>
-      </button>
-      <button className="link" data-slide="2">
+          <span className="link-title">Rank</span>
+        </button>
+        <button className="link" data-slide="2">
         <span className="link-icon">
           <img src={process.env.PUBLIC_URL + '/images/BallIcon.svg'} alt="BallIcon" />
         </span>
-        <span className="link-title">Match</span>
-      </button>
+          <span className="link-title">Match</span>
+        </button>
 
-      <button className="link" data-slide="3">
+        <button className="link" data-slide="3">
         <span className="link-icon">
           <img src={process.env.PUBLIC_URL + '/images/ProfileIcon.svg'} alt="ProfileIcon" />
         </span>
-        <span className="link-title">Profile</span>
-      </button>
-    </div>
+          <span className="link-title">Profile</span>
+        </button>
+      </div>
   );
 }
 

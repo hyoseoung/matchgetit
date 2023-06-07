@@ -39,35 +39,35 @@ function Main() {
   }, []);
 
   return (
-    <div className="swiper-container">
-      <div className="swiper-wrapper">
-        <div className="swiper-slide">
-          <div className="slideContainer">
-            <div className="slide-page">
-              <LogIn />
+      <div className="swiper-container">
+        <div className="swiper-wrapper">
+          <div className="swiper-slide">
+            <div className="slideContainer">
+              <div className="slide-page">
+                <LogIn />
+              </div>
+            </div>
+          </div>
+          <div className="swiper-slide">
+            <div className="slideContainer">
+              <div className="slide-page">랭킹 게시판 페이지</div>
+            </div>
+          </div>
+          <div className="swiper-slide">
+            <div className="slideContainer">
+              <div className="slide-page">
+                <Match />
+              </div>
+            </div>
+          </div>
+          <div className="swiper-slide">
+            <div className="slideContainer">
+              <div className="slide-page">마이 페이지</div>
             </div>
           </div>
         </div>
-        <div className="swiper-slide">
-          <div className="slideContainer">
-            <div className="slide-page">랭킹 게시판 페이지</div>
-          </div>
-        </div>
-        <div className="swiper-slide">
-          <div className="slideContainer">
-            <div className="slide-page">
-              <Match />
-            </div>
-          </div>
-        </div>
-        <div className="swiper-slide">
-          <div className="slideContainer">
-            <div className="slide-page">마이 페이지</div>
-          </div>
-        </div>
+        <div className="swiper-pagination"></div>
       </div>
-      <div className="swiper-pagination"></div>
-    </div>
   );
 };
 
