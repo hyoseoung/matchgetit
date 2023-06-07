@@ -1,14 +1,17 @@
 package controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
+    private final AdminPageUserService userService;
 
     @GetMapping(value = "")
     public String mainPage() {
@@ -16,23 +19,38 @@ public class AdminController {
     }
 
     @GetMapping("/userList")
-    public String userList() {
+    public String userList(Model model) {
+        List<User> userList = userService.getUserList();
+        model.addAttribute("userList", userList);
         return "admin/UserList";
     }
 
     @GetMapping("/userInfo")
-    public String userInfo() {
+    public String userInfo(Model model, HttpServletRequest request) {
+        String userId = request.getParameter("userId");
+        AdminPageUserDTO userDto = userService.getUserInfo(Long.valueOf(userId));
+        model.addAttribute("user", userDto);
         return "admin/UserInfo";
     }
 
     @GetMapping("/editUser")
-    public String editUserView() {
+    public String editUserView(Model model, HttpServletRequest request) {
+        String userId = request.getParameter("userId");
+        AdminPageUserDTO userDto = userService.getUserInfo(Long.valueOf(userId));
+        model.addAttribute("user", userDto);
         return "admin/UserEdit";
     }
 
     @PostMapping("/editUser")
-    public String editUserInfo() {
-        return "redirect:/userInfo";
+    public String editUserInfo(AdminPageUserDto userDto) {
+        Long userId = userService.updateUserInfo(userDto);
+        return "redirect:/MatchGetIt/admin/userInfo?userId="+userId;
+    }
+
+    @GetMapping("/deleteUser/{userId}")
+    public String deleteUser(Model model, @PathVariable("userId") Long userId) {
+        userService.deleteUser(userId);
+        return "redirect:/MatchGetIt/admin/userList";
     }
 
     @GetMapping("/download")
