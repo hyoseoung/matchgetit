@@ -2,13 +2,16 @@ import React, {useState} from "react";
 import "./Mypage.css";
 import axios from 'axios';
 import Profile from "./Profile";
+import CreditHistory from "../Payments/CreditCharge"
 
-function MyPage() {
+function Mypage() {
     const [isProfileOpen, setProfileOpen] = useState(false);
 
     const handleProfileToggle = () => {
         setProfileOpen(!isProfileOpen);
     };
+
+
     axios({
         method:'GET',
         url:'',
@@ -73,7 +76,7 @@ function MyPage() {
                             <p style={{ fontSize: '17px', fontWeight: "bold"}}>나의 캐시</p>
                             <p style={{ fontSize: '20px', fontWeight: '700' }}>0원</p>
                         </div>
-                        <a href="/cash/charge">
+                        <a href="../Payments/CreditCharge.jsx">
                             <div className="my-cash">
                                 <span>충전하기</span>
                             </div>
@@ -112,4 +115,4 @@ function MyPage() {
 }
 
 
-export default MyPage;
+export default Mypage;

@@ -1,3 +1,6 @@
+body {
+    overflow-x: hidden;
+}
 h3{
     margin-top: 10px;
     margin-left: 15px;
