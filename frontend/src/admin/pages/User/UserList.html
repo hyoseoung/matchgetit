@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/AdminpageLayout}">
 
-<th:block layout:fragment="css">
+<head>
     <style>
         table {
             border: 1px solid black;
@@ -16,56 +16,62 @@
             border: 1px solid black;
         }
     </style>
-</th:block>
+</head>
 
 <section layout:fragment="content">
 
     <h2>회원 목록</h2>
 
-    <form method="post" onsubmit="return checkbox(this);">
-        <div style="">
+    <form method="get" onsubmit="return checkbox(this);" th:object="${userList}">
+        <div>
             <button type="submit">선택한 회원 삭제하기</button>
             <button type="button" id="downloadBtn" onclick="location.href='download';">Excel 파일로 다운로드</button><br>
         </div>
         <br>
 
         <table>
+            <thead>
             <tr>
                 <td><input type="checkbox" name="checkAll" onclick="checkAllBox(this);" ></td>
                 <td>회원 번호</td>
                 <td>회원 성함</td>
-                <td>닉네임</td>
+<!--                <td>닉네임</td>-->
                 <td>이메일 주소</td>
                 <td>연락처</td>
                 <td>가입일</td>
                 <td>최근 접속일</td>
                 <td>계정 상태</td>
             </tr>
+            </thead>
 
-            <tr>
-                <td colspan="9">등록된 회원이 없습니다.</td>
+            <tbody>
+            <tr th:if="${userList.isEmpty()}">
+                <td colspan="8">등록된 회원이 없습니다.</td>
             </tr>
 
-            <tr>
+            <tr th:each="user: ${userList}">
                 <td>
                     <input type="checkbox" name="selectedUser" value="${user.id}">
                 </td>
                 <td>
-                    <a th:href="@{userInfo(userId=123)}">123</a>
+                    <a th:href="@{userInfo(userId=${user.id})}" th:text="${user.id}">123</a>
+<!--                    <a th:href="@{'userInfo/'+${user.id}}" th:text="${user.id}">123</a>-->
                 </td>
-                <td text="${user.name}">김00</td>
-<!--                <td text="${user.nickname}">000</td>-->
-                <td text="${user.email}">0000@0000.com</td>
-                <td text="${user.phoneNum}">010-0000-0000</td>
-                <td text="${user.regDate}">2023-00-00</td>
-                <td text="${user.loginDate}">2023-00-00</td>
-                <td text="${user.state}">활동 중/정지/휴면</td>
+                <td th:text="${user.name}">김00</td>
+                <!--                <td th:text="${user.nickname}">000</td>-->
+                <td th:text="${user.email}">0000@0000.com</td>
+                <td th:text="${user.phoneNum}">010-0000-0000</td>
+                <td th:text="${user.regDate}">2023-00-00</td>
+                <td th:text="${user.loginDate}">2023-00-00</td>
+                <td th:text="${user.state}">활동 중/정지/휴면</td>
             </tr>
+            </tbody>
+
         </table>
 
         <br>
         <div id="bottom" style="text-align: center">
-            <span text="${map.pagingStr}">[first] < 1 2 3 4 5 > [last]</span>
+            <span :text="${map.pagingStr}">[first] < 1 2 3 4 5 > [last]</span>
         </div>
     </form>
 
