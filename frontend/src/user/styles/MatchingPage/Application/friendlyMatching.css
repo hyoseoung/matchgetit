@@ -1,0 +1,24 @@
+.fContainer {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/public/images/first.jpg');
+}
+  .fButton{
+    background-color:rgb(146, 163, 243);
+  }
+
+  .fButton:hover{
+    background-color: rgb(4, 49, 250);
+    color:rgb(45, 175, 226);
+}
+.fTitle{
+  color: #344690;
+  text-shadow: 2px 2px 4px blue;
+}
+.fSubTitle{
+  color:white;
+  text-shadow: 2px 2px 4px blue;
+}
+.fInputAddress:hover{
+  border: 1px solid skyblue;
+  color:rgb(74, 247, 247);
+  background-color: rgb(145, 145, 240);
+}

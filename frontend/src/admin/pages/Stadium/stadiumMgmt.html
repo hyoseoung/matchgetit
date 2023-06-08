@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>구장관리</title>
+	<link rel="stylesheet" href="../../styles/stadium.css">
+</head>
+<body>
+	<header id="admin-header"></header>
+	<div id="admin-nb"></div>
+	<div class="list" style="padding-left:255px;">
+		<div class="searchbar">
+			<input type="text" name="search" id="std_search" placeholder="search">
+			<a href="#"><img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" id="img1"></a>
+			<input type="button" value="추가" placeholder="추가" id="addBtn" onclick='location.href="AddStadium.html"'></input>
+		</div>
+		<div class="std_list">
+			<div class="card">
+				<div class="std">
+					<a href="./StadiumInfo.html"><img src="../../styles/img/stadium_02_gasan.jpg"></a>
+				</div>
+				<div class="text">
+					<p>플랩 스타디움 가산 마리오점</p>
+				</div>
+			</div>
+			<div class="card">
+				<div class="std">
+					<a href="./StadiumInfo.html"><img src="../../styles/img/스토래지풋살%20광명하안점.jpeg"></a>
+				</div>
+				<div class="text">
+					<p>스토래지풋살 광명하안점</p>
+				</div>
+			</div>
+			<div class="card">
+				<div class="std">
+					<a href="./StadiumInfo.html"><img src="../../styles/img/하이탑필드.jpeg"></a>
+				</div>
+				<div class="text">
+					<p>하이탑필드</p>
+				</div>
+			</div>
+			<div class="card">
+				<div class="std">
+					<a href="./StadiumInfo.html"><img src="../../styles/img/하이탑필드.jpeg"></a>
+				</div>
+				<div class="text">
+					<p>하이탑필드</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="../../components/js/loadAdminNB.js"></script>
+</body>
+</html>
