@@ -1,4 +1,4 @@
-package dto;
+package matchgetit.backend.dto;
 
 import lombok.Data;
 

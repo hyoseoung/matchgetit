@@ -1,8 +1,10 @@
-package com.project.matchgetit.admin;
+package matchgetit.backend.service;
 
-import com.project.matchgetit.entity.User;
+import matchgetit.backend.dto.AdminPageUserDTO;
+import matchgetit.backend.entity.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import matchgetit.backend.repository.UserRepository3;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +16,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class AdminPageUserService {
-    private final UserRepository userRepository;
+    private final UserRepository3 userRepository;
 
     public void createUsers() {
         for (int i=1; i<10; i++) {

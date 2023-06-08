@@ -1,8 +1,12 @@
-package controller;
+package matchgetit.backend.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import matchgetit.backend.dto.AdminPageUserDTO;
+import matchgetit.backend.entity.User;
+import matchgetit.backend.service.AdminPageUserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,7 +46,7 @@ public class AdminController {
     }
 
     @PostMapping("/editUser")
-    public String editUserInfo(AdminPageUserDto userDto) {
+    public String editUserInfo(AdminPageUserDTO userDto) {
         Long userId = userService.updateUserInfo(userDto);
         return "redirect:/MatchGetIt/admin/userInfo?userId="+userId;
     }

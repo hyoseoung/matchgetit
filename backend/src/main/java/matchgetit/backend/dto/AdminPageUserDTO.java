@@ -1,6 +1,6 @@
-package com.project.matchgetit.admin;
+package matchgetit.backend.dto;
 
-import com.project.matchgetit.entity.User;
+import matchgetit.backend.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
