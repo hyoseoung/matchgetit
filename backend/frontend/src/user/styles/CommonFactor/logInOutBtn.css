@@ -1,11 +1,11 @@
-div.btnArea{
+div.logInOutBtnArea{
     position: fixed;
     height:auto;
     top: 0;
     right: 1rem;
     z-index: 4;
 }
-.logOutBtn {
+.logInOutBtn {
     box-sizing: border-box;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -32,11 +32,11 @@ div.btnArea{
     background-size: 400%;
     transition: background 300ms ease-in-out;
   }
-  .logOutBtn:hover {
+  .logInOutBtn:hover {
     background-position: 0;
   }
   @media (max-width: 767px) {
-    .logOutBtn {
+    .logInOutBtn {
       margin: 20px;
       padding: 0.5em 1.0em;
       font-size: 0.9rem;

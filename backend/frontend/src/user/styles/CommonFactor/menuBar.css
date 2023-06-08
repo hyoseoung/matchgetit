@@ -73,6 +73,7 @@
   .link:active .link-title {
     transform: translateX(0);
     opacity: 1;
+    white-space: nowrap;
   }
   
   .link-icon {
