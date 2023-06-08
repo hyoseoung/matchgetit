@@ -21,8 +21,8 @@ const LeagueMatch = () => {
               readOnly
               required
             />
-            <input type="hidden" id="lInputLat" name="lx" value='' />
-            <input type="hidden" id="lInputLon" name="ly" value='' />
+            <input type="hidden" id="lInputLat"/>
+            <input type="hidden" id="lInputLon"/>
             <button
               className="mBtn lButton addressBtn"
               type="button"
@@ -32,8 +32,8 @@ const LeagueMatch = () => {
           </div>
           <div className="time">
             <div className="lSubTitle subTitle timeTitle">선택 시간</div>
-            <input type="date" className="timeSelect mDate" name="lDate" defaultValue="" />
-            <select className="mTime" name="lTime">
+            <input type="date" className="timeSelect mDate"/>
+            <select className="mTime">
               <option value="A">오전 10시~오후 12시</option>
               <option value="B">오후 12시~오후 2시</option>
               <option value="C">오후 2시~오후 4시</option>

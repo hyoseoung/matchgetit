@@ -3,6 +3,7 @@ import "./Mypage.css";
 import axios from 'axios';
 import Profile from "./Profile";
 import CreditHistory from "../Payments/CreditCharge"
+import CreditCharge from "../Payments/CreditCharge";
 
 function Mypage() {
     const [isProfileOpen, setProfileOpen] = useState(false);
@@ -11,12 +12,6 @@ function Mypage() {
         setProfileOpen(!isProfileOpen);
     };
 
-
-    axios({
-        method:'GET',
-        url:'',
-
-    })
     return (
         <div className="content-body_left-wrap">
             <section>
@@ -83,20 +78,20 @@ function Mypage() {
                         </a>
                     </li>
                 </div>
-                <div className="profile-view">
+                <div className="profile-view">x
                     <button className="btn sm gray" onClick={handleProfileToggle}>
                         <p>프로필 보기</p>
                     </button>
                 </div>
-                    {isProfileOpen && (
-                            <div className="profile-settings">
-                                <Profile />
-                            </div>
-                        )}
+                {isProfileOpen && (
+                    <div className="profile-settings">
+                        <Profile />
+                    </div>
+                )}
             </section>
             <section>
                 <div>
-                <div className="my-content-title">my content</div>
+                    <div className="my-content-title">my content</div>
                     <a href="/mypage/myplab/">
                         <div className="content-label"><img src="https://plab-football.s3.amazonaws.com/static/img/ic_myplab_color.svg" alt="신청 내역"/>
                             <p>신청 내역</p>

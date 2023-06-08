@@ -14,10 +14,10 @@ function Header() {
     };
 
     const applyListeners = () => {
-      menuIconElement.addEventListener('click', () => {
-        toggleClass(bodyElement, 'nav-active');
-      });
+      menuIconElement.addEventListener('click', () => toggleClass(bodyElement, 'nav-active'));
     };
+
+
 
     return () => {
       applyListeners();
