@@ -9,6 +9,7 @@ import 'swiper/swiper-bundle.css';
 import '../styles/LogIn/logInButton.css';
 import '../styles/CommonFactor/logInOutBtn.css';
 import MenuBar from "./MenuBar";
+import Chatbot from "./chatbot/chatbot"
 
 
 function Main({ onLogin, onLogout, isLoggedIn }) {
@@ -139,8 +140,7 @@ function Main({ onLogin, onLogout, isLoggedIn }) {
                             </div>
                             <div className="swiper-slide">
                                 <div className="slideContainer">
-                                    <div className="slide-page"><Mypage /></div>
-
+                                    <div className="slide-page"><Chatbot /></div>
                                 </div>
                             </div>
                         </>

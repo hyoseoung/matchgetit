@@ -26,11 +26,6 @@ function Mypage() {
                         </div>
                     </div>
                 </div>
-                <div style={{ marginTop: '10px', display: 'none' }}>
-                    <p className="my-profile__notice--friend">
-                        <a href="/player/17AcO/friend/?tab=pending">0명의 친구 신청이 있어요</a>
-                    </p>
-                </div>
                 <div className="my-status">
                     <li className="my-status_item my-status_item-double">
                         <a href="/mypage/mymanner/">
@@ -78,7 +73,7 @@ function Mypage() {
                         </a>
                     </li>
                 </div>
-                <div className="profile-view">x
+                <div className="profile-view">
                     <button className="btn sm gray" onClick={handleProfileToggle}>
                         <p>프로필 보기</p>
                     </button>
