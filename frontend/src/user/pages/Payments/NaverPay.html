@@ -2,59 +2,101 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <style>
+        .button {
+            width: 100px;
+            height: 50px;
+            margin: 5px;
+            background-color: #F2F5F7;
+        }
+
+        .button.clicked {
+            background-color: #1570FF;
+            color: #EDEAEA;
+        }
+    </style>
 </head>
 <body>
-
 <input type="button" id="naverPayBtn" value="네이버페이 결제 버튼">
 <div id="paymentInfo"></div>
-<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
+
+<button class="button" onclick="toggleButton(this, 2000)">2,000원</button>
+<button class="button" onclick="toggleButton(this, 5000)">5,000원</button>
+<button class="button" onclick="toggleButton(this, 10000)">10,000원</button>
+<br>
+<button class="button" onclick="toggleButton(this, 20000)">20,000원</button>
+<button class="button" onclick="toggleButton(this, 30000)">30,000원</button>
+<button class="button" onclick="toggleButton(this, 50000)">50,000원</button>
+<br>
+<button class="button" onclick="toggleButton(this, 80000)">80,000원</button>
+<button class="button" onclick="toggleButton(this, 90000)">90,000원</button>
+<button class="button" onclick="toggleButton(this, 100000)">100,000원</button>
+
 <script>
-     var oPay = Naver.Pay.create({
-      "mode": "development", // development or production
-      "clientId": "dQPaTGkl7UD9gyUVttF3", // clientId
-      "openType": "popup",
-      "onAuthorize": function(oData) {
-        if (oData.resultCode === "Success") {
-          // 네이버페이 결제 승인 요청 처리
-          var paymentId = oData.paymentId;
-          var productName = oData.productName;
-          var totalPayAmount = oData.totalPayAmount;
-          var admissionState = oData.admissionState;
+    var selectedAmount = 0; // 초기값 설정
 
-          console.log("결제 ID:", paymentId);
-          console.log("상품명:", productName);
-          console.log("총 결제 금액:", totalPayAmount);
-          console.log("결제 상태:", admissionState);
-
-          var paymentInfoElement = document.getElementById("paymentInfo");
-          paymentInfoElement.innerHTML = `
-            <p>결제 ID: ${paymentId}</p>
-            <p>상품명: ${productName}</p>
-            <p>총 결제 금액: ${totalPayAmount}</p>
-            <p>결제 상태: ${admissionState}</p>
-          `;
-        } else {
-          // 필요 시 oData.resultMessage 에 따라 적절한 사용자 안내 처리
-          console.log("결제 실패:", oData.resultMessage);
+    function toggleButton(button, amount) {
+        var buttons = document.getElementsByClassName("button");
+        for (var i = 0; i < buttons.length; i++) {
+            if (buttons[i] === button) {
+                buttons[i].classList.add("clicked");
+                selectedAmount = amount; // 클릭된 버튼의 가격 설정
+            } else {
+                buttons[i].classList.remove("clicked");
+            }
         }
-      }
-    });
+    }
 
     var elNaverPayBtn = document.getElementById("naverPayBtn");
 
-    elNaverPayBtn.addEventListener("click", function() {
-      // 네이버페이 결제 요청
-      oPay.open({
-        "merchantUserKey": "4648484646464",
-        "merchantPayKey": "7864546465465465",
-        "productName": "숫사슴",
-        "totalPayAmount": "1000",
-        "taxScopeAmount": "1000",
-        "taxExScopeAmount": "0",
-        "returnUrl": "사용자 결제 완료 후 결제 결과를 받을 URL"
-      });
+    elNaverPayBtn.addEventListener("click", function () {
+        if (selectedAmount < 100) {
+            alert("결제금액은 100 이상이어야 합니다.");
+            return;
+        }
+
+        // 네이버페이 결제 요청
+        var oPay = Naver.Pay.create({
+            "mode": "development", // development or production
+            "clientId": "dQPaTGkl7UD9gyUVttF3", // clientId
+            "openType": "popup",
+            "onAuthorize": function (oData) {
+                if (oData.resultCode === "Success") {
+                    // 네이버페이 결제 승인 요청 처리
+                    var paymentId = oData.paymentId;
+                    var productName = oData.productName;
+                    var totalPayAmount = selectedAmount; // 수정: 선택된 가격 할당
+                    var admissionState = oData.admissionState;
+
+                    console.log("결제 ID:", paymentId);
+                    console.log("상품명:", productName);
+                    console.log("총 결제 금액:", totalPayAmount);
+                    console.log("결제 상태:", admissionState);
+
+                    var paymentInfoElement = document.getElementById("paymentInfo");
+                    paymentInfoElement.innerHTML = `
+                        <p>결제 ID: ${paymentId}</p>
+                        <p>상품명: ${productName}</p>
+                        <p>총 결제 금액: ${totalPayAmount}</p>
+                        <p>결제 상태: ${admissionState}</p>
+                    `;
+                }
+            }
+        });
+
+        oPay.open({
+            "merchantUserKey": "4648484646464",
+            "merchantPayKey": "7864546465465465",
+            "productName": "매치기릿",
+            "totalPayAmount": selectedAmount, // 수정: 선택된 가격 할당
+            "taxScopeAmount": selectedAmount, // 수정: 선택된 가격 할당
+            "taxExScopeAmount": "0",
+            "returnUrl": "사용자 결제 완료 후 결제 결과를 받을 URL"
+        });
     });
 </script>
+
+<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
 
 </body>
 </html>

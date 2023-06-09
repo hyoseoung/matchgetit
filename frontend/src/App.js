@@ -3,6 +3,7 @@ import Header from "./user/components/Header";
 import MenuBar from "./user/components/MenuBar";
 import Main from "./user/components/Main";
 
+
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -20,6 +21,7 @@ function App() {
         <>
             <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
             <Main isLoggedIn={isLoggedIn} onLogin={handleLogin} onLogout={handleLogout} />
+
         </>
     );
 }
