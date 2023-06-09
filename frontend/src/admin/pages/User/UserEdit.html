@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/AdminpageLayout}">
 
-<th:block layout:fragment="css">
+<head>
   <style>
       /*.form-container {*/
       /*    max-width: 500px;*/
@@ -19,14 +19,12 @@
 
       .form-container input,
       .form-container select {
-          padding: 5px;
+          padding: 3px;
       }
 
-      /*.form-container textarea {*/
-      /*    padding: 5px;*/
-      /*    height: 100px;*/
-      /*    width: 100%*/
-      /*}*/
+      .form-container input[type="number"] {
+          width: 70px;
+      }
 
       .form-container button {
           padding: 8px 20px;
@@ -42,47 +40,52 @@
           width: 700px;
       }
   </style>
-</th:block>
+</head>
 
 <section layout:fragment="content">
     <div class="form-container">
 <!--        <div class="manager-info-title">-->
         <h2>유저 정보 수정</h2>
         <div>
-            <form method="post">
-                <p>유저 번호: <span :text="${user.id}">123</span></p>
+            <form method="post" th:object="${user}">
+                <!-- th:field 말고 th:value를 써도 잘 들어가지는데, 대신 name 속성을 필드 이름과 맞춰야 한다.
+                 또, th:field를 쓰면 유효성 검사가 용이하다고 한다. -->
+
+                <input type="hidden" th:field="*{id}">
+
+                <p>유저 번호: <span th:text="${user.id}">123</span></p>
 
                 <p>
                     <label for="name">
                         <span>유저 이름:</span>
                     </label>
-                    <input type="text" id="name" name="name" placeholder="유저 이름" :value="${user.name}" required>
+                    <input type="text" id="name" name="name" placeholder="유저 이름" th:field="*{name}" required>
                 </p>
 
                 <p>
-                    <label for="telnum">
+                    <label for="phoneNum">
                         <span>연락처:</span>
                     </label>
-                    <input type="text" id="telnum" name="telnum" placeholder="010-0000-0000" :value="${user.phoneNum}" required>
+                    <input type="text" id="phoneNum" name="phoneNum" placeholder="010-0000-0000" th:field="${user.phoneNum}" required>
                 </p>
 
                 <p>
                     <label for="email">
                         <span>이메일:</span>
                     </label>
-                    <input type="email" id="email" name="email" placeholder="0000@0000.000" :value="${user.email}" required>
+                    <input type="email" id="email" name="email" placeholder="0000@0000.000" th:field="${user.email}" required>
                 </p>
 
                 <p>
                     <span>성별:</span>
                     <label>
-                        <input type="radio" name="gender" value="남자" checked>
+                        <input type="radio" name="gender" value="남자" th:checked="${user.gender == '남자'}">
                     </label> 남자
                     <label>
-                        <input type="radio" name="gender" value="여자">
+                        <input type="radio" name="gender" value="여자" th:checked="${user.gender == '여자'}">
                     </label> 여자
                     <label>
-                        <input type="radio" name="gender" value="">
+                        <input type="radio" name="gender" value="비공개" th:checked="${user.gender == '비공개'}">
                     </label> 비공개
                 </p>
 
@@ -90,23 +93,19 @@
                     <label for="bday">
                         <span>생년월일:</span>
                     </label>
-                    <input type="date" id="bday" name="bday" :value="${user.birthday}" required>
+                    <input type="date" id="bday" name="bday" th:field="${user.birthday}" required>
                 </p>
 
                 <p>
-                    <label for="status">
-                        <span>상태:</span>
+                    <label for="score">
+                        <span>점수</span>
                     </label>
-                    <select id="status" name="status" required>
-                        <option value="active" :selected="${user.state == 'active'}">활동 중</option>
-                        <option value="leave" :selected="${user.state == 'banned'}">계정 정지</option>
-                        <option value="leave" :selected="${user.state == 'dormant'}">휴면 계정</option>
-                    </select>
+                    <input type="number" id="score" name="score" min="0" th:value="${user.score}" required>
                 </p>
 
                 <div class="button-container">
                     <button type="submit" style="margin-right: 10px;">수정사항 저장</button>
-                    <button onclick="location.href='userInfo?userId=123'">뒤로가기</button>
+                    <button type="button" th:onclick="|location.href='@{userInfo(userId=${user.id})}'|">뒤로가기</button>
                 </div>
             </form>
         </div>

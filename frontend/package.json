@@ -8,8 +8,11 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "http-proxy-middleware": "^2.0.6",
+    "next": "^13.4.4",
     "react": "^18.2.0",
+    "react-chatbot-kit": "^2.1.2",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.12.0",
     "react-scripts": "5.0.1",
     "swiper": "^9.3.2",
     "web-vitals": "^2.1.4"
@@ -17,7 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -26,6 +29,7 @@
       "react-app/jest"
     ]
   },
+  "proxy": "http://localhost:8081",
   "browserslist": {
     "production": [
       ">0.2%",

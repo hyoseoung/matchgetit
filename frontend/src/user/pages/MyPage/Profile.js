@@ -34,6 +34,7 @@ function MyPage() {
                                             id="useremail"
                                             value={userEmail}
                                             onChange={(e) => setUserEmail(e.target.value)}
+                                            placeholder="example@email.com"
                                         />
                                     </div>
                                 </div>
@@ -45,6 +46,7 @@ function MyPage() {
                                             id="username"
                                             value={userName}
                                             onChange={(e) => setUserName(e.target.value)}
+                                            placeholder="김 풋살"
                                         />
                                     </div>
                                 </div>
@@ -57,6 +59,7 @@ function MyPage() {
                                                 id="phonenumber"
                                                 value={phoneNumber}
                                                 onChange={(e) => setPhoneNumber(e.target.value)}
+                                                placeholder="010-5678-1234"
                                             />
                                             <input
                                                 type="button"
@@ -75,6 +78,7 @@ function MyPage() {
                                                 id="userpassword"
                                                 value={userPassword}
                                                 onChange={(e) => setUserPassword(e.target.value)}
+                                                placeholder="********"
                                             />
                                             <input
                                                 type="button"
@@ -92,6 +96,7 @@ function MyPage() {
                                             id="useraccount"
                                             value={userAccount}
                                             onChange={(e) => setUserAccount(e.target.value)}
+                                            placeholder="12**-**-****567"
                                         />
                                     </div>
                                 </div>
@@ -187,9 +192,7 @@ function MyPage() {
                                                 </label>
                                             </li>
                                         </ul>
-                                        <a>※ 숙련자는 1회에 한하여 변경 가능합니다.</a>
-                                        <br />
-                                        <br />
+                                        <a class="change">※ 숙련도는 리그 매치 전에 1회에 한하여 <br/>  변경 가능합니다.</a>
                                         <input
                                             type="button"
                                             value="회원정보 저장"
