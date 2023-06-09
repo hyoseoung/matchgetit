@@ -76,11 +76,7 @@ $(document).ready(function() {
             goToPage(clickedPage);
         });
 
-        // 페이지 상태 업데이트
-        function updatePageStatus() {
-            $("#pagingul li a").removeClass("active");
-            $("#pagingul li a").eq(currentPage - 1).addClass("active");
-        }
+
 
         // 페이지 상태 업데이트
         function updatePageStatus() {
