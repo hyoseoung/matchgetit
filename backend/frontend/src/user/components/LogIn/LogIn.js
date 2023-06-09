@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import '../../styles/LogIn/logInPage.css';
 import '../../styles/LogIn/logInButton.css';
 import '../../styles/CommonFactor/radioButton.css';
 import '../../styles/LogIn/signUp.css';
 import '../../styles/LogIn/socialButton.css';
 
-const LogIn = () => {
+const LogIn = ({ onLogin }) => {
   useEffect(() => {
     const popupBtn = document.querySelector('.signUp');
     const popupWrap = document.querySelector('.signUp-wrap');
@@ -27,19 +27,37 @@ const LogIn = () => {
     });
   }, []);
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onLogin(email, password);
+  };
+
   return (
     <div className="LogInContainer">
       <p className="title">풋살 예약을 간편하게</p>
       <p className="logoMark">Match Get It</p>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <div className="inputBlock">
-          <input className="logInInput" type="email" placeholder="이메일" />
-          <input className="logInInput" type="password" placeholder="비밀번호" />
+          <input className="logInInput" type="email" placeholder="이메일" value={email}
+                 onChange={handleEmailChange} />
+          <input className="logInInput" type="password" placeholder="비밀번호" value={password}
+                 onChange={handlePasswordChange} />
         </div>
-      </form>
       <div className="LogInbtnArea">
-        <button className="logInBtn">로그인</button>
+        <button className="logInBtn" type="submit">로그인</button>
       </div>
+      </form>
       <div className="tabMenu">
         <div className="tabButton findIDPW">아이디/비밀번호 찾기</div>
         <div className="tabButton signUp">회원가입</div>
