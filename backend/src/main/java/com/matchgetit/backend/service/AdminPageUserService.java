@@ -41,6 +41,12 @@ public class AdminPageUserService {
     }
 
     @Transactional(readOnly = true)
+    public Page<AdminPageUserDTO> getPageableUserList(Pageable pageable) {
+        return userRepository.getUserListPageBy(pageable);
+    }
+
+
+    @Transactional(readOnly = true)
     public AdminPageUserDTO getUserInfo(Long id) {
         User user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return AdminPageUserDTO.of(user);
