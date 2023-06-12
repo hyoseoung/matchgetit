@@ -27,6 +27,17 @@
             cursor: pointer;
         }
     </style>
+
+    <script>
+        function confirmDelete() {
+            let userId = [[${user.id}]]
+            // console.log(userId)
+
+            let res = confirm('삭제하시겠습니까? (삭제하면 되돌릴 수 없습니다.)');
+            if (res)
+                location.href = 'deleteUser/'+userId;
+        }
+    </script>
 </head>
 
 <section layout:fragment="content">
@@ -53,18 +64,8 @@
     <p>계정 상태: <span th:text="${user.state}">활동 중</span></p>
 </section>
 
-<th:block layout:fragment="script">
-    <script>
-        function confirmDelete() {
-            let userId = [[${user.id}]]
-            console.log(userId)
+<!--<th:block layout:fragment="script">-->
 
-            let res = confirm('삭제하시겠습니까? (삭제하면 되돌릴 수 없습니다.)');
-
-            if (res)
-                location.href = 'deleteUser/'+userId;
-        }
-    </script>
-</th:block>
+<!--</th:block>-->
 
 </html>
