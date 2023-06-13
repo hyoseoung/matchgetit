@@ -1,7 +1,8 @@
-package com.project.matchgetit.repository;
+package com.matchgetit.backend.repository;
 
-import com.project.matchgetit.dto.AdminPageUserDTO;
-import com.project.matchgetit.entity.User;
+import com.matchgetit.backend.dto.AdminPageUserDTO;
+import com.matchgetit.backend.entity.QUser;
+import com.matchgetit.backend.entity.User;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-import static com.project.matchgetit.entity.QUser.user;
+import static com.matchgetit.backend.entity.QUser.user;
 
 public class UserRepositoryCustomImpl implements UserRepositoryCustom {
     private JPAQueryFactory queryFactory;

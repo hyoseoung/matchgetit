@@ -1,52 +1,20 @@
-import React from 'react';
-import '../../styles/css/CommonFactor/menuBar.css';
-import '../../styles/css/CommonFactor/button.css';
-import '../../styles/css/CommonFactor/header.css';
-import '../../styles/css/swipePage.css';
-import '../../styles/css/rankBoardPage.css';
-import '../../styles/css/MatchingPage/matchingPage.css';
-//import '../../styles/css/thirdSlide.css';
-
-import '../../styles/css/LogIn/logInButton.css';
-
+import React, { useState } from 'react';
+import Header from "../../components/Header.js";
 import './css/ManagerRecruitment.css';
-
-import rankIcon from '../../styles/img/rankIcon.svg';
-import BallIcon from '../../styles/img/BallIcon.svg';
-import ProfileIcon from '../../styles/img/ProfileIcon.svg';
-import PageLogo from '../../styles/img/PageLogo.png';
-
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 
 function ManagerRecruitment() {
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setShowPopup(true);
+    };
+
   return (
     <div>
-      {/* 좌상단 메뉴바 part */}
-      <div id="menu-bar">
-        {/* Menu Icon */}
-        <div className="menu-icon">
-          <span className="menu-icon__line menu-icon__line-left"></span>
-          <span className="menu-icon__line"></span>
-          <span className="menu-icon__line menu-icon__line-right"></span>
-        </div>
-        {/* Navigation */}
-        <div className="nav">
-          <div className="nav__content">
-            <div className="nav__list">
-              <div className="nav__list-item">홈페이지</div>
-              <div className="nav__list-item">게시판</div>
-              <div className="nav__list-item">마이페이지</div>
-              <div className="nav__list-item">로그인/회원가입</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 로그아웃 버튼 */}
-      <div className="btnArea">
-        <button className="logOutBtn">Log In</button>
-      </div>
+      <Header/>
 
       {/* 지원서 폼 */}
       <div className="ApplyManager">
@@ -111,27 +79,11 @@ function ManagerRecruitment() {
         </form>
       </div>
 
-      <div className="menu">
-                <a href="./MainPage.html" className="link" data-slide="1">
-                  <span className="link-icon">
-                    <img src={rankIcon} alt="rankIcon" />
-                  </span>
-                  <span className="link-title">Rank</span>
-                </a>
-                <a href="#" className="link" data-slide="2">
-                  <span className="link-icon">
-                    <img src={BallIcon} alt="BallIcon" />
-                  </span>
-                  <span className="link-title">Match</span>
-                </a>
-                <a href="#" className="link" data-slide="3">
-                  <span className="link-icon">
-                    <img src={ProfileIcon} alt="ProfileIcon" />
-                  </span>
-                  <span className="link-title">Profile</span>
-                </a>
-              </div>
-
+      {showPopup && (
+          <div className="popup">
+            <p>지원이 완료되었습니다. 합격자 한으로 추후에 개별 연락드리겠습니다. 감사합니다.</p>
+          </div>
+        )}
     </div>
   );
 }
