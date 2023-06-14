@@ -37,6 +37,12 @@
             if (res)
                 location.href = 'deleteUser/'+userId;
         }
+
+        function banUser(userId) {
+            let left = (window.screen.width / 2) - (400/2);
+            let top = (window.screen.height / 4) - 100;
+            open('banUser/'+userId, '계정 정지', 'width=400, height=500, top='+top+', left='+left);
+        }
     </script>
 </head>
 
@@ -48,7 +54,7 @@
         <div>
             <button th:onclick="|location.href='@{editUser(userId=${user.id})}'|">수정</button>
             <button onclick="confirmDelete()">삭제</button>
-            <button onclick="banUser()">계정 정지</button>
+            <button th:onclick="|banUser(${user.id})|">계정 정지</button>
         </div>
     </div>
     <p>유저 번호: <span th:text="${user.id}">123</span></p>
@@ -62,6 +68,7 @@
     <p>가입일: <span th:text="${user.regDate}">2023년 00월 00일 00:00</span></p>
     <p>최근 접속일: <span th:text="${user.loginDate}">2023년 00월 00일 00:00</span></p>
     <p>계정 상태: <span th:text="${user.state}">활동 중</span></p>
+    <div th:if="${user.state == '정지' or user.state == '계정 정지'}">정지 사유: <pre style="font-family: '맑은 고딕', sans-serif">비매너 플레이로 경고 3회 이상 받음</pre></div>
 </section>
 
 <!--<th:block layout:fragment="script">-->
