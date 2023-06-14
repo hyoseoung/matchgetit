@@ -47,6 +47,7 @@ public class AdminPageUserService {
     @Transactional(readOnly = true)
     public Page<AdminPageUserDTO> getPageableUserList(AdminPageSearchUserDTO searchUserDTO, Pageable pageable) {
         return userRepository.getUserListPageBy(searchUserDTO, pageable);
+//        return null;
     }
 
 

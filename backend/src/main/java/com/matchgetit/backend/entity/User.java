@@ -40,6 +40,9 @@ public class User {
     private Date loginDate;
     private String state;
 
+    @OneToOne(mappedBy = "user")
+    private Manager manager; // 매니저
+
 
     public void updateUser(AdminPageUserDTO userDto) {
         this.name = userDto.getName();
