@@ -1,8 +1,11 @@
 package com.matchgetit.backend.repository;
 
+
+import com.matchgetit.backend.dto.AdminPageSearchUserDTO;
 import com.matchgetit.backend.dto.AdminPageUserDTO;
 import com.matchgetit.backend.entity.QUser;
 import com.matchgetit.backend.entity.User;
+
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -31,7 +34,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 //    }
 
     @Override
-    public Page<AdminPageUserDTO> getUserListPageBy(Pageable pageable) {
+    public Page<AdminPageUserDTO> getUserListPageBy(AdminPageSearchUserDTO searchUserDTO, Pageable pageable) {
         List<AdminPageUserDTO> content = queryFactory
                 .select(Projections.bean(AdminPageUserDTO.class,
                         user.id,
@@ -45,6 +48,11 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
                         user.loginDate.stringValue().as("loginDate"),
                         user.state))
                 .from(user)
+                .where(
+                        searchWithCondition(searchUserDTO.getSearchType(), searchUserDTO.getSearchValue()),
+                        regDateBetween(searchUserDTO),
+                        stateLike(searchUserDTO.getAccountState())
+                )
                 .orderBy(user.id.desc())
                 .offset(pageable.getOffset()).limit(pageable.getPageSize())
                 .fetch();
@@ -52,12 +60,50 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
         Long total = queryFactory
                 .select(Wildcard.count)
                 .from(user)
+                .where(
+                        searchWithCondition(searchUserDTO.getSearchType(), searchUserDTO.getSearchValue()),
+                        regDateBetween(searchUserDTO),
+                        stateLike(searchUserDTO.getAccountState())
+                )
                 .fetchFirst();
 
         return new PageImpl<>(content, pageable, total);
     }
 
-//    private BooleanExpression searchWithCondition() {
-//
-//    }
+    private BooleanExpression searchWithCondition(String searchType, String searchValue) {
+        if (searchValue == null || searchValue.isEmpty()) return null;
+        else if (StringUtils.equals("userId", searchType)) {
+            return user.id.like("%"+searchValue+"%");
+        }
+        else if (StringUtils.equals("userName", searchType)) {
+//            return user.name.like("%"+searchValue+"%");
+            return user.name.contains(searchValue);
+        }
+        else if (StringUtils.equals("email", searchType)) {
+            return user.email.like("%"+searchValue+"%");
+        }
+        else if (StringUtils.equals("phoneNum", searchType)) {
+            return user.phoneNum.like("%"+searchValue+"%");
+        }
+        return null;
+    }
+
+    private BooleanExpression regDateBetween(AdminPageSearchUserDTO searchUserDTO) {
+        if (searchUserDTO.getRegDateStart() == null || searchUserDTO.getRegDateEnd() == null
+                || searchUserDTO.getRegDateStart().isEmpty() || searchUserDTO.getRegDateEnd().isEmpty())
+            return null;
+        Date from = Date.valueOf(searchUserDTO.getRegDateStart());
+        Date to = Date.valueOf(searchUserDTO.getRegDateEnd());
+        return user.regDate.between(from, to);
+    }
+
+    private BooleanExpression stateLike(String state) {
+        if (state == null || state.isEmpty()) {
+            return null;
+        }
+        else {
+            return user.state.like("%"+state+"%");
+        }
+    }
+
 }

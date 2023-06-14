@@ -1,8 +1,9 @@
 package com.matchgetit.backend.controller;
 
+import com.matchgetit.backend.dto.AdminPageSearchUserDTO;
 import com.matchgetit.backend.dto.AdminPageUserDTO;
-import com.matchgetit.backend.entity.User;
 import com.matchgetit.backend.service.AdminPageUserService;
+import com.matchgetit.backend.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,16 +32,18 @@ public class AdminController {
 
     // 유저 목록 조회 페이지
     @GetMapping({"/userList", "/userList/{page}"})
-    public String userList(Model model, @PathVariable("page") Optional<Integer> page, HttpServletRequest request) {
-        String temp = request.getParameter("pageSize");
+    public String userList(Model model, @PathVariable("page") Optional<Integer> page, HttpServletRequest request, AdminPageSearchUserDTO searchUserDTO) {
+//        String temp = request.getParameter("pageSize");
+        Integer temp = searchUserDTO.getPageSize();
         int pageSize = temp == null ? 5 : Integer.parseInt(temp);
 
         Pageable pageable = PageRequest.of(page.orElse(0), pageSize);
-        Page<AdminPageUserDTO> userList = userService.getPageableUserList(pageable);
+        Page<AdminPageUserDTO> userList = userService.getPageableUserList(searchUserDTO, pageable);
 
 //        List<User> userList = userService.getUserList();
         model.addAttribute("userList", userList);
         model.addAttribute("currPageNum", pageable.getPageNumber());
+        model.addAttribute("searchUserDTO", searchUserDTO);
         return "admin/UserList";
     }
 
@@ -93,5 +96,11 @@ public class AdminController {
     @GetMapping("/download")
     public @ResponseBody String downloadUserList() {
         return "유저 목록 다운로드 ^^";
+    }
+
+
+    @GetMapping("/banUser/{userId}")
+    public String banUser(@PathVariable("userId") Long userId) {
+        return "admin/UserBan";
     }
 }
