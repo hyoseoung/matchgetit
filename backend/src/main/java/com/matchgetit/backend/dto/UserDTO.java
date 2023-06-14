@@ -17,7 +17,7 @@ public class UserDTO {
     private Date birthday;
     private String gender;
     private String preference;
-    private String accountType;
+    private String accountType;// 계정 타입 "3"일시 매니저
     private Date registrationDate;
     private String loginType;
     private String accountState;
