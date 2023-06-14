@@ -24,21 +24,23 @@
   <hr>
 
   <div class="search-container">
-    <label>
-        <a>조회기간</a>
-        <input type="date" id="checkStartDate" name="checkStartDate">
-        ~
-        <input type="date" id="checkEndDate" name="checkEndDate">
-        <a >기록 검색</a>
-    </label>
-    <select name="searchCondition">
-      <option>검색 조건</option>
-      <option value="name">이름</option>
-      <option value="email">이메일</option>
-    </select>
-    <input type="text" name="searchKeyword">
-    <button>검색</button>
-  </div>
+    <form action="/payment-history" method="get">
+      <label>
+          <a>조회기간</a>
+          <input type="date" id="checkStartDate" name="checkStartDate">
+          ~
+          <input type="date" id="checkEndDate" name="checkEndDate">
+          <a >기록 검색</a>
+      </label>
+
+      <select name="searchCondition">
+        <option value="name">이름</option>
+        <option value="userNumber">회원 번호</option>
+        <option value="gameNumber">경기 번호</option>
+      </select>
+      <input type="text" name="searchKeyword">
+      <button type="submit">검색</button>
+
 
 
     <div class="container">
@@ -69,8 +71,9 @@
     </div>
 
   <div class="buttons-container">
-    <button class="search-button" style="margin-right: 10px;">검색</button>
     <button class="reset-button">초기화</button>
+  </div>
+    </form>
   </div>
   <hr>
   <a href="path/to/your/excel/file.xlsx" download class="download-button">Excel 파일 다운로드</a>
@@ -89,29 +92,16 @@
     </tr>
     </thead>
     <tbody>
-    <!-- 더미 값 -->
-    <tr onclick="location.href='ManagerApplicantDetailsView.html'">
-      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
-      <td>1</td>
-      <td>2023.06.01</td>
-      <td></td>
-      <td>FEF648</td>
-      <td>#1543</td>
-      <td>코난</td>
-      <td>결제 완료</td>
-    </tr>
 
-
-    <!-- 더미 값 -->
-    <tr th:each="applicant, rowStatus : ${applicantList}" onclick="viewUserDetails('${applicant.userNumber}')">
-      <td><input type="checkbox" name="selectedApplicant" value="" /></td>
-      <td th:text="${applicant.userNumber}"></td>
-      <td th:text="${applicant.name}"></td>
-      <td th:text="${applicant.contact}"></td>
-      <td th:text="${applicant.skillLevel}"></td>
-      <td th:text="${applicant.userNumber}"></td>
-      <td th:text="${applicant.name}"></td>
-      <td>결제 완료</td>
+    <tr th:each="paymentRecord : ${paymentRecords}" onclick="viewUserDetails('${applicant.userNumber}')">
+      <td><input type="checkbox" name="selectedPayment" value="" /></td>
+      <td th:text="${paymentRecord.paymentNumber}"></td>
+      <td th:text="${paymentRecord.transactionDateTime}"></td>
+      <td th:text="${paymentRecord.cancellationDateTime}"></td>
+      <td th:text="${paymentRecord.gameNumber}"></td>
+      <td th:text="${paymentRecord.memberNumber}"></td>
+      <td th:text="${paymentRecord.memberName}"></td>
+      <td th:text="${paymentRecord.paymentStatus}"></td>
     </tr>
     </tbody>
   </table>
