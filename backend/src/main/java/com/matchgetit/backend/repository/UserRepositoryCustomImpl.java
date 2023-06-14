@@ -1,8 +1,8 @@
 package com.matchgetit.backend.repository;
 
-
 import com.matchgetit.backend.dto.AdminPageSearchUserDTO;
 import com.matchgetit.backend.dto.AdminPageUserDTO;
+import com.matchgetit.backend.entity.User;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -26,13 +26,6 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-//    @Override
-//    public Page<User> getUserListPage2(Pageable pageable) {
-//        List<User> content = queryFactory
-//                .selectFrom(user)
-//                .fetch();
-//        return null;
-//    }
 
     @Override
     public Page<AdminPageUserDTO> getUserListPageBy(AdminPageSearchUserDTO searchUserDTO, Pageable pageable) {
