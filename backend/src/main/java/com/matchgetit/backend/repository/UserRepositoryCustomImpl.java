@@ -1,19 +1,20 @@
 package com.matchgetit.backend.repository;
 
-
 import com.matchgetit.backend.dto.AdminPageSearchUserDTO;
 import com.matchgetit.backend.dto.AdminPageUserDTO;
-import com.matchgetit.backend.entity.QUser;
 import com.matchgetit.backend.entity.User;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.thymeleaf.util.StringUtils;
 
+import java.sql.Date;
 import java.util.List;
 
 import static com.matchgetit.backend.entity.QUser.user;
@@ -25,13 +26,6 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-//    @Override
-//    public Page<User> getUserListPage2(Pageable pageable) {
-//        List<User> content = queryFactory
-//                .selectFrom(user)
-//                .fetch();
-//        return null;
-//    }
 
     @Override
     public Page<AdminPageUserDTO> getUserListPageBy(AdminPageSearchUserDTO searchUserDTO, Pageable pageable) {

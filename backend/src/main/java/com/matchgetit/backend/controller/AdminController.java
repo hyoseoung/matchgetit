@@ -35,7 +35,7 @@ public class AdminController {
     public String userList(Model model, @PathVariable("page") Optional<Integer> page, HttpServletRequest request, AdminPageSearchUserDTO searchUserDTO) {
 //        String temp = request.getParameter("pageSize");
         Integer temp = searchUserDTO.getPageSize();
-        int pageSize = temp == null ? 5 : Integer.parseInt(temp);
+        int pageSize = temp == null ? 5 : temp;
 
         Pageable pageable = PageRequest.of(page.orElse(0), pageSize);
         Page<AdminPageUserDTO> userList = userService.getPageableUserList(searchUserDTO, pageable);
