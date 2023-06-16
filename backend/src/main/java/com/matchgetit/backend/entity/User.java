@@ -1,5 +1,6 @@
 package com.matchgetit.backend.entity;
 
+import com.matchgetit.backend.constant.AccountState;
 import com.matchgetit.backend.dto.AdminPageUserDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.ToString;
 import java.sql.Date;
 
 @Entity
-@Table(name = "\"USER\"")
+@Table(name = "\"SITE_USER\"")
 @Getter @Setter @ToString
 public class User {
     @Id
@@ -33,15 +34,16 @@ public class User {
     @Column(name = "b_day")
     private Date birthday;
 
-    @Column(name = "PRFCN")
+    @Column(name = "rating")
     private String score;
 
     private Date regDate;
     private Date loginDate;
-    private String state;
 
-    @OneToOne(mappedBy = "user")
-    private Manager manager; // 매니저
+    @Enumerated(EnumType.STRING)
+    private AccountState accountState;
+//    private String state;
+    private String banReason;
 
 
     public void updateUser(AdminPageUserDTO userDto) {
