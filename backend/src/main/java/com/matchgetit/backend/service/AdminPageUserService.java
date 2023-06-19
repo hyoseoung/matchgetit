@@ -1,5 +1,6 @@
 package com.matchgetit.backend.service;
 
+import com.matchgetit.backend.constant.AccountState;
 import com.matchgetit.backend.dto.AdminPageSearchUserDTO;
 import com.matchgetit.backend.dto.AdminPageUserDTO;
 import com.matchgetit.backend.entity.User;
@@ -33,7 +34,8 @@ public class AdminPageUserService {
             user.setScore("100");
             user.setRegDate(Date.valueOf("2023-05-30"));
             user.setLoginDate(Date.valueOf(LocalDate.now()));
-            user.setState("활동 중");
+//            user.setState("활동 중");
+            user.setAccountState(AccountState.ACTIVE);
             userRepository.save(user);
         }
     }

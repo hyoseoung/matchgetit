@@ -64,11 +64,14 @@
     <p>연락처: <span th:text="${user.phoneNum}">010-0000-0000</span></p>
     <p>성별: <span th:text="${user.gender}">남성</span></p>
     <p>생년월일: <span th:text="${user.birthday}">1998년 00월 00일</span></p>
-    <p>점수: <span th:text="${user.score}">300</span>점 (레벨: <span th:text="${user.rating}">B</span>)</p><br>
+    <p>점수: <span th:text="${user.score}">300</span>점 (레벨: <span th:text="${user.level}">B</span>)</p><br>
     <p>가입일: <span th:text="${user.regDate}">2023년 00월 00일 00:00</span></p>
     <p>최근 접속일: <span th:text="${user.loginDate}">2023년 00월 00일 00:00</span></p>
-    <p>계정 상태: <span th:text="${user.state}">활동 중</span></p>
-    <div th:if="${user.state == '정지' or user.state == '계정 정지'}">정지 사유: <pre style="font-family: '맑은 고딕', sans-serif">비매너 플레이로 경고 3회 이상 받음</pre></div>
+    <p>계정 상태: <span th:text="${user.accountState.value}">활동 중</span></p>
+<!--    <div th:if="${user.accountState == T(com.project.matchgetit.constant.AccountState).BANNED}">-->
+    <div th:if="${user.accountState.name() == 'BANNED'}">
+        정지 사유: <span style="white-space: pre-line;">비매너 플레이로 경고 3회 이상 받음</span>
+    </div>
 </section>
 
 <!--<th:block layout:fragment="script">-->
