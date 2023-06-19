@@ -4,6 +4,7 @@ import com.matchgetit.backend.dto.AdminPageSearchUserDTO;
 import com.matchgetit.backend.dto.AdminPageUserDTO;
 import com.matchgetit.backend.service.AdminPageUserService;
 import com.matchgetit.backend.entity.User;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -59,10 +60,14 @@ public class AdminController {
 
     // 개별 유저 조회 페이지
     @GetMapping("/userInfo")
-    public String userInfo(Model model, HttpServletRequest request) {
-        String userId = request.getParameter("userId");
-        AdminPageUserDTO userDto = userService.getUserInfo(Long.valueOf(userId));
-        model.addAttribute("user", userDto);
+    public String userInfo(Model model, @RequestParam Long userId) {
+        try {
+            AdminPageUserDTO userDto = userService.getUserInfo(userId);
+            model.addAttribute("user", userDto);
+        }
+        catch (EntityNotFoundException e) {
+            model.addAttribute("user", new AdminPageUserDTO());
+        }
         return "admin/UserInfo";
     }
 
