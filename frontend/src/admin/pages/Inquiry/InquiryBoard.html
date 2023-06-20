@@ -200,24 +200,24 @@
             </thead>
 
             <tbody>
-            <tr :if="${userList.isEmpty()}">
+            <tr th:if="${inquiryList.isEmpty()}">
                 <td colspan="8">등록된 회원이 없습니다.</td>
             </tr>
 
-            <tr :each="user: ${userList.getContent()}">
+            <tr th:each="post: ${inquiryList}">
                 <td>
-                    <input type="checkbox" name="selectedUser" :value="${post.id}">
+                    <input type="checkbox" name="selectedUser" th:value="${post.id}">
                 </td>
                 <td>
-                    <a href="/MatchGetIt/admin/inquiry/123" :href="@{/MatchGetIt/admin/userInfo(userId=${user.id})}" :text="${post.id}">123</a>
+                    <a href="/MatchGetIt/admin/inquiry/123" th:href="@{'/MatchGetIt/admin/inquiry/'+${post.id}}" th:text="${post.id}">123</a>
                     <!--                    <a th:href="@{'userInfo/'+${user.id}}" th:text="${user.id}">123</a>-->
                 </td>
-                <td :text="${post.title}" style="width: 20%;">결제 문의</td>
-                <td :text="${post.writedBy}">홍길동</td>
-                <td :text="${post.regDate}">2023-00-00</td>
-                <td :text="${post.category}">결제</td>
-                <td :text="${post.state}" style="width: 20%;">접수 전/처리 중/처리 완료</td>
-<!--                <td :text="${post.repliedBy}">이효성</td>-->
+                <td th:text="${post.title}" style="width: 20%;">결제 문의</td>
+                <td th:text="${post.writedBy}">홍길동</td>
+                <td th:text="${post.regDate}">2023-00-00</td>
+                <td th:text="${post.category}">결제</td>
+                <td th:text="${post.state}" style="width: 20%;">접수 전/처리 중/처리 완료</td>
+<!--                <td th:text="${post.repliedBy}">이효성</td>-->
                 <td>1</td>
             </tr>
             </tbody>

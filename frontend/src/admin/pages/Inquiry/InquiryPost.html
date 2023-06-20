@@ -35,8 +35,9 @@
         }
 
         .post-content {
-            margin-bottom: 10px;
-            min-height: 300px;
+            /*margin-bottom: 10px;*/
+            margin-top: 30px;
+            min-height: 200px;
         }
 
         .comment-box {
@@ -88,12 +89,16 @@
             outline: none;
         }
 
-        .comment-button {
-            padding: 5px 10px;
+        button {
+            padding: 2px 6px;
             background-color: #ddd;
             border: none;
             border-radius: 3px;
             cursor: pointer;
+        }
+
+        .comment-button {
+            padding: 5px 10px;
         }
 
         .comment-date {
@@ -109,31 +114,37 @@
 
 <section layout:fragment="content">
     <div class="post-container">
-        <h2 class="post-title">결제 문의</h2>
+        <h2 class="post-title" th:text="${post.title}">결제 문의</h2>
         <div class="post-header">
             <div class="post-info">
                 <span class="post-info-label">작성자:</span>
-                <span class="post-info-value">홍길동</span>
+                <span class="post-info-value" th:text="${post.writedBy}">홍길동</span>
             </div>
             <div class="post-info">
                 <span class="post-info-label">카테고리:</span>
-                <span class="post-info-value">결제</span>
+                <span class="post-info-value" th:text="${post.category}">결제</span>
             </div>
             <div class="post-info">
                 <span class="post-info-label">처리 상황:</span>
-                <span class="post-info-value">처리 중</span>
+                <span class="post-info-value" th:text="${post.state}">처리 중</span>
             </div>
             <div class="post-info">
                 <span class="post-info-label">작성일:</span>
-                <span class="post-info-value">2023-06-14 14:30</span>
+                <span class="post-info-value" th:text="${post.regDate}">2023-06-14 14:30</span>
             </div>
         </div>
         <hr>
         <div class="post-content">
-            <p>문의글 본문</p>
-            <p>스프링부트는 웹 프로그램을 쉽고 빠르게 만들 수 있도록 도와주는 웹 프레임워크이다.</p>
-            <p>웹 프레임워크란 쉽게 말해 웹 프로그램을 만들기 위한 스타터 키트라고 생각하면 된다. 그리고 자바로 만들어진 웹 프레임워크 중 하나가 바로 스프링부트이다.</p>
-            <p>스프링부트의 자바 클래스들은 Controller, Service, DTO, Repository, 그리고 JPA를 사용한다면 Entity 등이 기본이고, Config등이 추가될 수 있다.</p>
+            <span style="white-space: pre-line" th:text="${post.content}">문의글 본문
+                스프링부트는 웹 프로그램을 쉽고 빠르게 만들 수 있도록 도와주는 웹 프레임워크이다.
+                웹 프레임워크란 쉽게 말해 웹 프로그램을 만들기 위한 스타터 키트라고 생각하면 된다. 그리고 자바로 만들어진 웹 프레임워크 중 하나가 바로 스프링부트이다.
+                스프링부트의 자바 클래스들은 Controller, Service, DTO, Repository, 그리고 JPA를 사용한다면 Entity 등이 기본이고, Config등이 추가될 수 있다.
+            </span>
+
+<!--            <p>문의글 본문</p>-->
+<!--            <p>스프링부트는 웹 프로그램을 쉽고 빠르게 만들 수 있도록 도와주는 웹 프레임워크이다.</p>-->
+<!--            <p>웹 프레임워크란 쉽게 말해 웹 프로그램을 만들기 위한 스타터 키트라고 생각하면 된다. 그리고 자바로 만들어진 웹 프레임워크 중 하나가 바로 스프링부트이다.</p>-->
+<!--            <p>스프링부트의 자바 클래스들은 Controller, Service, DTO, Repository, 그리고 JPA를 사용한다면 Entity 등이 기본이고, Config등이 추가될 수 있다.</p>-->
         </div>
 
         <!-- 댓글 -->
@@ -148,7 +159,7 @@
                 </div>
                 <div class="comment-content">
                     <p>댓글 내용</p>
-                    <p>댓글 내용 한 줄 더</p>
+                    <p th:text="${post}">댓글 내용 한 줄 더</p>
                 </div>
                 <div class="comment-date">
                     <span>2023-06-15 12:31</span>
@@ -194,7 +205,7 @@
         <div class="comment-input-box">
             <form>
                 <!--            <input type="text" class="comment-input" placeholder="댓글을 입력하세요">-->
-                <label >
+                <label>
                     <textarea class="comment-input" placeholder="댓글을 입력하세요" rows="6"></textarea>
                 </label>
                 <button class="comment-button" style="margin: 0 5px">답변</button>
