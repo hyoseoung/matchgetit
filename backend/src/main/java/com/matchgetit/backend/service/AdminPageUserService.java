@@ -1,10 +1,14 @@
 package com.matchgetit.backend.service;
 
+import com.matchgetit.backend.constant.AccountState;
+import com.matchgetit.backend.dto.AdminPageSearchUserDTO;
 import com.matchgetit.backend.dto.AdminPageUserDTO;
 import com.matchgetit.backend.entity.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import com.matchgetit.backend.repository.UserRepository3;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +34,8 @@ public class AdminPageUserService {
             user.setScore("100");
             user.setRegDate(Date.valueOf("2023-05-30"));
             user.setLoginDate(Date.valueOf(LocalDate.now()));
-            user.setState("활동 중");
+//            user.setState("활동 중");
+            user.setAccountState(AccountState.ACTIVE);
             userRepository.save(user);
         }
     }
@@ -39,6 +44,13 @@ public class AdminPageUserService {
     public List<User> getUserList() {
         return userRepository.findAll();
     }
+
+    @Transactional(readOnly = true)
+    public Page<AdminPageUserDTO> getPageableUserList(AdminPageSearchUserDTO searchUserDTO, Pageable pageable) {
+        return userRepository.getUserListPageBy(searchUserDTO, pageable);
+//        return null;
+    }
+
 
     @Transactional(readOnly = true)
     public AdminPageUserDTO getUserInfo(Long id) {

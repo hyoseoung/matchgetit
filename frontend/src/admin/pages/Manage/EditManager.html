@@ -60,67 +60,69 @@
 <div id="admin-nb"></div>
 
 <div style="padding-left: 255px">
-<div class="form-container">
+  <div class="form-container">
 
-  <div class="manager-info-title">
-    <h2>매니저 정보 수정</h2>
-  <div>
-  <form>
-    <p>매니저 번호: <span th:text="${manager.id}"></span></p><br>
-
-    <label>
-      <span>매니저 이름:</span>
-      <input type="text" id="name" name="name" placeholder="매니저 이름" value="${manager.name}" required>
-    </label>
-
-    <label>
-      <span>연락처:</span>
-      <input type="text" id="contact" name="contact" value="${manager.contact}" required>
-    </label>
-
-    <label>
-      <span>성별:</span>
-      <label><input type="radio" name="gender" value="남자" checked> 남자</label>
-      <label><input type="radio" name="gender" value="여자"> 여자</label>
-    </label>
-
-    <label for="status">
-      <span>상태:</span>
-      <select id="status" name="status" required>
-        <option value="active" th:selected="${manager.status == 'active'}">활동 중</option>
-        <option value="leave" th:selected="${manager.status == 'leave'}">휴직</option>
-      </select>
-    </label>
-
-    <div id="leave-info">
-      <h3>휴직 기간</h3>
+    <div class="manager-info-title">
+      <h2>매니저 정보 수정</h2>
+    </div>
+    <form>
+      <p>매니저 번호: <span th:text="${manager.managerId}"></span></p><br>
 
       <label>
-        <span>휴직 시작일:</span>
-        <input type="date" id="leaveStartDate" name="leaveStartDate">
-
-        <span style="margin-left: 10px;">휴직 종료일:</span>
-        <input type="date" id="leaveEndDate" name="leaveEndDate">
+        <span>매니저 이름:</span>
+        <input type="text" id="name" name="name" placeholder="매니저 이름" value="${manager.user.name}" required>
       </label>
 
-      <label for="leaveReason">휴직 사유</label>
-      <textarea id="leaveReason" name="leaveReason" ></textarea>
-    </div>
+      <label>
+        <span>연락처:</span>
+        <input type="text" id="contact" name="contact" value="${manager.user.pn}" required>
+      </label>
 
-    <div class="button-container">
-      <button type="submit" style="margin-right: 10px;">수정사항 저장</button>
-      <button onclick="goBack()">뒤로가기</button>
-    </div>
-  </form>
+      <label>
+        <span>성별:</span>
+        <label><input type="radio" name="gender" value="남자" th:checked="${manager.user.gender == '남자'}"> 남자</label>
+        <label><input type="radio" name="gender" value="여자" th:checked="${manager.user.gender == '여자'}"> 여자</label>
+      </label>
 
-</div>
+      <label for="status">
+        <span>상태:</span>
+        <select id="status" name="status" required>
+          <option value="active" th:selected="${manager.employmentStatus == 'active'}">활동 중</option>
+          <option value="leave" th:selected="${manager.employmentStatus == 'leave'}">휴직</option>
+        </select>
+      </label>
+
+
+      <div id="leave-info">
+        <h3>휴직 기간</h3>
+
+        <label>
+          <span>휴직 시작일:</span>
+          <input type="date" id="leaveStartDate" name="leaveStartDate">
+
+          <span style="margin-left: 10px;">휴직 종료일:</span>
+          <input type="date" id="leaveEndDate" name="leaveEndDate">
+        </label>
+
+        <label for="leaveReason">휴직 사유</label>
+        <textarea id="leaveReason" name="leaveReason" ></textarea>
+      </div>
+
+      <div class="button-container">
+        <button type="submit" style="margin-right: 10px;">수정사항 저장</button>
+        <button onclick="goBack()" style="margin-right: 10px;">뒤로가기</button>
+        <button onclick="deleteManager()">매니저 삭제</button>
+      </div>
+    </form>
+
+  </div>
 
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../../components/js/loadAdminNB.js"></script>
 <script>
-    $(document).ready(function() {
+  $(document).ready(function() {
         var statusSelect = $('#status');
         var leaveInfoContainer = $('#leave-info');
 
@@ -147,5 +149,6 @@
       window.history.back();
     }
 </script>
+<script src="js/EditManager.js"></script>
 </body>
 </html>
