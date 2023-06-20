@@ -6,14 +6,30 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script>
         $(function() {
-            console.log($("#date-setting button"))
             $("#date-setting button").on('click', function () {
                 console.log(this)
-                let banDateStart = $("#banDateStart")
-                console.log("시작일: "+banDateStart.val())
-                if (banDateStart.val()) {
-                    console.log("시작일: "+banDateStart);
+                if (!$("#banDateStart").val()) {
+                    return;
                 }
+                let banDateStart = new Date($("#banDateStart").val())
+                console.log("시작일: "+banDateStart)
+                let period = Array.from(this.value);
+                let banDateEnd;
+                console.log("기간: "+period[0]);
+                switch (period[1]) {
+                    case 'w':
+                        banDateEnd = new Date(banDateStart.setDate(banDateStart.getDate() + 7));
+                        break;
+                    case 'y':
+                        banDateEnd = new Date(banDateStart.setFullYear(banDateStart.getFullYear() + 1));
+                        break;
+                    case 'm':
+                        banDateEnd = new Date(banDateStart.setMonth(banDateStart.getMonth() + parseInt(period[0])));
+                        break;
+                }
+                console.log("종료일: "+banDateEnd);
+                console.log(banDateEnd.toISOString().slice(0, 10));
+                $("#banDateEnd").val(banDateEnd.toISOString().slice(0, 10));
             })
         })
     </script>
@@ -30,11 +46,11 @@
             <input type="date" id="banDateEnd" name="banDateEnd" />
         </p>
         <div id="date-setting">
-            <button type="button">1주일</button>
-            <button type="button">1개월</button>
-            <button type="button">3개월</button>
-            <button type="button">6개월</button>
-            <button type="button">1년</button>
+            <button type="button" value="1w">1주일</button>
+            <button type="button" value="1m">1개월</button>
+            <button type="button" value="3m">3개월</button>
+            <button type="button" value="6m">6개월</button>
+            <button type="button" value="1y">1년</button>
         </div>
         <br><br>
         <label for="ban-reason">정지 사유</label><br>

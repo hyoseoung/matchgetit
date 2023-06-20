@@ -3,7 +3,7 @@ package com.matchgetit.backend.service;
 import com.matchgetit.backend.dto.ManagerDTO;
 import com.matchgetit.backend.dto.UserDTO;
 import com.matchgetit.backend.entity.Manager;
-import com.matchgetit.backend.entity.User;
+import com.matchgetit.backend.entity.MemberEntity;
 import com.matchgetit.backend.repository.ManagerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class ManagerService {
     public void checkManagerStatus(UserDTO userDTO) {
         if ("3".equals(userDTO.getAccountState())) {
             Manager manager = new Manager();
-            manager.setUser(modelMapper.map(userDTO, User.class));
+            manager.setUser(modelMapper.map(userDTO, MemberEntity.class));
             // 매니저로 인식되는 경우 추가적인 매니저 정보 설정 가능
             // 예: manager.setManagerImage(userDTO.getManagerImage());
             //     manager.setEmploymentStatus(userDTO.getEmploymentStatus());

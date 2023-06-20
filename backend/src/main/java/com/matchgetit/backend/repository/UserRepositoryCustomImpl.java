@@ -2,7 +2,6 @@ package com.matchgetit.backend.repository;
 
 import com.matchgetit.backend.dto.AdminPageSearchUserDTO;
 import com.matchgetit.backend.dto.AdminPageUserDTO;
-import com.matchgetit.backend.entity.User;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;

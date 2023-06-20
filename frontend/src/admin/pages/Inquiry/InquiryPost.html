@@ -56,7 +56,7 @@
         .comment-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .comment-author {
@@ -101,15 +101,32 @@
             padding: 5px 10px;
         }
 
-        .comment-date {
+        .comment-footer, .comment-date {
             font-size: 0.95rem;
             color: #aaa;
+        }
+
+        .comment-footer {
+            display: flex;
+            justify-content: space-between;
         }
 
         .comment-content p {
             margin: 7px 0;
         }
     </style>
+
+    <script>
+        function openCommentInput(btn) {
+            $(btn).hide();
+            $(".reply-box").show();
+        }
+
+        function closeCommentInput() {
+            $(".reply-box").hide();
+            $(".comment-footer button").show();
+        }
+    </script>
 </head>
 
 <section layout:fragment="content">
@@ -141,10 +158,10 @@
                 스프링부트의 자바 클래스들은 Controller, Service, DTO, Repository, 그리고 JPA를 사용한다면 Entity 등이 기본이고, Config등이 추가될 수 있다.
             </span>
 
-<!--            <p>문의글 본문</p>-->
-<!--            <p>스프링부트는 웹 프로그램을 쉽고 빠르게 만들 수 있도록 도와주는 웹 프레임워크이다.</p>-->
-<!--            <p>웹 프레임워크란 쉽게 말해 웹 프로그램을 만들기 위한 스타터 키트라고 생각하면 된다. 그리고 자바로 만들어진 웹 프레임워크 중 하나가 바로 스프링부트이다.</p>-->
-<!--            <p>스프링부트의 자바 클래스들은 Controller, Service, DTO, Repository, 그리고 JPA를 사용한다면 Entity 등이 기본이고, Config등이 추가될 수 있다.</p>-->
+            <!--            <p>문의글 본문</p>-->
+            <!--            <p>스프링부트는 웹 프로그램을 쉽고 빠르게 만들 수 있도록 도와주는 웹 프레임워크이다.</p>-->
+            <!--            <p>웹 프레임워크란 쉽게 말해 웹 프로그램을 만들기 위한 스타터 키트라고 생각하면 된다. 그리고 자바로 만들어진 웹 프레임워크 중 하나가 바로 스프링부트이다.</p>-->
+            <!--            <p>스프링부트의 자바 클래스들은 Controller, Service, DTO, Repository, 그리고 JPA를 사용한다면 Entity 등이 기본이고, Config등이 추가될 수 있다.</p>-->
         </div>
 
         <!-- 댓글 -->
@@ -152,17 +169,29 @@
             <div class="comment">
                 <div class="comment-header">
                     <span class="comment-author">관리자</span>
-                    <div class="comment-btn">
+                    <div class="header-buttons">
                         <button type="button">수정</button>
                         <button type="button">삭제</button>
                     </div>
                 </div>
                 <div class="comment-content">
-                    <p>댓글 내용</p>
-                    <p th:text="${post}">댓글 내용 한 줄 더</p>
+                    <span style="white-space: pre-line">댓글 내용
+                        댓글 내용 한 줄 더
+                    </span>
+                    <p th:text="${post}"></p>
                 </div>
-                <div class="comment-date">
+                <div class="comment-footer">
                     <span>2023-06-15 12:31</span>
+                    <button type="button" onclick="openCommentInput(this)">댓글 작성</button>
+                </div>
+                <div style="margin-top: 10px; display: none;" class="reply-box">
+                    <form>
+                        <label>
+                            <textarea class="comment-input"></textarea>
+                        </label>
+                        <button type="submit" style="margin-left: 10px">확인</button>
+                        <button type="button" style="margin-left: 10px" onclick="closeCommentInput()">취소</button>
+                    </form>
                 </div>
             </div>
 
@@ -170,8 +199,8 @@
             <div class="comment sub-comment">
                 <div class="comment-header">
                     <span class="comment-author">홍길동</span>
-                    <div class="comment-btn">
-<!--                        <button type="button">수정</button>-->
+                    <div class="header-buttons">
+                        <!--                        <button type="button">수정</button>-->
                         <button type="button">삭제</button>
                     </div>
                 </div>
@@ -187,7 +216,7 @@
             <div class="comment sub-comment">
                 <div class="comment-header">
                     <span class="comment-author">관리자</span>
-                    <div class="comment-btn">
+                    <div class="header-buttons">
                         <button type="button">수정</button>
                         <button type="button">삭제</button>
                     </div>
@@ -203,10 +232,10 @@
 
         <!-- 댓글 작성창 -->
         <div class="comment-input-box">
-            <form>
+            <form method="post" th:object="${comment}" th:action>
                 <!--            <input type="text" class="comment-input" placeholder="댓글을 입력하세요">-->
                 <label>
-                    <textarea class="comment-input" placeholder="댓글을 입력하세요" rows="6"></textarea>
+                    <textarea class="comment-input" placeholder="댓글을 입력하세요" rows="6" th:field="${comment.content}"></textarea>
                 </label>
                 <button class="comment-button" style="margin: 0 5px">답변</button>
                 <button class="comment-button">뒤로 가기</button>

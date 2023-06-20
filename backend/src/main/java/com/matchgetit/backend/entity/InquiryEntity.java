@@ -8,7 +8,7 @@ import lombok.ToString;
 @Entity
 @Table
 @Getter @Setter @ToString
-public class Inquiry extends BaseEntity{
+public class InquiryEntity extends BaseEntity{
     @Id
     @Column(name = "inquiry_id")
     @GeneratedValue(strategy = GenerationType.AUTO)

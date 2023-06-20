@@ -1,6 +1,6 @@
 package com.matchgetit.backend.dto;
 
-import com.matchgetit.backend.entity.User;
+import com.matchgetit.backend.entity.MemberEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,7 +24,7 @@ public class AdminPageUserDTO {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    public static AdminPageUserDTO of(User user) {
+    public static AdminPageUserDTO of(MemberEntity user) {
         return modelMapper.map(user, AdminPageUserDTO.class);
     }
 

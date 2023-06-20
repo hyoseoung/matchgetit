@@ -1,5 +1,6 @@
 package com.matchgetit.backend.controller;
 
+import com.matchgetit.backend.dto.InquiryCommentDTO;
 import com.matchgetit.backend.dto.InquiryDTO;
 import com.matchgetit.backend.service.InquiryService;
 import jakarta.annotation.PostConstruct;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -18,11 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InquiryController {
     private final InquiryService inquiryService;
-
-    @PostConstruct
-    public void createInquiries() {
-        inquiryService.createInquiries();
-    }
 
 
     @GetMapping("/inquiryBoard")
@@ -41,7 +38,15 @@ public class InquiryController {
         catch (EntityNotFoundException e) {
             model.addAttribute("post", new InquiryDTO());
         }
+        model.addAttribute("comment", new InquiryCommentDTO());
         return "inquiry/InquiryPost";
+    }
+
+    @PostMapping("/inquiry/{inquiryId}")
+    public String writeComment(Model model, InquiryCommentDTO commentDTO, @PathVariable Long inquiryId) {
+        //System.out.println(">>>>>>>>>>>>"+commentDTO);
+        //inquiryService.writeComment(commentDTO, inquiryId);
+        return "redirect:/MatchGetIt/admin/inquiry/"+inquiryId;
     }
 
     @GetMapping("/test")

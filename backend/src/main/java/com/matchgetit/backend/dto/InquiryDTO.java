@@ -1,6 +1,6 @@
 package com.matchgetit.backend.dto;
 
-import com.matchgetit.backend.entity.Inquiry;
+import com.matchgetit.backend.entity.InquiryEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,11 +21,11 @@ public class InquiryDTO {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    public static InquiryDTO of(Inquiry inquiry) {
-        modelMapper.typeMap(Inquiry.class, InquiryDTO.class)
+    public static InquiryDTO of(InquiryEntity inquiry) {
+        modelMapper.typeMap(InquiryEntity.class, InquiryDTO.class)
                 .addMappings(mapping -> {
-                    mapping.map(Inquiry::getCreatedBy, InquiryDTO::setWritedBy);
-                    mapping.map(Inquiry::getRegTime, InquiryDTO::setRegDate);
+                    mapping.map(InquiryEntity::getCreatedBy, InquiryDTO::setWritedBy);
+                    mapping.map(InquiryEntity::getRegTime, InquiryDTO::setRegDate);
                 });
         return modelMapper.map(inquiry, InquiryDTO.class);
     }
