@@ -9,6 +9,8 @@ import 'swiper/swiper-bundle.css';
 import '../styles/LogIn/logInButton.css';
 import '../styles/CommonFactor/logInOutBtn.css';
 import MenuBar from "./MenuBar";
+import '../components/chatbot/chatbot.css'
+import ChatbotComponent from "./chatbot/chatbot";
 
 
 function Main({ onLogin, onLogout, isLoggedIn }) {
@@ -148,6 +150,7 @@ function Main({ onLogin, onLogout, isLoggedIn }) {
                 </div>
                 <div className="swiper-pagination"></div>
             </div>
+            <ChatbotComponent />
             <MenuBar isLoggedIn={isLoggedIn} onSlideChange={handleSlideChange} />
         </div>
     );
