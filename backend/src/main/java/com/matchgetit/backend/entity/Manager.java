@@ -18,7 +18,7 @@ public class Manager {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user; // 회원 ID
+    private MemberEntity user; // 회원 ID
 
     @Column
     private Long stadiumId; // 구장ID

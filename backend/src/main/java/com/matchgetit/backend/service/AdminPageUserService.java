@@ -3,10 +3,10 @@ package com.matchgetit.backend.service;
 import com.matchgetit.backend.constant.AccountState;
 import com.matchgetit.backend.dto.AdminPageSearchUserDTO;
 import com.matchgetit.backend.dto.AdminPageUserDTO;
-import com.matchgetit.backend.entity.User;
+import com.matchgetit.backend.entity.MemberEntity;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import com.matchgetit.backend.repository.UserRepository3;
+import com.matchgetit.backend.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,11 +20,11 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class AdminPageUserService {
-    private final UserRepository3 userRepository;
+    private final UserRepository userRepository;
 
     public void createUsers() {
         for (int i=1; i<10; i++) {
-            User user = new User();
+            MemberEntity user = new MemberEntity();
             user.setName("테스터"+i);
             user.setEmail("tester"+i+"@test.com");
             user.setPhoneNum("010-1234-567"+i);
@@ -41,7 +41,7 @@ public class AdminPageUserService {
     }
 
     @Transactional(readOnly = true)
-    public List<User> getUserList() {
+    public List<MemberEntity> getUserList() {
         return userRepository.findAll();
     }
 
@@ -54,18 +54,18 @@ public class AdminPageUserService {
 
     @Transactional(readOnly = true)
     public AdminPageUserDTO getUserInfo(Long id) {
-        User user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        MemberEntity user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return AdminPageUserDTO.of(user);
     }
 
     public Long updateUserInfo(AdminPageUserDTO userDto) {
-        User user = userRepository.findById(userDto.getId()).orElseThrow(EntityNotFoundException::new);
+        MemberEntity user = userRepository.findById(userDto.getId()).orElseThrow(EntityNotFoundException::new);
         user.updateUser(userDto);
         return user.getId();
     }
 
     public void deleteUser(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
+        MemberEntity user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
         userRepository.delete(user);
     }
 }

@@ -7,24 +7,24 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "reply")
 @Getter @Setter
-public class InquiryComment extends BaseEntity {
+public class InquiryCommentEntity extends BaseEntity {
     @Id
-    @Column(name = "inquiry_comment_id")
+    @Column(name = "reply_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inquiry_id")
-    private Inquiry inquiry;
+    private InquiryEntity inquiry;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
-    private InquiryComment parentComment;
+    private InquiryCommentEntity parent;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentComment")
-    private List<InquiryComment> subComments;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
+    private List<InquiryCommentEntity> subComments;
 
     private String content;
 }

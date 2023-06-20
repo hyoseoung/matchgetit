@@ -47,7 +47,7 @@
 <!--        <div class="manager-info-title">-->
         <h2>유저 정보 수정</h2>
         <div>
-            <form method="post" th:object="${user}">
+            <form method="post" th:object="${user}" th:action>
                 <!-- th:field 말고 th:value를 써도 잘 들어가지는데, 대신 name 속성을 필드 이름과 맞춰야 한다.
                  또, th:field를 쓰면 유효성 검사가 용이하다고 한다. -->
 
