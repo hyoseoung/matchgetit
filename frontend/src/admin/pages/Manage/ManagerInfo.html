@@ -50,42 +50,30 @@
         <button onclick="confirmDelete()">삭제</button>
     </h2>
     </div>
-    <p>매니저 아이디: <span th:text="${manager.managerId}"></span></p><br>
-    <p>매니저 이름: <span th:text="${manager.user.name}"></span></p>
-    <p>연락처: <span th:text="${manager.user.pn}"></span></p>
-    <p>성별: <span th:text="${manager.user.gender}"></span></p><br>
-    <p>입사일: <span th:text="${manager.registrationDate}"></span></p><br>
-    <p>상태: <span th:text="${manager.employmentStatus}"></span></p><br>
-    <p>현재 배치된 경기: <span th:text="${manager.assignedGames}"></span></p><br>
+    <p>매니저 번호: <span th:text="${manager.id}"></span></p><br>
+    <p>매니저 이름: <span th:text="${manager.name}"></span></p>
+    <p>연락처: <span th:text="${manager.contact}"></span></p>
+    <p>성별: <span th:text="${manager.gender}"></span></p><br>
+    <p>입사일: <span th:text="${manager.hireDate}"></span></p><br>
+    <p>상태: <span th:text="${manager.status}"></span></p><br>
+    <p>현재 배치된 경기: <span th:text="${manager.assignedGame}"></span></p><br>
+
+
 
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../../components/js/loadAdminNB.js"></script>
 <script>
     function editManager() {
-        // 해당 매니저의 정보를 수정할 수 있는 EditManager.html로 이동
-        window.location.href = "EditManager.html?managerId=${manager.managerId}";
+        window.location.href = "EditManager.html";
     }
 
     function confirmDelete() {
         if (confirm("정말 삭제하시겠습니까?")) {
-            // 매니저의 accountState 값을 "1"로 수정하여 매니저 권한을 탈퇴
-            $.ajax({
-                type: "PUT",
-                url: "/api/manager/${manager.managerId}/deactivate",
-                success: function(response) {
-                    if (response === "success") {
-                        alert("매니저가 성공적으로 탈퇴되었습니다.");
-                        window.location.href = "Manager.html"; // 매니저 목록 페이지로 이동
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                    alert("매니저 탈퇴 중 오류가 발생했습니다.");
-                }
-            });
+            if (confirm("삭제가 완료되었습니다.")) {
+
+            }
         }
     }
 </script>

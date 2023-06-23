@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './CreditCharge.css';
 
-
 const ChargeComponent = () => {
   const [amount, setAmount] = useState('');
   const [isPayment, setIsPayment] = useState(false);

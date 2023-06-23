@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import "./Mypage.css";
-import axios from 'axios';
 import Profile from "./Profile";
 import CreditHistory from "../Payments/CreditCharge"
 import CreditCharge from "../Payments/CreditCharge";
 
-function Mypage() {
+function Mypage({session}) {
     const [isProfileOpen, setProfileOpen] = useState(false);
 
     const handleProfileToggle = () => {
@@ -18,11 +17,11 @@ function Mypage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div className="my-profile">
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <h1 className="my-profile__name">이효성</h1>
+                            <h1 className="my-profile__name">{session.name}</h1>
                         </div>
                         <div className="my-account_type">
                             <p className="text-caption1">2752547203</p>
-                            <span className="badge badge-kakao sm">KAKAO</span>
+                            <span className="badge badge-kakao sm">{session.accountType}</span>
                         </div>
                     </div>
                 </div>
@@ -85,7 +84,7 @@ function Mypage() {
                 </div>
                 {isProfileOpen && (
                     <div className="profile-settings">
-                        <Profile />
+                        <Profile session={session}/>
                     </div>
                 )}
             </section>

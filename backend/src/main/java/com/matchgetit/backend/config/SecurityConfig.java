@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -22,12 +24,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .requestMatchers(getRequestMatcher("/matchGetIt/login/**")).permitAll()
-                .requestMatchers(getRequestMatcher("/matchGetIt/logout")).permitAll() // Allow logout request
+                .requestMatchers(getRequestMatcher("/matchGetIt/auth/**")).permitAll()
+                .requestMatchers(getRequestMatcher("/matchGetIt/naver")).permitAll()
+                .requestMatchers(getRequestMatcher("/matchGetIt/match/**")).permitAll()
+                .requestMatchers(getRequestMatcher("/matchGetIt/party/**")).permitAll()
+                .requestMatchers("/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(characterEncodingFilter(), CsrfFilter.class)
                 .csrf(csrf -> {
+                    csrf.ignoringRequestMatchers(
+                             getRequestMatcher("/matchGetIt/auth/**")
+                            , getRequestMatcher("/matchGetIt/naver")
+                            , getRequestMatcher("/css/**"));
                     csrf.csrfTokenRepository(csrfTokenRepository());
                     csrf.requireCsrfProtectionMatcher(csrfProtectionMatcher());
                 });
@@ -48,19 +57,19 @@ public class SecurityConfig {
 
     private RequestMatcher csrfProtectionMatcher() {
         return new RequestMatcher() {
-            private AntPathRequestMatcher[] requestMatchers = {
-                    new AntPathRequestMatcher("/matchGetIt/login/**"),
-                    new AntPathRequestMatcher("/matchGetIt/logout") // Add logout URL pattern
+            private final AntPathRequestMatcher[] requestMatchers = {
+                    new AntPathRequestMatcher("/matchGetIt/auth/**"),
+                    new AntPathRequestMatcher("/matchGetIt/naver"),
             };
 
             @Override
             public boolean matches(HttpServletRequest request) {
                 for (AntPathRequestMatcher matcher : requestMatchers) {
                     if (matcher.matches(request)) {
-                        return false;
+                        return true;
                     }
                 }
-                return true;
+                return false;
             }
         };
     }
@@ -71,5 +80,9 @@ public class SecurityConfig {
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         return filter;
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

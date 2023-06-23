@@ -60,7 +60,7 @@ animation: slideBackground 10s linear infinite; */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80%;
+  height: 78%;
   width: 100%;
   position: relative;
   z-index: 2;
@@ -75,9 +75,34 @@ animation: slideBackground 10s linear infinite; */
   width: 100%;
   height: 100%;
 }
+.errorText{
+  white-space: nowrap;
+  font-weight:bold;
+  color: #e75959;
+  position: absolute;
+  top:50%;
+  left:39%;
+  font-size:20px;
+}
+.fade{
+  opacity: 0;
+  animation: fade-in 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 @media (max-width: 767px) {
   .swiper-wrapper{
     height:85.4%;
+  }
+  .errorText {
+  left:10%;
   }
 }

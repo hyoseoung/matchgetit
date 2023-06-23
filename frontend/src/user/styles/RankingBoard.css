@@ -1,0 +1,187 @@
+a {text-decoration: none; color: #666;}
+li {list-style: none;}
+
+*{
+    font-size: px;
+}
+
+.tab-menu::-webkit-scrollbar {
+    width: 8px;  /* 스크롤바의 너비 */
+}
+
+.tab-menu::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #217af4; /* 스크롤바의 색상 */
+
+    border-radius: 10px;
+}
+
+.tab-menu::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+
+.boardName{
+    position: absolute;
+    top: 5%;
+    left: 10%;
+}
+
+.matchBoard_outline{
+    width: 100%;
+}
+
+.please{
+    height: 700px;
+}
+
+.tab-menu {
+    float: left;
+    width: 100%;
+    text-align: center;
+    padding-left: 0;
+    max-height: 380px;
+    overflow: auto;
+}
+
+.ranking_menu ul{
+    padding-left: 0;
+}
+
+table{
+    border-collapse: collapse;
+}
+.ranking_menu li a {
+    font-weight: bold;
+    float: left;
+    font-size: 80%;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+}
+
+.Ranking_ALL{
+    color: #870B22;
+    top: 13%;
+    left: 10%;
+    position: absolute;
+}
+.Ranking_A{
+    color: #FFCF0A;
+    top: 13%;
+    position: absolute;
+    left: 28%;
+    padding-left: 1.5%;
+}
+.Ranking_B{
+    top: 13%;
+    position: absolute;
+    color: #00B46C;
+    left: 42%;
+}
+.Ranking_C{
+    top: 13%;
+    position: absolute;
+    color: #1570FF;
+    left: 54%;
+}
+.Ranking_D{
+    top: 13%;
+    position: absolute;
+    color: #FF4D37;
+    left: 66%;
+}
+
+.ranking_menu li.active a {
+    position: absolute;
+    border-bottom: 3px solid #00BFFF;
+    color: #00BFFF;
+}
+ranking_menu li div {
+    position: absolute;
+    left:0;
+    top: 10%;
+    background: #fff;
+    text-align: left;
+    box-sizing: border-box;
+    border-radius: 0 0 4px 4px;
+}
+
+.tab-menu{
+    justify-content: center;
+    align-items: center;
+
+}
+
+body {
+    font-size: 100%;
+}
+body::before {
+    content:'';
+    position: fixed; top: 0; left: 0;
+    z-index: -1;
+    background: rgba(4,127,21,0.9);
+}
+
+.rank_table_wrap {
+    width: 100%;
+    float: left;
+    margin-top: 120px;
+}
+
+
+
+th {
+    font-size: 35%;
+}
+
+.rank_table, .rank_myRank {
+    text-align: center;
+    margin-left: 10%;
+}
+.rank_table tbody{
+    background-color: whitesmoke;
+}
+
+.rank_myRank{
+    width:80%;
+    margin-bottom: 25px;
+}
+
+
+thead{
+    position: sticky;
+    top: 0;
+}
+
+.rank_tbody tr:hover {
+    background-color: rgba(113, 110, 182, 0.15);
+    color: #272b37;
+}
+
+
+.rank_table{
+    width: 80%;
+    text-align: center;
+    margin-left: 10%;
+    top: 40%;
+    display: table;
+    overflow: auto;
+    max-height: 100px;
+}
+
+.rank_myRank tbody {
+    background-color: #FFF7CC ;
+}
+
+thead {
+    background-color: #B1ECFF;
+    line-height: 65%;
+}
+
+
+td  {
+    font-size: 13px;
+    text-align: center;
+    border-bottom: 1px solid #e7e7e7;
+    line-height: 60%;
+    color: #666;
+}

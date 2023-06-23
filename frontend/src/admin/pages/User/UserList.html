@@ -6,9 +6,10 @@
 <head>
     <style>
         table {
+            /*border: 1px solid black;*/
             border-collapse: collapse;
             width: 100%;
-            /*text-align: center;*/
+            text-align: center;
         }
 
         /*table td {*/
@@ -49,7 +50,6 @@
         a {
             color: #4CAF50;
             text-decoration: none;
-            cursor: pointer;
         }
 
         /* 입력 필드 스타일 */
@@ -81,28 +81,6 @@
                     $("#checkAll").prop("checked", false);
                 }
             });
-
-            $("#search-form").on("submit",function(e) {
-                e.preventDefault();
-                let regDateStart = $("#regDateStart").val();
-                let regDateEnd = $("#regDateEnd").val();
-                if (regDateStart > regDateEnd) {
-                    alert("시작일은 종료일보다 이전이어야 합니다.");
-                    return false;
-                }
-
-                let state = $("#accountState").val()
-                let searchType = $("#searchType").val();
-                let searchValue = $("#searchValue").val();
-                let pageSize = $("#pageSize").val();
-                location.href = "/MatchGetIt/admin/userList/0"
-                    + "?regDateStart=" + regDateStart
-                    + "&regDateEnd=" + regDateEnd
-                    + "&accountState=" + state
-                    + "&searchType=" + searchType
-                    + "&searchValue=" + searchValue
-                    + "&pageSize=" + pageSize;
-            });
         });
 
         // 전체 선택 처리
@@ -110,21 +88,13 @@
             const allChecked = $("#checkAll").prop("checked");
             $("input[name=selectedUser]").prop("checked", allChecked);
         }
-        
-        
-        // 목록 페이지 이동
-        function page(page) {
-            let query = location.search;
-            location.href = "/MatchGetIt/admin/userList/"+ page + query;
-        }
-        
 
         // 회원 삭제 확인
         function confirmDelete(form) {
             let selectedUser = $("input[name=selectedUser]:checked");
 
             if (selectedUser.length === 0) {
-                alert("선택한 회원이 없습니다.");
+                alert('선택한 회원이 없습니다.');
                 return false;
             }
 
@@ -180,14 +150,14 @@
     <form method="get" onsubmit="confirmDelete(this);" th:object="${userList}">
         <div>
             <button type="submit">선택한 회원 삭제하기</button>
-            <button type="button" id="downloadBtn" onclick="location.href='/MatchGetIt/admin/download';">Excel 파일로 다운로드</button><br>
+            <button type="button" id="downloadBtn" onclick="location.href='download';">Excel 파일로 다운로드</button><br>
         </div>
         <br>
 
         <table>
             <thead>
             <tr>
-                <td><input type="checkbox" id="checkAll" onclick="checkAllBox(this);" /></td>
+                <td><input type="checkbox" id="checkAll" onclick="checkAllBox(this);" ></td>
                 <td>회원 번호</td>
                 <td>회원 성함</td>
 <!--                <td>닉네임</td>-->
@@ -218,7 +188,7 @@
                 <td th:text="${user.phoneNum}">010-0000-0000</td>
                 <td th:text="${user.regDate}">2023-00-00</td>
                 <td th:text="${user.loginDate}">2023-00-00</td>
-                <td th:text="${user.accountState.value}">활동 중/정지/휴면</td>
+                <td th:text="${user.state}">활동 중/정지/휴면</td>
             </tr>
             </tbody>
 
@@ -230,13 +200,13 @@
 <!--            <a href="/MatchGetIt/admin/userList">[first]</a>-->
 
             <th:block th:each="page2: ${#numbers.sequence(pageSizeHalf, 1)}" th:if="${currPageText - page2 > 0}">
-                <a th:text="${currPageText - page2}" th:onclick="|page(${currPageNum - page2})|"></a>
+                <a th:text="${currPageText - page2}" th:href="${'/MatchGetIt/admin/userList/' + (currPageNum - page2)}"></a>
             </th:block>
 
             <span th:text="${currPageText}"></span>
 
             <th:block th:each="page2: ${#numbers.sequence(1, pageSizeHalf)}" th:if="${currPageText + page2 < max}">
-                <a th:text="${currPageText + page2}" th:onclick="|page(${currPageNum + page2})|"></a>
+                <a th:text="${currPageText + page2}" th:href="${'/MatchGetIt/admin/userList/' + (currPageNum + page2)}"></a>
             </th:block>
 
         </div>
@@ -244,55 +214,57 @@
 
     <br>
 
-    <form method="get" name="search-form" id="search-form" th:object="${searchUserDTO}">
+    <form method="get" name="search-form" id="search-form">
         <div>
             <div id="search-regdate">
                 <label>가입일:</label>
-                <input type="date" th:field="*{regDateStart}" /> ~
-                <input type="date" th:field="*{regDateEnd}" />
+                <input type="date" name="regDateStart" /> ~
+                <input type="date" name="regDateEnd" />
             </div>
             <br>
 
             <div id="search-div">
                 <label for="accountState">계정 상태:</label>
-                <select id="accountState" th:field="*{accountState}">
-                    <option value="">전체</option>
-                    <option value="ACTIVE">활동 중</option>
-                    <option value="BANNED">정지</option>
-                    <option value="DORMANT">휴면</option>
-<!--                    <option value="활동 중">활동 중</option>-->
-<!--                    <option value="정지">정지</option>-->
-<!--                    <option value="휴면">휴면</option>-->
+                <select id="accountState" name="state">
+                    <option value="active">활동 중</option>
+                    <option value="banned">정지</option>
+                    <option value="dormant">휴면</option>
                 </select>
 
-                <label for="searchType">검색 유형:</label>
-                <select id="searchType" th:field="*{searchType}">
+                <label>검색 유형:</label>
+                <select name="searchType">
                     <option value="userId">회원 번호</option>
                     <option value="userName">회원 이름</option>
                     <option value="email">이메일 주소</option>
                     <option value="phoneNum">연락처</option>
                 </select>
 
-                <label for="searchValue">검색어:</label>
-                <input type="search" id="searchValue" th:field="*{searchValue}" />
+                <label>검색어:</label>
+                <input type="search" name="searchValue" th:value="${param.searchValue}" />
                 <input type="submit" value="검색" />
             </div>
             <br>
             <div id="paging">
-                <label for="pageSize">한 페이지에 보여줄 회원 수:</label>
-                <select id="pageSize" th:field="*{pageSize}">
+                <label>한 페이지에 보여줄 회원 수:</label>
+                <select name="pageSize">
                     <option value="5">5</option>
-                    <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>
                     <option value="50">50</option>
                     <option value="70">70</option>
                     <option value="100">100</option>
                 </select>
-                <input type="submit" value="적용" />
+                <input type="submit" value="적용">
             </div>
         </div>
     </form>
 </section>
+
+<th:block layout:fragment="script">
+    <script>
+        // let selectedOption = document.querySelector('option[value="${map.searchType}"]');
+        // if (selectedOption) selectedOption.selected = true;
+    </script>
+</th:block>
 
 </html>

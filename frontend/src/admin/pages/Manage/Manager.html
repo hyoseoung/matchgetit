@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Manager</title>
+  <title>Manager</title>
 
-    <style>
+  <style>
     .manager-header {
       display: flex;
       align-items: center;
@@ -18,22 +18,6 @@
     .search button {
       margin-left: 5px;
     }
-
-    .card {
-      border: 1px solid gray;
-      padding: 10px;
-      box-sizing: border-box;
-      text-align: center;
-    }
-
-    .card-img-top {
-      width: 100%;
-      height: auto;
-    }
-
-    .card-body {
-      padding: 10px;
-    }
   </style>
 </head>
 <body>
@@ -42,62 +26,37 @@
 <div id="admin-nb"></div>
 
 <div style="padding-left: 255px">
-
     <div class="manager-header">
         <h2>매니저 목록</h2>
         <div class="search">
             <input type="text" placeholder="검색어를 입력하세요">
-            <button onclick="searchManagers()">검색</button>
+            <button>검색</button>
         </div>
     </div>
 
     <div class="row" style="padding: 10px;">
         <div class="col-md-4 margin" th:each="manager, rowStatus: ${managerList}" style="display: inline-block;">
             <div class="card" style="border: 1px solid gray; padding: 10px; box-sizing: border-box; text-align: center;">
-                <a th:href="@{/managerInfo/{managerId}(managerId=${manager.managerId})}">
-                    <img th:src="${manager.managerImage}" class="card-img-top" alt="매니저 이미지">
-                    <div class="card-body">
-                        <h4 class="card-title" th:text="${manager.user.name}">매니저 이름</h4>
-                        <p class="card-text">연락처: <span th:text="${manager.user.ph}">010-0000-0000</span></p>
-                        <p class="card-text">현재 배정된 경기: <span th:text="${manager.assignedGames}">경기 없음</span></p>
-                    </div>
-                </a>
+<!--                        <a th:href="@{/ManagerInfo.html?id={id}(id=${manager.id})}" style="cursor: pointer;">-->
+<!--                        &lt;!&ndash; 매니저 상세 정보 페이지로의 링크 &ndash;&gt;-->
+                    <a href="ManagerInfo.html">
+                        <img th:src="${manager.image}" class="card-img-top" alt="매니저 이미지">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="${manager.name}">매니저 이름</h4>
+                            <p class="card-text">연락처: <span th:text="${manager.contact}">010-0000-0000</span></p>
+                            <p class="card-text">현재 배정된 경기: <span th:text="${manager.assignedGame}">경기 없음</span></p>
+                        </div>
+                    </a>
             </div>
         </div>
     </div>
 
+
+					
+    
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../../components/js/loadAdminNB.js"></script>
-<script>
-    function searchManagers() {
-        // 검색어 입력란에서 텍스트 가져오기
-        var searchText = document.getElementById("searchInput").value.toUpperCase();
-
-        // 모든 카드 요소 가져오기
-        var cards = document.getElementsByClassName("card");
-
-        // 카드 요소 순회하며 검색어와 일치하는 카드만 보이도록 설정
-        for (var i = 0; i < cards.length; i++) {
-            var card = cards[i];
-            var cardTitle = card.getElementsByClassName("card-title")[0];
-            var cardContact = card.getElementsByTagName("span")[0];
-            var cardAssignedGames = card.getElementsByTagName("span")[1];
-
-            // 각 카드의 텍스트 가져와서 대문자로 변환하여 비교
-            var titleText = cardTitle.innerText.toUpperCase();
-            var contactText = cardContact.innerText.toUpperCase();
-            var assignedGamesText = cardAssignedGames.innerText.toUpperCase();
-
-            // 검색어와 일치하는 부분이 있으면 해당 카드 보이도록 설정
-            if (titleText.includes(searchText) || contactText.includes(searchText) || assignedGamesText.includes(searchText)) {
-                card.style.display = "inline-block";
-            } else {
-                card.style.display = "none";
-            }
-        }
-    }
-</script>
 </body>
 </html>

@@ -1,8 +1,6 @@
-/* CSS Document */
 .cancelText {
     text-decoration: line-through;
 }
-
 .content-body_left-wrap{
     overflow: auto;
     height: 100%;

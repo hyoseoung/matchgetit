@@ -8,7 +8,7 @@ flex-direction: column;
 
 .LogInContainer .title {
 font-size: 60%;
-margin-bottom: 5%;
+margin-bottom: 3%;
 font-weight: bolder;
 color:skyblue;
 }
@@ -21,14 +21,14 @@ text-align: center;
 }
 
 .LogInContainer .inputBlock {
-margin-top: 5%;
+margin-top: 1%;
 text-align: center;
 width:100%;
 }
 .LogInContainer .logInInput {
   font-size: 40%;
-  margin: 2.5%;
-  width: 70%;
+  margin: 1%;
+  width: 80%;
   border-radius: 15px;
   padding: 20px;
   caret-color: skyblue;

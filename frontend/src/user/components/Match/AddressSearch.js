@@ -1,41 +1,59 @@
 import React, { useState } from 'react';
+import DaumPostcode from 'react-daum-postcode';
+import axios from 'axios';
 
-function AddressSearch() {
-  const [address, setAddress] = useState('');
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
 
-  const handleSearch = () => {
-    new window.daum.Postcode({
-      oncomplete: function (data) {
-        var addr = data.address; // 최종 주소 변수
+const AddressSearch = ({ onSelect, visible, setVisible}) => {
 
-        // 주소로 상세 정보를 검색
-        new window.daum.maps.services.Geocoder().addressSearch(addr, function (
-          results,
-          status
-        ) {
-          // 정상적으로 검색이 완료됐으면
-          if (status === window.daum.maps.services.Status.OK) {
-            var result = results[0];
-            var coords = new window.daum.maps.LatLng(result.y, result.x);
-            setAddress(result.address.address_name);
-            setLatitude(coords.getLat().toString());
-            setLongitude(coords.getLng().toString());
-          }
+    const handleComplete = (data) => {
+        let fullAddress = data.address;
+        let extraAddress = '';
+
+        if (data.addressType === 'R') {
+            if (data.bname !== '') {
+                extraAddress += data.bname;
+            }
+            if (data.buildingName !== '') {
+                extraAddress += extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+            }
+            fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+        }
+
+        setVisible(false);
+
+        // Here is the part where we call the Kakao Map API
+        axios.get(`https://dapi.kakao.com/v2/local/search/address.json`, {
+            params: {
+                query: fullAddress
+            },
+            headers: {
+                'Authorization': `KakaoAK 04076bec2077f5bf9e3ea19dbea286d2`
+            }
+        }).then(response => {
+            const { data } = response;
+            if (data.documents[0]) {
+                const { x, y } = data.documents[0];
+                onSelect(fullAddress, x, y);
+            } else {
+                console.log('No matching address found');
+            }
+        }).catch(error => {
+            console.log(error);
         });
-      },
-    }).open();
-  };
+    };
 
-  return (
-    <div>
-      <button onClick={handleSearch}>주소 검색</button>
-      <p>주소: {address}</p>
-      <p>위도: {latitude}</p>
-      <p>경도: {longitude}</p>
-    </div>
-  );
-}
+    return (
+        <div>
+            {visible && (
+                <div>
+                    <button title="닫기" onClick={() => setVisible(false)}>닫기</button>
+                    <div>
+                        <DaumPostcode onComplete={handleComplete} height={700} />
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default AddressSearch;

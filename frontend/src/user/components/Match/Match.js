@@ -3,7 +3,7 @@ import '../../styles/MatchingPage/matchingPage.css';
 import FriendlyMatch from './FriedlyMatch';
 import LeagueMatch from './LeagueMatch';
 
-const Match = () => {
+const Match = ({session}) => {
   useEffect(() => {
     const handleBlueIconEvent = () => {
       const subPage1 = document.querySelector('.subPage1');
@@ -44,13 +44,13 @@ const Match = () => {
       <img className="ballIcon redIcon" src={process.env.PUBLIC_URL + '/images/redballIcon.svg'} alt="redballIcon" />
       <div className="subPage subPage1 active">
         <div className="subcontainer">
-          <FriendlyMatch />
+          <FriendlyMatch session={session}/>
         </div>
       </div>
 
       <div className="subPage subPage2 inactive">
         <div className="subcontainer">
-          <LeagueMatch />
+          <LeagueMatch session={session}/>
         </div>
       </div>
 

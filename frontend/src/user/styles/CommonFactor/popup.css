@@ -1,0 +1,221 @@
+
+
+.popUpBtn{
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border-radius: 0.6em;
+    border: transparent;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    margin: 1em;
+    padding: 1.2em 2.8rem;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    color: #300553;
+    background-image: linear-gradient(45deg, #3e57e6 50%, transparent 50%);
+    background-position: 100%;
+    background-size: 400%;
+    transition: background 300ms ease-in-out;
+}
+.popUpBtn:hover {
+    background-position: 0;
+}
+.popUp-wrap {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    content: "";
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.popUp-box {
+    width: 50%;
+    height:50%;
+    padding: 70px;
+    transform: translate(-50%, -50%) scale(0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    overflow:auto;
+    z-index: 55;
+}
+
+.popUp-box::-webkit-scrollbar {
+    width: 10px;
+}
+.popUp-box::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+}
+.popUp-box::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+.popUpContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 50vh;
+    width: 100%;
+}
+.popUp-box .popUpTitle{
+    margin-top: 5%;
+    test-align:center;
+}
+.popUp-box h2 {
+    color: #1a1a1a;
+}
+.popUp-box h3 {
+    color: #888;
+}
+.popUp-box .popUpCloseBtn {
+    position: absolute;
+    top: 10px; /* Adjust the top position as per your requirement */
+    right: 10px; /* Adjust the right position as per your requirement */
+    width: 35px;
+    cursor: pointer;
+}
+.popUp-box .inner {
+    width: inherit;
+    text-align: center;
+}
+
+.popUp-box .inner label {
+    font-size: .8em;
+    line-height: 4em;
+    text-transform: uppercase;
+    color: rgb(150, 150, 245);
+    transition: all .3s ease-in;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.popUp-box .inner:before,.popUp-box .inner:after {
+    position: absolute;
+    content: '';
+    height: 1px;
+    width: inherit;
+    background: rgb(150, 215, 241);
+    left: 0;
+    transition: all .3s ease-in;
+}
+
+.popUp-box .inner:before {
+    top: 50%;
+    transform: rotate(45deg);
+}
+
+.popUp-box .inner:after {
+    bottom: 50%;
+    transform: rotate(-45deg);
+}
+
+.popUp-box .popUpCloseBtn:hover label {
+    opacity: 1;
+}
+
+.popUpCloseBtn:hover .inner:before,
+.popUpCloseBtn:hover .inner:after {
+    transform: rotate(0);
+}
+
+.popUp-box .popUpCloseBtn:hover .inner:before {
+    top: 0;
+}
+
+.popUpCloseBtn:hover .inner:after {
+    bottom: 0;
+}
+
+.transform-in, .transform-out {
+    display: block;
+    -webkit-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+}
+
+.popUp-transform-in {
+    -webkit-transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popUp-transform-out {
+    -webkit-transform: translate(-50%, -50%) scale(0.5);
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+.popUpTitle {
+    font-weight: bold;
+}
+.agreeBtn{
+    padding: 3% 5%;
+    color: white;
+    white-space: nowrap;
+    transition: background-color 0.5s;
+    margin-right: 10%;
+}
+agreeBtn:hover{
+    background-color: violet;
+}
+.btnArray{
+    display:flex;
+}
+.acceptArray{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+@keyframes anime {
+    0% {
+        transform: translateY(-10%);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10%);
+    }
+}
+@media (max-width: 767px) {
+    .popUp-box {
+        width:80%;
+        height:60%;
+    }
+    .popUpCloseBtn {
+        width: 40px;
+    }
+
+    .popUpCloseBtn .inner label {
+        line-height: 2em;
+    }
+    .inputData {
+        width:40vh;
+    }
+    .popUpBtn {
+        margin: 20px;
+        padding: 0.5em 1.0em;
+        font-size: 0.9rem;
+    }
+}

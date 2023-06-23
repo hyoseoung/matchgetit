@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import './profile.css';
 
-function MyPage() {
-    const [userEmail, setUserEmail] = useState('');
-    const [userName, setUserName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+function MyPage({session}) {
+    const [userEmail, setUserEmail] = useState(session.email);
+    const [userName, setUserName] = useState(session.name);
+    const [phoneNumber, setPhoneNumber] = useState(session.pn);
     const [userPassword, setUserPassword] = useState('');
     const [userAccount, setUserAccount] = useState('');
-    const [gender, setGender] = useState('1');
-    const [skillLevel, setSkillLevel] = useState('expert');
+    const [gender, setGender] = useState((session.gender==='MALE')?'1':'2');
+    const [skillLevel, setSkillLevel] = useState(session.prfcn);
 
     const handleSave = () => {
         // 회원정보 저장 로직 구현
@@ -156,8 +156,8 @@ function MyPage() {
                                                     className="chip_item-radio"
                                                     name="skill-level"
                                                     value="expert"
-                                                    checked={skillLevel === 'expert'}
-                                                    onChange={() => setSkillLevel('expert')}
+                                                    checked={skillLevel === 'ADVANCED'}
+                                                    onChange={() => setSkillLevel('ADVANCED')}
                                                 />
                                                 <label htmlFor="expert" className="chip_item-label">
                                                     상
@@ -170,8 +170,8 @@ function MyPage() {
                                                     className="chip_item-radio"
                                                     name="skill-level"
                                                     value="middle"
-                                                    checked={skillLevel === 'middle'}
-                                                    onChange={() => setSkillLevel('middle')}
+                                                    checked={skillLevel === 'MIDDLE'}
+                                                    onChange={() => setSkillLevel('MIDDLE')}
                                                 />
                                                 <label htmlFor="middle" className="chip_item-label">
                                                     중
@@ -184,15 +184,15 @@ function MyPage() {
                                                     className="chip_item-radio"
                                                     name="skill-level"
                                                     value="basic"
-                                                    checked={skillLevel === 'basic'}
-                                                    onChange={() => setSkillLevel('basic')}
+                                                    checked={skillLevel === 'BEGGINER'}
+                                                    onChange={() => setSkillLevel('BEGGINER')}
                                                 />
                                                 <label htmlFor="basic" className="chip_item-label">
                                                     하
                                                 </label>
                                             </li>
                                         </ul>
-                                        <a class="change">※ 숙련도는 리그 매치 전에 1회에 한하여 <br/>  변경 가능합니다.</a>
+                                        <a className="change">※ 숙련도는 리그 매치 전에 1회에 한하여 <br/>  변경 가능합니다.</a>
                                         <input
                                             type="button"
                                             value="회원정보 저장"

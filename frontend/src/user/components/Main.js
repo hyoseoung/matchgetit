@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import '../styles/swipePage.css';
 import LogIn from './LogIn/LogIn';
 import Match from './Match/Match';
@@ -9,12 +9,17 @@ import 'swiper/swiper-bundle.css';
 import '../styles/LogIn/logInButton.css';
 import '../styles/CommonFactor/logInOutBtn.css';
 import MenuBar from "./MenuBar";
-import '../components/chatbot/chatbot.css'
-import ChatbotComponent from "./chatbot/chatbot";
-
+import Rank from '../components/Rank/RankingBoard';
+import Party from "./Party/Party";
+import Chatbot from "../components/chatbot/chatbot"
 
 function Main({ onLogin, onLogout, isLoggedIn }) {
     const [isLoginSlide, setIsLoginSlide] = useState(true);
+    const [status, setStatus] = useState('');
+    const [session, setSession] = useState('');
+    const [partyData, setPartyData] = useState(null);
+    const [isPartyMenuOpen, setIsPartyMenuOpen] = useState(false); // 추가된 부분
+    const errorTimerRef = useRef(null);
     const swiperRef = useRef(null);
 
     useEffect(() => {
@@ -31,42 +36,71 @@ function Main({ onLogin, onLogout, isLoggedIn }) {
         const initSwiper = () => {
             swiperRef.current = new Swiper('.swiper-container', {
                 effect: 'slide',
-                cubeEffect: {
-                    slideShadows: false,
-                    shadow: false,
-                    shadowOffset: 20,
-                    shadowScale: 0.94,
-                },
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true,
                 },
-                threshold: 70,
-                slidesPerView: 'auto',
+                threshold: 30,
+                allowTouchMove: true,
+
             });
         };
+        renewPartyData();
 
+        const storedToken = sessionStorage.getItem('X-XSRF-TOKEN');
+        if (isLoggedIn && storedToken) {
+            setIsLoginSlide(false);
+        } else {
+            getSession();
+        }
         initSwiper();
 
-        const storedToken = sessionStorage.getItem('csrfToken');
-        if (storedToken) {
-            onLogin();
-            setIsLoginSlide(false);
-        }
 
         return () => {
+
             if (swiperRef.current) {
                 swiperRef.current.destroy();
                 swiperRef.current = null;
             }
         };
-    }, []);
+    }, [onLogin, onLogout, isLoggedIn]);
+
+    const renewPartyData = () =>{
+        if(session.userId!=null){
+            axiosInstance.post("/matchGetIt/party/renewInviteData",null,{params: {id:session.userId}})
+            .then((response)=>{
+                console.log(response.data);
+                setPartyData(response.data);
+            }).catch((error) => {
+                console.log('파티 초대 없음');
+        });
+        }
+    }
+
+    const getSession = () => {
+        axiosInstance.post('/matchGetIt/auth/session')
+            .then(response => {
+                if (response.status === 200) {
+                    const csrfToken = response.headers['x-xsrf-token'];
+                    axiosInstance.defaults.headers['X-XSRF-TOKEN'] = csrfToken;
+                    onLogin();
+                    setIsLoginSlide(false);
+                    console.log(response.data);
+                    setSession(response.data);
+                } else {
+                }
+            })
+            .catch(error => {
+            });
+    };
 
     const handleLogin = (email, password) => {
-        axios
-            .post('/matchGetIt/login', { email, password })
+        axiosInstance
+            .post('/matchGetIt/auth/login', { email, password })
             .then((response) => {
-                sessionStorage.setItem('csrfToken', response.data);
+                getSession();
+                sessionStorage.setItem('X-XSRF-TOKEN', response.headers['x-xsrf-token']);
+                console.log(response.data);
                 onLogin();
                 setIsLoginSlide(false);
                 if (swiperRef.current) {
@@ -75,15 +109,29 @@ function Main({ onLogin, onLogout, isLoggedIn }) {
                 }
             })
             .catch((error) => {
-                onLogout();
+                if (error.response && error.response.status === 401) {
+                    setStatus('로그인 정보가 올바르지 않습니다.');
+                    startErrorTimer();
+                } else {
+                    onLogout();
+                }
             });
     };
 
+    const startErrorTimer = () => {
+        clearTimeout(errorTimerRef.current);
+
+        setStatus('로그인 정보가 올바르지 않습니다.');
+        errorTimerRef.current = setTimeout(() => {
+            setStatus('');
+        }, 3000);
+    };
+
     const handleLogout = () => {
-        axios
-            .post('/matchGetIt/logout')
+        axiosInstance
+            .post('/matchGetIt/auth/logout')
             .then(() => {
-                sessionStorage.removeItem('csrfToken');
+                sessionStorage.removeItem('X-XSRF-TOKEN');
                 onLogout();
                 setIsLoginSlide(true);
                 if (swiperRef.current) {
@@ -96,6 +144,16 @@ function Main({ onLogin, onLogout, isLoggedIn }) {
                 // handle error
             });
     };
+    const findMembers = () => {
+        axiosInstance
+            .post('/matchGetIt/match/getMember', null, { params: { id: session.userId} })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log('파티 없음');
+            });
+    }
 
     const handleSlideChange = (index) => {
         if (swiperRef.current) {
@@ -103,25 +161,38 @@ function Main({ onLogin, onLogout, isLoggedIn }) {
         }
     };
 
+    const handlePartyMenuToggle = () => {
+        setIsPartyMenuOpen(!isPartyMenuOpen);
+    };
+
     return (
-        <div>
+        <>
             <div className="logInOutBtnArea">
                 {isLoggedIn ? (
+                    <>
+                        <span>{session.userId} : {session.name}</span>
+                        <span><button className="popUpBtn" onClick={handlePartyMenuToggle}>파티 메뉴</button></span>
+                        <span>
+
                     <button type="button" className="logInOutBtn" onClick={handleLogout}>
                         로그아웃
                     </button>
+                        </span>
+                    </>
                 ) : (
                     <></>
                 )}
             </div>
 
             <div className="swiper-container">
+                {isPartyMenuOpen && <Party session={session} partyData={partyData} isPartyMenuOpen={isPartyMenuOpen} setIsPartyMenuOpen={setIsPartyMenuOpen} setPartyData={setPartyData}/>}
                 <div className="swiper-wrapper">
                     {!isLoggedIn || isLoginSlide ? (
                         <div className="swiper-slide">
                             <div className="slideContainer">
                                 <div className="slide-page">
-                                    <LogIn onLogin={handleLogin} />
+                                    <LogIn onLogin={handleLogin}/>
+                                    <p className={`errorText ${status ? 'fade-in' : ''}`}>{status}</p>
                                 </div>
                             </div>
                         </div>
@@ -129,20 +200,19 @@ function Main({ onLogin, onLogout, isLoggedIn }) {
                         <>
                             <div className="swiper-slide">
                                 <div className="slideContainer">
-                                    <div className="slide-page">랭킹 게시판 페이지</div>
+                                    <div className="slide-page"><Rank/></div>
                                 </div>
                             </div>
                             <div className="swiper-slide">
                                 <div className="slideContainer">
                                     <div className="slide-page">
-                                        <Match />
+                                        <Match session={session}/>
                                     </div>
                                 </div>
                             </div>
                             <div className="swiper-slide">
                                 <div className="slideContainer">
-                                    <div className="slide-page"><Mypage /></div>
-
+                                    <div className="slide-page"><Mypage session={session}/></div>
                                 </div>
                             </div>
                         </>
@@ -150,9 +220,9 @@ function Main({ onLogin, onLogout, isLoggedIn }) {
                 </div>
                 <div className="swiper-pagination"></div>
             </div>
-            <ChatbotComponent />
+            <Chatbot />
             <MenuBar isLoggedIn={isLoggedIn} onSlideChange={handleSlideChange} />
-        </div>
+        </>
     );
 }
 

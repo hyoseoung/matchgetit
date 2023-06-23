@@ -17,7 +17,7 @@
   color:white;
   text-shadow: 2px 2px 4px blue;
 }
-.fInputAddress:hover{
+.fInputData:hover{
   border: 1px solid skyblue;
   color:rgb(74, 247, 247);
   background-color: rgb(145, 145, 240);

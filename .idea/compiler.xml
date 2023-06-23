@@ -21,10 +21,5 @@
         <module name="com.matchgetit.backend.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="matchgetit" target="17" />
-      <module name="matchgetit.test" target="17" />
-      <module name="project.matchgetit.main" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

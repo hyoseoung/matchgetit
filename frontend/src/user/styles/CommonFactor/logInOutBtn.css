@@ -1,4 +1,8 @@
 div.logInOutBtnArea{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
     position: fixed;
     height:auto;
     top: 0;

@@ -5,7 +5,7 @@ import MessageParser from './MessageParser';
 import ActionProvider from './ActionProvider';
 import React, {useState} from "react";
 import Header from "./ChatbotHeader";
-import '../../styles/chatbot.css'
+import './chatbot.css'
 
 
 const ChatbotComponent = () => {
