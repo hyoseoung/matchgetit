@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Match Get It</title>
+  <link rel="icon" href="../../Img/PageLogo.png" type="img/png"/> <!-- 웹브라우저 아이콘 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/> <!-- 슬라이드 효과 관련 swiper 라이브러리 -->
+  <link rel="stylesheet" href="../../styles/MainPage/CommonFactor/menuBar.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/CommonFactor/button.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:200,300,400,500" rel="stylesheet"/> <!-- 폰트 관련 라이브러리 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"/> <!-- CSS 초기화 관련 라이브러리 -->
+  <link rel="stylesheet" href="../../styles/MainPage/CommonFactor/header.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/swipePage.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/rankBoardPage.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/MatchingPage/matchingPage.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/MatchingPage/Application/applicationContainer.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/MatchingPage/Application/friendlyMatching.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/MatchingPage/Application/leagueMatching.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/myPage.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/fadeStart.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/LogIn/logInPage.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/LogIn/logInButton.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/LogIn/socialButton.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/LogIn/signUp.css"/>
+  <link rel="stylesheet" href="../../styles/MainPage/LogIn/radioButton.css"/>
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1859d1a3cc07166365149da03346b54c&libraries=services"></script>
+</head>
+<body>
+  <!--<div class="background"></div>-->
+
+  <!-- 좌상단 메뉴바 part -->
+  <div id="menu-bar">
+    <div class="menu-icon">
+      <span class="menu-icon__line menu-icon__line-left"></span>
+      <span class="menu-icon__line"></span>
+      <span class="menu-icon__line menu-icon__line-right"></span>
+    </div>
+    <div class="nav">
+      <div class="nav__content">
+        <div class="nav__list">
+          <div class="nav__list-item">홈페이지</div>
+          <div class="nav__list-item">게시판</div>
+          <div class="nav__list-item">매니저 지원하기</div>
+          <div class="nav__list-item">로그인/회원가입</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 로그아웃 버튼 -->
+  <div class="btnArea"><button class="logOutBtn">Log In</button></div>
+
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="slideContainer">
+          <div class="slide-page">
+            <div class="LogInContainer">
+              <p class="title">풋살 예약을 간편하게</p>
+              <p class="logoMark">Match Get It</p>
+              <form action=""><!-- 추후에 조정 -->
+                <div class="inputBlock">
+                  <input class="logInInput" type="email" placeholder="이메일"/>
+                  <input class="logInInput" type="password" placeholder="비밀번호"/>
+                </div>
+              </form>
+              <div class="LogInbtnArea"><button class="logInBtn">로그인</button></div>
+              <div class="tabMenu">
+                <div class="tabButton findIDPW">아이디/비밀번호 찾기</div>
+                <div class="tabButton signUp">회원가입</div>
+                <div class="signUp-wrap">
+                  <div class="signUp-box">
+                    <div class="signUpContainer">
+                      로고 자리
+                      <div class="signUpTitle">
+                        회원가입
+                      </div>
+                      <form action="#"><!-- 추후에 조정 -->
+                        <div class="signUp-Items">
+                          <div class="inputData">
+                            <input class="signUpInput" type="email" placeholder="이메일 00000@example.com" />
+                            <button class="duplicateButton" type="button">중복확인</button>
+                          </div>
+                          <div class="inputData">
+                            <input class="signUpInput" type="password" placeholder="비밀번호" />
+                          </div>
+                          <div class="inputData">
+                            <input class="signUpInput" type="text" placeholder="이름" />
+                          </div>
+                          <div class="inputData">
+                            <input class="signUpInput" type="tel" placeholder="전화번호 000-0000-0000" />
+                            <button class="duplicateButton" type="button">중복확인</button>
+                          </div>
+                          <div class="radioBtn gender">
+                            성별:
+                            <input type="radio" id="male" name="gender">
+                            <label for="male">남</label>
+                            <input type="radio" id="female" name="gender">
+                            <label for="female">여</label>
+                          </div>
+                          <div class="radioBtn proficiency">
+                            숙련도:
+                            <input type="radio" id="advanced" name="proficiency">
+                            <label for="advanced">상</label>
+                            <input type="radio" id="middle" name="proficiency">
+                            <label for="middle">중</label>
+                            <input type="radio" id="begginer" name="proficiency">
+                            <label for="begginer">하</label>
+                          </div>
+                          <button class="submitBtn" type="submit">회원가입</button>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="closeBtn">
+                      <div class="inner">
+                        <label>Back</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="socialButton kakaoButton">
+                <img src="public/images/kakao_login_medium.png" alt="kakaobtn">
+              </button>
+              <button class="socialButton googleButton">
+                <img src="public/images/btn_google_signin.png" alt="googlebtn">
+              </button>
+              <button class="socialButton naverButton">
+                <img src="public/images/btn_naver.png" alt="naverbtn">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="slideContainer">
+          <div class="slide-page">랭킹 게시판 페이지</div>
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="slideContainer">
+          <img class="ballIcon blueIcon" src="../../Img/blueballIcon.svg" alt="redballIcon"/>
+          <img class="ballIcon redIcon" src="../../Img/redballIcon.svg" alt="redballIcon"/>
+          <div class="subPage subPage1 active">
+            <div class="subcontainer">
+              <div class="applicationContainer fContainer">
+                <div class="matchingTitle fTitle">Friendly Match</div>
+                <form action="">
+                  <div class="address">
+                    <div class="fSubTitle subTitle addressTitle">선택한 지역</div>
+                    <input type="text" class="fInputAddress inputAddress" id="fInputAddress" readonly required onclick="fAddrfunc()"/>
+                    <input type="hidden" id="fInputLat" name="fx"/>
+                    <input type="hidden" id="fInputLon" name="fy"/>
+                    <button class="mBtn fButton addressBtn" type="button" onclick="fAddrfunc()">주소 검색</button><!-- 나중에 기입 onclick="addrfunc()" -->
+                  </div>
+                  <div class="time">
+                    <div class="fSubTitle subTitle timeTitle">선택 시간</div>
+                    <input type="date" class="timeSelect mDate" name="fDate" value="" >
+                    <select class="mTime" name="fTime">
+                      <option value="A">오전 10시~오후 12시</option>
+                      <option value="B">오후 12시~오후 2시</option>
+                      <option value="C">오후 2시~오후 4시</option>
+                      <option value="D">오후 4시~오후 6시</option>
+                      <option value="E">오후 6시~오후 8시</option>
+                      <option value="F">오후 8시~오후 10시</option>
+                    </select>
+                  </div>
+                  <div class="party">
+                    <div class="fSubTitle subTitle partyTitle">파티원 검색</div>
+                    <button class="mBtn fButton pBtn" type="button">파티원 검색</button>
+                  </div>
+                  <button class="mBtn fButton pointBtn" type="button">???님 잔여 포인트</button>
+                  <button class="mBtn fButton mSubBtn" type="submit">매칭</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="subPage subPage2 inactive">
+            <div class="subcontainer">
+              <div class="applicationContainer lContainer">
+                <div class="matchingTitle lTitle">League Match</div>
+                <div id="weather"></div>
+                <form action="">
+                  <div class="address">
+                    <div class="lSubTitle subTitle addressTitle">선택한 지역</div>
+                    <input type="text" class="lInputAddress inputAddress" id="lInputAddress" readonly required onclick="lAddrfunc()"/>
+                    <input type="hidden" id="lInputLat" name="lx"/>
+                    <input type="hidden" id="lInputLon" name="ly"/>
+                    <button class="mBtn lButton addressBtn" type="button" id="point" onclick="lAddrfunc()">주소 검색</button><!-- 나중에 기입 onclick="addrfunc()" -->
+                  </div>
+                  <div class="time">
+                    <div class="lSubTitle subTitle timeTitle">선택 시간</div>
+                    <input type="date" class="timeSelect mDate" name="lDate" value="" >
+                    <select class="mTime" name="lTime">
+                      <option value="A">오전 10시~오후 12시</option>
+                      <option value="B">오후 12시~오후 2시</option>
+                      <option value="C">오후 2시~오후 4시</option>
+                      <option value="D">오후 4시~오후 6시</option>
+                      <option value="E">오후 6시~오후 8시</option>
+                      <option value="F">오후 8시~오후 10시</option>
+                    </select>
+                  </div>
+                  <div class="party">
+                    <div class="lSubTitle subTitle partyTitle">파티원 검색</div>
+                    <button class="mBtn lButton pBtn" type="button">파티원 검색</button>
+                  </div>
+                  <button class="mBtn lButton pointBtn" type="button">???님 잔여 포인트</button>
+                  <button class="mBtn lButton mSubBtn" type="submit">매칭</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="slideContainer">
+          <div class="slide-page">마이 페이지</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 하단 메뉴바 part -->
+  <div class="menu">
+    <a href="./MainPage.html" class="link" data-slide="1">
+      <!-- icon -->
+      <span class="link-icon">
+        <img src="../../Img/rankIcon.svg" alt="rankIcon"/>
+      <!-- /icon -->
+      </span>
+      <span class="link-title">Rank</span>
+    </a>
+    <a href="#" class="link" data-slide="2">
+      <span class="link-icon">
+        <!-- icon -->
+        <img src="../../Img/BallIcon.svg" alt="BallIcon"/>
+        <!-- icon  #3700ff -->
+      </span>
+      <span class="link-title">Match</span>
+    </a>
+
+    <a href="#" class="link" data-slide="3">
+      <span class="link-icon">
+        <!-- icon -->
+        <img src="../../Img/ProfileIcon.svg" alt="ProfileIcon"/>
+        <!-- /icon -->
+      </span>
+      <span class="link-title">Profile</span>
+    </a>
+  </div>
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="../../utils/MainPageJs/fadeStart.js"></script>
+  <script src="../../utils/MainPageJs/CommonFactor/header.js"></script>
+  <script src="../../utils/MainPageJs/swiperPage.js"></script>
+  <script src="../../utils/MainPageJs/subPage.js"></script>
+  <script src="../../utils/MainPageJs/backgroundVideo.js"></script>
+  <script src="../../utils/MainPageJs/LogIn/signUp.js"></script>
+  <script src="../../utils/MainPageJs/Api/Address.js"></script>
+</body>
+</html>

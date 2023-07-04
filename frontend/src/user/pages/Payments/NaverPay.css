@@ -1,0 +1,13 @@
+/* NaverPay.css */
+
+.button {
+  width: 100px;
+  height: 50px;
+  margin: 5px;
+  background-color: #F2F5F7;
+}
+
+.button.clicked {
+  background-color: #1570FF;
+  color: #EDEAEA;
+}

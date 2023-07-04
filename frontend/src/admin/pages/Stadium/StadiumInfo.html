@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>구장정보 페이지</title>
+    <link rel="stylesheet" href="../../styles/stadium.css">
+</head>
+<body>
+    <header id="admin-header"></header>
+    <div id="admin-nb"></div>
+    <div class="std_Info" style="padding-left:300px;">
+      <div class="std_InfoForm">
+        <h2>하이탑필드</h2>
+        <img src="../../styles/img/하이탑필드.jpeg">
+        <fieldset>
+          <p>경기 광명시 철망산로 87 세이브존 5층</p>
+          <p>https://hightopfield.modoo.at/</p>
+          <p>0507-1312-4995</p>
+          <p>이용 가능</p>
+        </fieldset>
+      </div>
+      <div class="std_InfoBtn">
+        <input type="button" value="수정" placeholder="수정" id="edit_stdBtn" onclick='location.href="EditStadium.html"'></input>
+        <input type="button" value="삭제" placeholder="삭제" id="delete_stdBtn" onclick='deleteStadium()'></input>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../components/js/loadAdminNB.js"></script>
+    <script>
+      function deleteStadium() {
+        if (confirm("구장을 삭제하시겠습니까?")) {
+          // 거절 처리를 수행하는 코드 작성
+          // 해당 유저를 삭제하는 등 필요한 작업 수행
+          alert("구장이 삭제되었습니다.");
+          window.location.href = "stadiumMgmt.html";
+        }
+      }
+    </script>
+</body>
+</html>

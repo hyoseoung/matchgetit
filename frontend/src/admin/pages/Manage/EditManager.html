@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Edit Manager</title>
+  <style>
+        .form-container {
+            max-width: 500px;
+
+        }
+
+        .form-container h2 {
+            color: #336633;
+        }
+
+        .form-container label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-container label > span {
+            flex-basis: 150px;
+            margin-right: 10px;
+        }
+
+        .form-container input[type="text"],
+        .form-container select,
+        .form-container textarea {
+            flex-grow: 1;
+            padding: 8px;
+            margin-bottom: 15px;
+        }
+
+        .form-container textarea {
+            height: 100px;
+            width: 100%
+        }
+
+        .form-container button {
+            padding: 8px 20px;
+            background-color: #99cc99;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<header id="admin-header"></header>
+
+<div id="admin-nb"></div>
+
+<div style="padding-left: 255px">
+<div class="form-container">
+
+  <div class="manager-info-title">
+    <h2>매니저 정보 수정</h2>
+  <div>
+  <form>
+    <p>매니저 번호: <span th:text="${manager.id}"></span></p><br>
+
+    <label>
+      <span>매니저 이름:</span>
+      <input type="text" id="name" name="name" placeholder="매니저 이름" value="${manager.name}" required>
+    </label>
+
+    <label>
+      <span>연락처:</span>
+      <input type="text" id="contact" name="contact" value="${manager.contact}" required>
+    </label>
+
+    <label>
+      <span>성별:</span>
+      <label><input type="radio" name="gender" value="남자" checked> 남자</label>
+      <label><input type="radio" name="gender" value="여자"> 여자</label>
+    </label>
+
+    <label for="status">
+      <span>상태:</span>
+      <select id="status" name="status" required>
+        <option value="active" th:selected="${manager.status == 'active'}">활동 중</option>
+        <option value="leave" th:selected="${manager.status == 'leave'}">휴직</option>
+      </select>
+    </label>
+
+    <div id="leave-info">
+      <h3>휴직 기간</h3>
+
+      <label>
+        <span>휴직 시작일:</span>
+        <input type="date" id="leaveStartDate" name="leaveStartDate">
+
+        <span style="margin-left: 10px;">휴직 종료일:</span>
+        <input type="date" id="leaveEndDate" name="leaveEndDate">
+      </label>
+
+      <label for="leaveReason">휴직 사유</label>
+      <textarea id="leaveReason" name="leaveReason" ></textarea>
+    </div>
+
+    <div class="button-container">
+      <button type="submit" style="margin-right: 10px;">수정사항 저장</button>
+      <button onclick="goBack()">뒤로가기</button>
+    </div>
+  </form>
+
+</div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../../components/js/loadAdminNB.js"></script>
+<script>
+    $(document).ready(function() {
+        var statusSelect = $('#status');
+        var leaveInfoContainer = $('#leave-info');
+
+        // 초기 휴직 정보 표시 여부
+        if (statusSelect.val() === 'leave') {
+            leaveInfoContainer.show();
+        } else {
+            leaveInfoContainer.hide();
+        }
+
+        // 상태 변경 시 휴직 정보 표시 여부 업데이트
+        statusSelect.on('change', function() {
+            if ($(this).val() === 'leave') {
+                leaveInfoContainer.show();
+            } else {
+                leaveInfoContainer.hide();
+            }
+        });
+    });
+
+    //뒤로가기
+    function goBack() {
+      event.preventDefault();
+      window.history.back();
+    }
+</script>
+</body>
+</html>

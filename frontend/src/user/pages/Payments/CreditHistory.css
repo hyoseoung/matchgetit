@@ -1,0 +1,54 @@
+.calendar {
+    margin: 0 auto;
+}
+
+.CreditHistory_M, .CreditHistory{
+    text-align: center;
+}
+
+.CreditHistory hr{
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 40px;
+}
+
+.highlight {
+    background-color: #f87171 !important;
+    border-radius: 50% !important;
+
+}
+
+.react-calendar__month-view__weekdays{
+    font-size: 15px !important;
+}
+
+.react-calendar__navigation{
+    margin-bottom: 0  !important;
+}
+
+.react-calendar__month-view__days{
+    margin-bottom: 10px !important;
+}
+
+.basicDiv{
+    margin-top: 30px !important;
+}
+
+.CreditHistory {
+    width: 80%;
+    max-width: 300px;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.CreditHistory p{
+    text-align: left;
+}
+
+.CreditHistory h3{
+    text-align: right;
+}
+
+.CreditHistory_M h2{
+    font-size: 40px;
+}

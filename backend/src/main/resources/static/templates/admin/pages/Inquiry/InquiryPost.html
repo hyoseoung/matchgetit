@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/styles/layouts/AdminpageLayout2}">
+
+<head>
+    <style>
+        .post-container {
+            margin: 20px 100px 20px 40px;
+            padding: 20px;
+            /*background-color: #f5f5f5;*/
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .post-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .post-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            /*margin-bottom: 10px;*/
+        }
+
+        .post-info {
+            margin-right: 20px;
+        }
+
+        .post-info-label {
+            font-weight: bold;
+        }
+
+        .post-content {
+            margin-bottom: 70px;
+            margin-top: 30px;
+            min-height: 200px;
+        }
+
+        .comment-box {
+            margin-top: 20px;
+        }
+
+        .comment {
+            margin-bottom: 10px;
+            padding: 10px;
+            /*background-color: #fff;*/
+            /*background-color: #f5f5f5;*/
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .comment-author {
+            font-weight: bold;
+        }
+
+        .comment-content {
+            margin: 7px 0;
+        }
+
+        .sub-comment {
+            margin-left: 20px;
+        }
+
+        .comment-input-box {
+            margin-top: 30px;
+        }
+
+        .comment-input {
+            width: calc(100% - 200px);
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin-right: 10px;
+            resize: none;
+            font-family: "맑은 고딕", sans-serif;
+        }
+
+        .comment-input:focus {
+            outline: none;
+        }
+
+        button {
+            padding: 2px 6px;
+            background-color: #ddd;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .comment-button, #delete-post {
+            padding: 5px 10px;
+        }
+
+        .comment-footer, .comment-date {
+            font-size: 0.95rem;
+            color: #aaa;
+        }
+
+        .sup-comment {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 3px;
+        }
+
+        .comment-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .comment-content p {
+            margin: 7px 0;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $("#delete-post").on("click", function () {
+                let inquriyId = [[${post.id}]]
+                console.log(inquriyId);
+
+                let res = confirm('삭제하시겠습니까? (삭제하면 되돌릴 수 없습니다.)');
+                if (res) {
+                    location.href = '../deleteInquiry/'+inquriyId;
+                }
+            });
+        });
+
+
+        function openCommentInput(btn) {
+            $(btn).hide();
+            $(".reply-box").show();
+        }
+
+        function closeCommentInput() {
+            $(".reply-box").hide();
+            $(".comment-footer button").show();
+        }
+
+        function openCommentEdit(btn) {
+            // console.log(btn);
+            // console.log($(btn).closest(".comment").find("span"));
+            let commentDiv = $(btn).closest(".comment");
+            commentDiv.find(".comment-content span").hide();
+            commentDiv.find(".reply-box-edit").show();
+            // $(".comment-content span").hide();
+            // $(".reply-box-edit").show();
+        }
+
+        function closeCommentEdit() {
+            $(".comment-content span").show();
+            $(".reply-box-edit").hide();
+        }
+
+
+        function editComment(form) {
+            let token = $("meta[name='_csrf']").attr("content");
+            let header = $("meta[name='_csrf_header']").attr("content");
+
+            let formStr = $(form).serialize();
+            // console.log(formStr);
+            // console.log(typeof formStr);
+
+            // let commentId = form.elements.namedItem("commentId").value;
+
+            $.ajax({
+                url: "/matchGetIt/admin/inquiry/editComment",
+                type: "PATCH",
+                beforeSend: function(xhr) { //XHR : XmlHttpRequest
+                    /* 데이터를 전송하기 전에 헤더에 csrf 값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                data: formStr,
+                // dataType : "json",
+                cache: false,
+
+                success: function() {
+                    // alert("수정하였습니다.");
+                    location.reload();
+                },
+
+                error: function(jqXHR, status, error) {
+                    // if (jqXHR.status == '401') {
+                    //     alert("로그인 후 이용해주세요");
+                    //     location.href='/members/login';
+                    // }
+                    // else {
+                    //     alert(jqXHR.responseJSON.message);
+                    // }
+                    alert("수정에 실패하였습니다.");
+                }
+            });
+        }
+
+
+        function confirmDelete(commentId) {
+            let res = confirm('삭제하시겠습니까? (삭제하면 되돌릴 수 없습니다.)');
+            if (res) {
+                deleteComment(commentId)
+            }
+        }
+
+        function deleteComment(commentId) {
+            let token = $("meta[name='_csrf']").attr("content");
+            let header = $("meta[name='_csrf_header']").attr("content");
+
+            // let commentId = document.getElementsByName("commentId").item(0).value;
+            // console.log(commentId);
+
+            $.ajax({
+                url: "/matchGetIt/admin/inquiry/deleteComment",
+                type: "DELETE",
+                beforeSend: function(xhr) { //XHR : XmlHttpRequest
+                    /* 데이터를 전송하기 전에 헤더에 csrf 값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                data: {commentId: commentId},
+                // dataType : "json",
+                cache: false,
+
+                success: function() {
+                    alert("삭제하였습니다.");
+                    location.reload();
+                },
+
+                error: function(jqXHR, status, error) {
+                    // if (jqXHR.status == '401') {
+                    //     alert("로그인 후 이용해주세요");
+                    //     location.href='/members/login';
+                    // }
+                    // else {
+                    //     alert(jqXHR.responseJSON.message);
+                    // }
+                    alert("삭제에 실패하였습니다.");
+                }
+            });
+        }
+    </script>
+</head>
+
+<section layout:fragment="content">
+    <div class="post-container">
+        <h2 class="post-title" th:text="${post.title}">결제 문의</h2>
+        <div style="display: flex; justify-content: space-between">
+            <div class="post-header">
+                <div class="post-info">
+                    <span class="post-info-label">작성자:</span>
+                    <span class="post-info-value" th:text="${post.writedBy}">홍길동</span>
+                </div>
+                <div class="post-info">
+                    <span class="post-info-label">카테고리:</span>
+                    <span class="post-info-value" th:text="${post.category}">결제</span>
+                </div>
+                <div class="post-info">
+                    <span class="post-info-label">처리 상황:</span>
+                    <span class="post-info-value" th:text="${post.state}">처리 중</span>
+                </div>
+                <div class="post-info">
+                    <span class="post-info-label">작성일:</span>
+                    <span class="post-info-value" th:text="${post.regDate}">2023-06-14 14:30</span>
+                </div>
+            </div>
+            <div>
+                <button id="delete-post">삭제</button>
+            </div>
+        </div>
+
+        <hr>
+        <div class="post-content">
+            <span style="white-space: pre-line" th:text="${post.content}">문의글 본문
+                스프링부트는 웹 프로그램을 쉽고 빠르게 만들 수 있도록 도와주는 웹 프레임워크이다.
+                웹 프레임워크란 쉽게 말해 웹 프로그램을 만들기 위한 스타터 키트라고 생각하면 된다. 그리고 자바로 만들어진 웹 프레임워크 중 하나가 바로 스프링부트이다.
+                스프링부트의 자바 클래스들은 Controller, Service, DTO, Repository, 그리고 JPA를 사용한다면 Entity 등이 기본이고, Config등이 추가될 수 있다.
+            </span>
+
+            <!--            <p>문의글 본문</p>-->
+            <!--            <p>스프링부트는 웹 프로그램을 쉽고 빠르게 만들 수 있도록 도와주는 웹 프레임워크이다.</p>-->
+            <!--            <p>웹 프레임워크란 쉽게 말해 웹 프로그램을 만들기 위한 스타터 키트라고 생각하면 된다. 그리고 자바로 만들어진 웹 프레임워크 중 하나가 바로 스프링부트이다.</p>-->
+            <!--            <p>스프링부트의 자바 클래스들은 Controller, Service, DTO, Repository, 그리고 JPA를 사용한다면 Entity 등이 기본이고, Config등이 추가될 수 있다.</p>-->
+        </div>
+
+        <!-- 댓글 -->
+        <div>
+            <div class="comment-box">
+                <div class="comment" th:each="comment: ${post.commentList}">
+                    <div class="comment-header">
+                        <span class="comment-author" th:text="${comment.writedBy}">관리자</span>
+                        <div class="header-buttons">
+                            <button type="button" th:if="${#authentication.name == comment.writedBy}" onclick="openCommentEdit(this)">수정</button>
+                            <button type="button" th:onclick="|confirmDelete(${comment.id})|">삭제</button>
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        <span style="white-space: pre-line" th:text="${comment.content}">댓글 내용
+                            댓글 내용 한 줄 더
+                        </span>
+                        <div style="margin-top: 10px; display: none;" class="reply-box-edit">
+                            <form onsubmit="editComment(this)">
+                                <input type="hidden" name="commentId" th:value="${comment.id}">
+                                <label>
+                                    <textarea class="comment-input" name="content" th:text="${comment.content}" required></textarea>
+                                </label>
+                                <button type="submit" style="margin-left: 10px">확인</button>
+                                <button type="button" style="margin-left: 10px" onclick="closeCommentEdit()">취소</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="comment-footer">
+                        <div>
+                            <span th:text="${comment.regDate}">2023-06-15 12:31</span>
+                            <span th:if="${comment.isEdited()}">(수정됨)</span>
+                        </div>
+<!--                        <button type="button" onclick="openCommentInput(this)">댓글 작성</button>-->
+                    </div>
+                    <div style="margin-top: 10px; display: none;" class="reply-box">
+                        <form>
+                            <label>
+                                <textarea class="comment-input"></textarea>
+                            </label>
+                            <button type="submit" style="margin-left: 10px">확인</button>
+                            <button type="button" style="margin-left: 10px" onclick="closeCommentInput()">취소</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 대댓글 -->
+                <div class="comment sub-comment" th:each="subComment: ${commentDTO.subCommentList}">
+                    <div class="sup-comment">
+                        <span><b>관리자</b> 님에게 답글</span>
+                    </div>
+                    <div class="comment-header">
+                        <span class="comment-author">홍길동</span>
+                        <div class="header-buttons">
+                            <button type="button">수정</button>
+                            <button type="button">삭제</button>
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        <p>대댓글 내용</p>
+                    </div>
+                    <div class="comment-footer">
+                        <span :text="${comment.regDate}">2023-06-15 12:31</span>
+<!--                        <button type="button" onclick="openCommentInput(this)">댓글 작성</button>-->
+                    </div>
+                    <div style="margin-top: 10px; display: none;" class="reply-box">
+                        <form>
+                            <label>
+                                <textarea class="comment-input"></textarea>
+                            </label>
+                            <button type="submit" style="margin-left: 10px">확인</button>
+                            <button type="button" style="margin-left: 10px" onclick="closeCommentInput()">취소</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 대댓글 -->
+<!--                <div class="comment sub-comment">-->
+<!--                    <div class="comment-header">-->
+<!--                        <span class="comment-author">관리자</span>-->
+<!--                        <div class="header-buttons">-->
+<!--                            <button type="button">수정</button>-->
+<!--                            <button type="button">삭제</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="comment-content">-->
+<!--                        <p>대댓글 내용</p>-->
+<!--                    </div>-->
+<!--                    <div class="comment-date">-->
+<!--                        <span>2023-06-16 11:30</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+
+        <!-- 댓글 작성창 -->
+        <div class="comment-input-box">
+            <form method="post" th:object="${commentDTO}" th:action>
+                <!--            <input type="text" class="comment-input" placeholder="댓글을 입력하세요">-->
+                <label>
+                    <textarea class="comment-input" placeholder="댓글을 입력하세요" rows="6" th:field="${commentDTO.content}"></textarea>
+                </label>
+                <button class="comment-button" style="margin: 0 5px">답변</button>
+                <button class="comment-button" type="button" onclick="location.href='/matchGetIt/admin/inquiryBoard';">뒤로 가기</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+</html>

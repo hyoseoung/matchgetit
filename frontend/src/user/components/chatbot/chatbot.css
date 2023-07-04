@@ -1,0 +1,111 @@
+/* 커스텀 스타일링 */
+.chatbot-icon {
+    position: absolute;
+    right: 3%;
+    bottom: 3%;
+    width: 50px; /* Adjust the size as desired */
+    height: 50px; /* Adjust the size as desired */
+    background-image: url("../../../assets/bot.png"); /* Replace 'path-to-your-icon-image' with the actual path to your icon image */
+    background-size: cover;
+    cursor: pointer;
+    z-index: 12;
+    background-color: rgba(255, 255, 255);
+    border-radius: 15px;
+    padding: 1px;
+}
+/* 커스텀 스타일링 */
+
+.react-chatbot-kit-chat-header {
+    background: rgb(92, 130, 255);
+    background: linear-gradient(
+            90deg,
+            rgba(157, 92, 255, 1) 0%,
+            rgba(92, 130, 255, 1) 100%
+    );
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+.header-container {
+    background: rgb(92, 130, 255);
+    background: linear-gradient(
+            90deg,
+            rgba(157, 92, 255, 1) 0%,
+            rgba(92, 130, 255, 1) 100%
+    );
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.ri-close-line,
+.ri-arrow-left-s-line {
+    font-size: 1rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.react-chatbot-kit-chat-container {
+    position: fixed;
+    right: 15px;
+    bottom: 25px;
+    width: 370px;
+    height: 80%;
+    top: 8%;
+    min-height: 520px;
+    max-height: 680px;
+    overflow: hidden;
+    border-radius: 25px;
+    box-shadow: rgb(0 0 0 / 30%) 0px 12px 60px 5px;
+    z-index: 10;
+}
+
+.react-chatbot-kit-chat-inner-container {
+    height: 100%;
+    background-color: #f8f9fa;
+}
+
+.react-chatbot-kit-chat-input-container {
+    padding: 0;
+}
+
+.react-chatbot-kit-chat-message-container {
+    height: 560px;
+    padding: 0.5rem 1.1rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.react-chatbot-kit-chat-message-container::-webkit-scrollbar {
+    display: none;
+}
+
+.react-chatbot-kit-chat-input {
+    border: none;
+    border-radius: 20px;
+    padding: 1.3rem 1.2rem;
+    margin-right: 0.5rem;
+    font-weight: 300;
+}
+
+.react-chatbot-kit-chat-input:focus-visible {
+    outline: none;
+}
+
+.react-chatbot-kit-chat-input-form {
+    background-color: #ffffff;
+    border: 1.4px solid #f2f2f2;
+}
+
+.react-chatbot-kit-chat-input::placeholder {
+    color: #d4d4d4;
+    font-weight: 300;
+}
+
+
+.react-chatbot-kit-chat-bot-message-container {
+    align-items: flex-end;
+    margin: 1.2rem 0;
+}

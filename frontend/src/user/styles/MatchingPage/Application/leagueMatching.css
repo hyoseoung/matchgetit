@@ -1,0 +1,50 @@
+.lContainer{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url('/public/images/second.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-y:scroll ;
+}
+
+.lButton{
+    background-color: #ff2c84;
+    border: white 1px;
+}
+.lButton.pointBtn{
+    background-color: #ffffff;
+    border: white 1px;
+}
+
+.lButton:hover{
+    background-color: rgb(250, 4, 106);
+    color: rgb(255, 255, 255);
+}
+.lButton.mSubBtn:hover{
+    background-color: rgb(255, 255, 255);
+    color: rgb(246, 32, 153);
+}
+.lTitle{
+    color:white;
+    text-shadow: 2px 2px 4px #ff003b;
+}
+.lSubTitle{
+    color:white;
+    text-shadow: 2px 2px 4px #ff0059;
+}
+.lInputData:hover{
+    border: 1px solid #eb87cf;
+    color: rgb(247, 74, 198);
+    background-color: rgb(240, 145, 174);
+}
+
+.lInputData{
+    border: 1px solid #d9e0e6;
+    background-color: #f8fafb;
+    width: 40%;
+    height: 54px;
+    border-radius: 16px;
+    padding: 14px 15px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    margin-bottom: 5px;
+}

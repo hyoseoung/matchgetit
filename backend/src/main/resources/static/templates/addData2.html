@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>추가정보 입력</title>
+  <link href="../css/signUp.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="signUp-wrap">
+  <div class="signUp-box">
+    <div class="signUpContainer">
+      <div class="signUpTitle">추가 정보 입력!</div>
+      <form action="/matchGetIt/google" method="post">
+        <div class="radioBtn proficiency">
+          <div class="subTitle">숙련도:</div>
+          <input
+                  type="radio"
+                  id="advanced"
+                  class="proficiency"
+                  name="proficiency"
+                  value="ADVANCED"
+          />
+          <label for="advanced">상</label>
+          <input
+                  type="radio"
+                  id="middle"
+                  class="proficiency"
+                  name="proficiency"
+                  value="MIDDLE"
+          />
+          <label for="middle">중</label>
+          <input
+                  type="radio"
+                  id="beginner"
+                  class="proficiency"
+                  name="proficiency"
+                  value="BEGINNER"
+          />
+          <label for="beginner">하</label>
+        </div>
+        <div class="radioBtn gender">
+          <div class="subTitle">성별</div>
+          <input
+                  type="radio"
+                  id="male"
+                  class="gender"
+                  name="gender"
+                  value="MALE"
+          />
+          <label for="male">남</label>
+          <input
+                  type="radio"
+                  id="female"
+                  class="gender"
+                  name="gender"
+                  value="FEMALE"
+          />
+          <label for="female">여</label>
+        </div>
+        <div class="birthDay">
+          <span class="birthDayText">생일 입력:</span>
+          <input
+                  type="date"
+                  id="birthDay"
+                  class="timeSelect mDate"
+                  name="birthday"
+          />
+        </div>
+        <div className="inputData">
+          <label for="pn">전화번호</label>
+          <input
+                  class="signUpInput"
+                  type="tel"
+                  placeholder="전화번호 000-0000-0000"
+                  name="pn"
+                  id="pn"
+          />
+          <button class="submitBtn" type="submit">
+            회원가입 완료
+          </button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

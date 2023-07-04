@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/styles/layouts/AdminpageLayout}">
+
+<head>
+    <style>
+        input {
+            border: 1px solid #bbb;
+            font-size: 12px;
+            height: 10px;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            text-align: center;
+            border: 1px solid #cccccc;
+            height: 20px;
+            width: 20px;
+        }
+        .std_addForm{
+            margin-top: 10px;
+        }
+        .addForm_left{
+            text-align: left;
+            margin-right: 20px;
+            line-height: 10px;
+            margin-left: 20px;
+
+        }
+        #std_addBtn {
+            text-align: center;
+            font-size: 12px;
+            width: 80px;
+            height: 35px;
+            background-color: #00BFFF;
+            border: 1px solid rgba(154, 154, 154, 0.35);
+            border-radius: 25px;
+            color: #FFFFFF;
+            transform: rotate(-0.02deg);
+            margin-left: 40%;
+        }
+
+        .std_addForm .addForm_left img {
+            height: 200px;
+            width: 250px;
+        }
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: #384047;
+        }
+
+        h1 {
+            margin: 0 0 70px 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 10px auto;
+            padding: 30px 50px;
+            background: #f4f7f8;
+            border-radius: 8px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="date"],
+        input[type="datetime"],
+        input[type="email"],
+        input[type="number"],
+        input[type="search"],
+        input[type="tel"],
+        input[type="time"],
+        input[type="url"],
+        textarea,
+        select {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            font-size: 16px;
+            height: auto;
+            margin: 0;
+            outline: 0;
+            padding: 15px;
+            width: 400px;
+            background-color: #e8eeef;
+            color: #8a97a0;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+            margin-bottom: 30px;
+        }
+
+        select {
+            padding: 6px;
+            height: 32px;
+            border-radius: 2px;
+        }
+
+        button {
+            padding: 19px 39px 18px 39px;
+            color: #FFF;
+            background-color: #4bc970;
+            font-size: 18px;
+            text-align: center;
+            font-style: normal;
+            border-radius: 5px;
+            width: 100%;
+            border: 1px solid #3ac162;
+            border-width: 1px 1px 3px;
+            box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+            margin-bottom: 10px;
+        }
+
+        fieldset {
+            margin-bottom: 30px;
+            border: none;
+        }
+
+        legend {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+    </style>
+</head>
+
+<section layout:fragment="content">
+    <div>
+        <div class="std_addForm">
+            <div class="addForm_left">
+                <fieldset>
+                    <form th:action="@{/matchGetIt/stadium/add}" method="post">
+                        <h1> Register </h1>
+                        <br>
+                        <label for="stdName" >구장명:</label>
+                        <input type="text" name="stdName" id="stdName" required /><br>
+                        <label for="stdAddress">주소:</label>
+                        <input type="text" name="stdAddress" id="stdAddress" placeholder="주소를 입력해주세요." required /> <br>
+                        <label for="xCor"> X 좌표:</label>
+                        <input type="text" name="xCor" id="xCor" required />
+                        <label for="yCor"> X 좌표:</label>
+                        <input type="text" name="yCor" id="yCor" required />
+                        <label for="stdLink" >URL:</label>
+                        <input type="url" name="stdLink" id="stdLink" size="20" required /> <br>
+                        <label for="stdPn">전화번호:</label>
+                        <input type="tel" name="stdPn" id="stdPn" placeholder="ex)02-1234-5678"  required /><br><br>
+                        <label for="stdImgUrl">구장이미지:</label><br>
+                        <input type="url" name="stdImgUrl" id="stdImgUrl" size="20" placeholder="이미지 링크를 입력해주세요" required>
+                        <!--                <h4>이용가능여부</h4>-->
+                        <!--                <label class="rad-label">-->
+                        <!--                    <input type="radio" value="가능" checked="checked" class="rad-input" name="rad"/>-->
+                        <!--                    <div class="rad-design"></div>-->
+                        <!--                    <div class="rad-text">가능</div>-->
+                        <!--                </label>-->
+                        <!--                <label class="rad-label">-->
+                        <!--                    <input type="radio" value="불가능" class="rad-input" name="rad" />-->
+                        <!--                    <div class="rad-design"></div>-->
+                        <!--                    <div class="rad-text">불가능</div>-->
+                        <!--                </label>-->
+                        <br><br><br><br>
+                        <input type="submit" value="구장등록" id="std_addBtn" onclick="addStadiumAlert()">
+                    </form>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</section>
+
+<th:block layout:fragment="script">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function addStadiumAlert() {
+            if (confirm("구장을 등록하시겠습니까?")) {
+                alert("구장이 등록되었습니다.");
+            }
+        }
+    </script>
+</th:block>
+
+</html>
+

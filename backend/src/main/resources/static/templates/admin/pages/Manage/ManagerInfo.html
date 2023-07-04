@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/styles/layouts/AdminpageLayout}">
+
+<head>
+
+    <title>ManagerInfo</title>
+    <style>
+    .managerEntity-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .managerEntity-info-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .managerEntity-info-title h2 {
+        font-size: 1.5em;
+        color: #336633;
+    }
+
+    .managerEntity-info-title button {
+        margin-left: 10px;
+        padding: 5px 10px;
+        font-size: 1em;
+        background-color: #99cc99;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+</head>
+
+<section layout:fragment="content">
+    <div id="managerEntity-info" >
+
+        <div class="managerEntity-info-title">
+            <!-- 매니저 정보를 표시할 부분 -->
+            <h2>
+                매니저 정보
+                <button th:onclick="|editManager('${manager.userId}')|" style="margin-left: 100px;">수정</button>
+                <td><button onclick="confirmDelete()" data-manager-id="${manager.userId}">삭제</button></td>
+            </h2>
+        </div>
+        <p>매니저 아이디: <span th:text="${manager.managerDTO.managerId}"></span></p><br>
+        <p>매니저 이름: <span th:text="${manager.name}"></span></p>
+        <p>연락처: <span th:text="${manager.pn}"></span></p>
+        <p>성별: <span th:text="${manager.gender}"></span></p><br>
+        <p>입사일: <span th:text="${manager.managerDTO.registrationDate}"></span></p><br>
+        <p>상태: <span th:text="${manager.managerDTO.employmentStatus}"></span></p><br>
+        <!--    <p>현재 배치된 경기: <span th:text="${member.managerEntity.assignedGames}"></span></p><br>-->
+
+    </div>
+</section>
+
+<th:block layout:fragment="script">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../components/js/loadAdminNB.js"></script>
+    <script>
+    function editManager(userId) {
+        // 해당 매니저의 정보를 수정할 수 있는 EditManager.html로 이동
+        const url = '/matchGetIt/manager/EditManager/' + userId;
+        window.location.href = url;
+    }
+
+
+
+    function confirmDelete() {
+        var managerId = [[${manager.userId}]];
+        if (confirm("정말 삭제하시겠습니까?")) {
+            $.ajax({
+            type: 'PUT',
+            url: '/matchGetIt/manager/deactivate/' + managerId,
+            success: function(response) {
+                if (response === "매니저 등록을 거절하였습니다.") {
+                alert("매니저가 성공적으로 탈퇴되었습니다.");
+                window.location.href = "http://localhost:8081/matchGetIt/manager/managers"; // 매니저 목록 페이지로 이동
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+                alert("매니저 탈퇴 중 오류가 발생했습니다.");
+                }
+            });
+        }
+    }
+
+
+</script>
+</th:block>
+
+</html>
+

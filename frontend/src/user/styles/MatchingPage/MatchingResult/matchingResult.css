@@ -1,0 +1,112 @@
+.resultContainer.LEAGUE{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url('/public/images/second.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-y: scroll;
+    height: 100%;
+}
+.resultContainer.FRIENDLY{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url('/public/images/first.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.resultTitle{
+    font-size:80%;
+    font-weight: bold;
+    animation: moveAnimation 1s infinite;
+    margin-bottom: 1%;
+    color: white;
+    justify-items: center;
+    text-align: center;
+    width: 100%;
+    margin-top: 40%;
+}
+
+.resultCurrent{
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 5%;
+}
+.resultInformationTitle{
+    margin-top: 20px;
+    font-size:40%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.resultTitleSub{
+    font-size: 40%;
+    margin-bottom: 10px;
+}
+
+.lineUpTitle{
+    font-size: 60%;
+    font-weight: bold;
+}
+.uniform img{
+    margin-top: 20px;
+    height: 70%;
+    width: 50%;
+}
+.uniformContainer{
+    display: flex;
+}
+.teamContainer{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0% 5% 0% 5%;
+}
+.aTeam{
+    display: block;
+}
+
+.bTeam{
+    display: block;
+}
+
+.resultMember{
+    display: block;
+    font-size: 40%;
+    width: 100%;
+}
+.Team{
+    margin-top: 5%;
+    margin-bottom: 1%;
+    font-size: 20px;
+}
+
+.resultInformationContainer{
+    color: #000000;
+    margin-bottom: 1%;
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 65%;
+    /*height: 95%;*/
+    text-align: center;
+}
+
+.resultInformationContainer ul{
+    display: contents;
+}
+.TeamMemberTitle{
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+.TeamMember{
+    font-size: 20px;
+}
+
+@keyframes moveAnimation {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(20px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

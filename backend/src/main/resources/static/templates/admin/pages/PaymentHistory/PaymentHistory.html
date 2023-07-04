@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/styles/layouts/AdminpageLayout}">
+
+<head>
+  <title>PaymentHistory</title>
+
+
+  <style>
+
+    .payment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    }
+
+    .search-container a:last-child {
+    margin-left: 50px;
+    }
+
+    table {
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+    th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+
+    }
+    .search-container {
+    margin-bottom:15px;
+    }
+
+    .buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    }
+    .container {
+    margin-bottom: 10px;
+    }
+
+    .button-label {
+    margin-left: 70px;
+    }
+
+    .status-label {
+    margin-left: 90px;
+    }
+    .buttons-container {
+    display: flex;
+    justify-content: center;
+    }
+
+    .search-button, .reset-button {
+    background-color: #A3EDAA;
+    color: #000000;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+    .search-button {
+    margin-right: 10px;
+    }
+    .download-button {
+    display: inline-block;
+    background-color: #14841F;
+    color: #000000;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom:15px;
+    }
+  </style>
+</head>
+
+<section layout:fragment="content">
+  <div>
+    <div class="payment-header">
+      <h2>결제 기록 조회</h2>
+    </div>
+
+    <hr>
+
+    <div class="search-container">
+      <form action="/payment-history" method="get">
+        <label>
+          <a>조회기간</a>
+          <input type="date" id="checkStartDate" name="checkStartDate">
+          ~
+          <input type="date" id="checkEndDate" name="checkEndDate">
+          <a >기록 검색</a>
+        </label>
+
+        <select name="searchCondition">
+          <option value="name">이름</option>
+          <option value="userNumber">회원 번호</option>
+          <option value="gameNumber">경기 번호</option>
+        </select>
+        <input type="text" name="searchKeyword">
+        <button type="submit">검색</button>
+
+
+
+        <div class="container">
+          <label class="button-label">
+            <button onclick="setDateRange(0)">오늘</button>
+            <button onclick="setDateRange(7)">1주일</button>
+            <button onclick="setDateRange(30)">1개월</button>
+            <button onclick="setDateRange(90)">3개월</button>
+          </label>
+
+
+          <label class="status-label">
+            <a>거래 상태</a>
+            <label>
+              <input type="checkbox" name="paymentStatus" value="completed">
+              결제 완료
+            </label>
+            <label>
+              <input type="checkbox" name="paymentStatus" value="canceled">
+              결제 취소
+            </label>
+            <label>
+              <input type="checkbox" name="paymentStatus" value="refunded">
+              부분 환불
+            </label>
+          </label>
+
+        </div>
+
+        <div class="buttons-container">
+          <button class="reset-button">초기화</button>
+        </div>
+      </form>
+    </div>
+    <hr>
+    <a href="path/to/your/excel/file.xlsx" download class="download-button">Excel 파일 다운로드</a>
+
+    <table>
+      <thead>
+      <tr>
+        <th></th>
+        <th>결제 번호</th>
+        <th>거래 일시</th>
+        <th>취소 일시</th>
+        <th>경기 번호</th>
+        <th>회원 번호</th>
+        <th>회원 이름</th>
+        <th>거래 상태</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user : ${userList}" onclick="viewUserDetails('${user.userId}')">
+        <td><input type="checkbox" name="selectedPayment" value="" /></td>
+        <td>
+      <span th:each="payment : ${user.paymentRecordDTO}">
+        <span th:text="${payment.paymentNumber}"></span><br>
+      </span>
+        </td>
+        <td>
+      <span th:each="payment : ${user.paymentRecordDTO}">
+        <span th:text="${payment.transactionDateTime}"></span><br>
+      </span>
+        </td>
+        <td>
+      <span th:each="payment : ${user.paymentRecordDTO}">
+        <span th:text="${payment.cancellationDateTime}"></span><br>
+      </span>
+        </td>
+        <td>
+      <span th:each="payment : ${user.paymentRecordDTO}">
+        <span th:text="${payment.gameNumber}"></span><br>
+      </span>
+        </td>
+        <td th:text="${user.userId}"></td>
+        <td th:text="${user.name}"></td>
+        <td>
+      <span th:each="payment : ${user.paymentRecordDTO}">
+        <span th:text="${payment.paymentStatus}"></span><br>
+      </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</section>
+
+<th:block layout:fragment="script">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+  function setDateRange(days) {
+      var endDate = new Date();
+      var startDate = new Date();
+      startDate.setDate(startDate.getDate() - days);
+
+      var startDateInput = document.getElementById("checkStartDate");
+      var endDateInput = document.getElementById("checkEndDate");
+
+      startDateInput.value = formatDate(startDate);
+      endDateInput.value = formatDate(endDate);
+    }
+
+    function formatDate(date) {
+      var year = date.getFullYear();
+      var month = ("0" + (date.getMonth() + 1)).slice(-2);
+      var day = ("0" + date.getDate()).slice(-2);
+      return year + "-" + month + "-" + day;
+    }
+
+    function searchPaymentHistory() {
+  var checkStartDate = document.getElementById("checkStartDate").value;
+  var checkEndDate = document.getElementById("checkEndDate").value;
+  var searchCondition = document.querySelector('select[name="searchCondition"]').value;
+  var searchKeyword = document.querySelector('input[name="searchKeyword"]').value.toUpperCase();
+  var paymentStatuses = document.querySelectorAll('input[name="paymentStatus"]:checked');
+  var selectedStatuses = Array.from(paymentStatuses).map(function (status) {
+    return status.value;
+  });
+
+  var table = document.querySelector("table");
+  var rows = table.getElementsByTagName("tr");
+  var hasVisibleRows = false;
+
+  for (var i = 1; i < rows.length; i++) {
+    var row = rows[i];
+    var paymentNumber = row.cells[1].textContent.toUpperCase();
+    var gameNumber = row.cells[4].textContent.toUpperCase();
+    var userId = row.cells[5].textContent.toUpperCase();
+    var paymentStatus = row.cells[7].textContent.toUpperCase();
+    var transactionDateTime = row.cells[2].textContent;
+
+    var isVisible = true;
+
+    if (checkStartDate && checkEndDate) {
+      var startDate = new Date(checkStartDate);
+      var endDate = new Date(checkEndDate);
+      var transactionDate = new Date(transactionDateTime);
+
+      if (transactionDate < startDate || transactionDate > endDate) {
+        isVisible = false;
+      }
+    }
+
+    if (searchKeyword && searchCondition) {
+      var targetValue = "";
+
+      switch (searchCondition) {
+        case "name":
+          targetValue = row.cells[6].textContent.toUpperCase();  // 회원 이름
+          break;
+        case "userNumber":
+          targetValue = userId;
+          break;
+        case "gameNumber":
+          targetValue = gameNumber;
+          break;
+      }
+
+      if (!targetValue.includes(searchKeyword)) {
+        isVisible = false;
+      }
+    }
+
+    if (selectedStatuses.length > 0) {
+      if (!selectedStatuses.includes(paymentStatus.toLowerCase())) {
+        isVisible = false;
+      }
+    }
+
+    if (isVisible) {
+      row.style.display = "table-row";
+    } else {
+      row.style.display = "none";
+    }
+  }
+}
+
+  function resetForm() {
+    var searchCondition = document.querySelector('select[name="searchCondition"]');
+    searchCondition.selectedIndex = 0;
+
+    var searchKeyword = document.querySelector('input[name="searchKeyword"]');
+    searchKeyword.value = "";
+
+    var startDateInput = document.getElementById("checkStartDate");
+    var endDateInput = document.getElementById("checkEndDate");
+
+    startDateInput.value = "";
+    endDateInput.value = "";
+
+    var paymentStatuses = document.querySelectorAll('input[name="paymentStatus"]:checked');
+    Array.from(paymentStatuses).forEach(function(status) {
+      status.checked = false;
+    });
+
+    searchPaymentHistory();
+  }
+
+  document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    searchPaymentHistory();
+  });
+
+  document.querySelector(".reset-button").addEventListener("click", function() {
+    resetForm();
+  });
+</script>
+
+</th:block>
+
+
+</html>
+
+<body>
+
+
+

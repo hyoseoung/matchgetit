@@ -1,0 +1,64 @@
+.admin-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.admin-info .admin-name {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.admin-info a {
+    color: #333;
+    text-decoration: none;
+}
+.logo {
+    padding-left: 10px;
+}
+.logo-a {
+    text-decoration: none;
+}
+
+/* 내비게이션 바 스타일 */
+.nav {
+    float: left;
+    width: 250px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /*background-color: #f1f1f1;*/
+    border: 1px solid gray;
+}
+
+.nav-item {
+    padding: 10px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background-color: #E0F8DB;
+}
+
+/* 조회 목록 스타일 */
+.sub-menu {
+    display: none;
+    padding-left: 20px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: black;
+}
+
+
+/* 링크 스타일 */
+a {
+    color: #4CAF50;
+    text-decoration: none;
+    cursor: pointer;
+}

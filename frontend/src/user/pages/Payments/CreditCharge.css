@@ -1,0 +1,223 @@
+
+.charge {
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 25px;
+    background-color: #FFFFFF;
+}
+.my-status.CreditCharge-settings {
+    position: relative;
+}
+
+.charge__back {
+    position: absolute;
+    top: 10%; /* 원하는 상단 위치로 조정하세요 */
+    right: 5%; /* 원하는 우측 위치로 조정하세요 */
+    cursor: pointer; /* 이 속성을 추가하여 버튼 위로 마우스를 올렸을 때 포인터 모양으로 변경합니다 */
+    background-color: #FFCF0A;
+    color: #282B33;
+    font-size: 14px;
+    border-radius: 6px;
+    padding: 10px 10px;
+}
+
+
+.charge__title{
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.CreditCharge-settings{
+    /*background-color: #FFFFFF;*/
+    border-radius: 25px;
+    position: relative;
+}
+
+.CreditCharge-settings h2{
+    color: #4B5A64;
+    margin: 0px;
+}
+
+.charge__select-title {
+    color: #4B5A64;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 150%;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+/*.input label, .input-double label {*/
+/*     margin-left: 5px;*/
+/*    margin-bottom: 10px;*/
+/*    display: block;*/
+/*    font-size: 12px;*/
+/*    font-weight: 600;*/
+/*    color: #727F88;*/
+/*}*/
+/*[type="radio"]+label {*/
+/*    position: relative;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    cursor: pointer;*/
+/*    padding: 0;*/
+/*    font-size: 15px;*/
+/*    color: #282B33;*/
+/*    font-weight: 400;*/
+/*    margin: initial;*/
+/*}*/
+/*.radio-gnb+label {*/
+/*    cursor: pointer;*/
+/*    font-size: 13px;*/
+/*    border: 1px solid #D9E0E6;*/
+/*    border-radius: 4px;*/
+/*    padding: 5px 15px;*/
+/*    margin: 0 10px;*/
+/*    background-color: #FFFFFF;*/
+/*    text-align: center;*/
+/*    align-items: center;*/
+/*}*/
+/*li .radio-gnb+label {*/
+/*    display: block;*/
+/*}*/
+.radio-item__box [type="radio"]+label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 14px;
+    color: #282B33;
+    font-weight: 400;
+    margin: initial;
+    background-color: #F2F5F7;
+    /*width: 100%;*/
+    text-align: center;
+    border-radius: 6px;
+}
+.radio-item__box {
+    display: inline-block;
+    width: 33%; /* 한 줄에 3개의 버튼이 보이도록 설정 */
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.radio-wrap {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin : 0px;
+}
+.radio-wrap .radio-item__box [type="radio"]+label {
+    border-radius: 10px;
+    color: #727F88;
+    font-size: 13px;
+    line-height: 20px;
+}
+.radio-wrap .radio-item__box [type="radio"]:checked+label {
+    color: white;
+}
+.radio-wrap .radio-item__box [type="radio"]+label {
+    border-radius: 10px;
+    color: #727F88;
+    font-size: 13px;
+    line-height: 5px;
+}
+
+.charge__select .input{
+    height: 0%;
+}
+
+.radio-item__box [type="radio"]:checked+label {
+    background-color: #1570FF;
+    color: white;
+}
+.radio-gnb:checked+label {
+    color: white;
+    background-color: #3534A5;
+}
+.radio-gnb+label {
+    cursor: pointer;
+    font-size: 13px;
+    border: 1px solid #D9E0E6;
+    border-radius: 4px;
+    padding: 5px 15px;
+    margin: 0 10px;
+    background-color: #FFFFFF;
+    text-align: center;
+    align-items: center;
+}
+[type="radio"]+label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    font-size: 15px;
+    color: #282B33;
+    font-weight: 400;
+    margin: initial;
+}
+
+li .radio-gnb+label {
+    display: block;
+}
+:root {
+    --fc-daygrid-event-dot-width: 8px;
+}
+
+.radio-item__box [type="radio"]+label p {
+    width: 100%;
+}
+.charge__select-desc {
+     color: #1570FF;
+     font-size: 12px;
+     text-align: right;
+     margin-right: 10px;
+ }
+
+.radio-wrap.hstack {
+    /*display: flex;*/
+    align-items: center;
+    padding: 5px;
+
+}
+.payment-icon{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: space-between;
+    padding: 5px;
+}
+.payment-icon button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    vertical-align: middle;
+    width: 30%;
+    background: none;
+    cursor: pointer;
+}
+.payment-icon button img{
+    width: 100%;
+    height: auto;
+    max-width: 100px;
+}
+.check-money{
+    font-size: 20px;
+    color: white;
+    background-color: #07b4f8;
+    text-align: center;
+    border-radius:10px;
+    padding: 5px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    width: 60%;
+    margin-left: 20%;
+
+}
+.payment-errorMessage{
+    font-size: 14px;
+    color: crimson;
+    text-align: center;
+}

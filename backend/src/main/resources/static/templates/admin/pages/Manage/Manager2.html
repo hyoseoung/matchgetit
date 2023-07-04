@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manager</title>
+
+    <style>
+    .managerEntity-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .search input[type="text"],
+    .search button {
+      margin-left: 5px;
+    }
+
+    .card {
+      border: 1px solid gray;
+      padding: 10px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .card-img-top {
+      width: 100%;
+      height: auto;
+    }
+
+    .card-body {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+<header id="admin-header"></header>
+
+<div id="admin-nb"></div>
+
+<div style="padding-left: 255px">
+
+    <div class="managerEntity-header">
+        <h2>매니저 목록</h2>
+        <div class="search">
+            <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
+            <button onclick="searchManagers()">검색</button>
+        </div>
+    </div>
+
+    <div class="row" style="padding: 10px;">
+        <div class="col-md-4 margin" th:each="manager, rowStatus: ${managerList}" style="display: inline-block;">
+            <div class="card" th:value="${manager.userId}" style="border: 1px solid gray; padding: 10px; box-sizing: border-box; text-align: center;">
+                <a href="#" th:onclick="|viewUserDetails('${manager.userId}')|">
+                    <img th:src="${manager.managerDTO.managerImage}" class="card-img-top" alt="매니저 이미지">
+                    <div class="card-body">
+                        <h4 class="card-title" th:text="${manager.name}">매니저 이름</h4>
+                        <p class="card-text">연락처: <span th:text="${manager.pn}"></span></p>
+
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/static/templates/admin/components/js/loadAdminNB.js"></script>
+<script>
+function viewUserDetails(userId) {
+  if (userId !== null) {
+    const url = '/matchGetIt/manager/managerInfo/' + userId;
+    window.location.href = url;
+  }
+}
+
+$(document).ready(function() {
+  // 페이지 로드 시 매니저 목록을 가져와서 테이블에 표시
+  loadManagers();
+
+  // 매니저 목록을 가져오고 테이블에 렌더링하는 함수
+  function loadManagers() {
+    $.ajax({
+      url: '/matchGetIt/manager/managers',
+      type: 'GET',
+      dataType: 'json',
+      success: function(response) {
+        renderManagers(response);
+      },
+      error: function(error) {
+        console.error(error);
+      }
+    });
+  }
+
+  // 매니저 목록을 테이블에 렌더링하는 함수
+  function renderManagers(managers) {
+    const container = $('.row');
+    container.empty();
+
+    for (const manager of managers) {
+      const card = `
+        <div class="col-md-4 margin" style="display: inline-block;">
+          <div class="card" style="border: 1px solid gray; padding: 10px; box-sizing: border-box; text-align: center;">
+            <a onclick="viewUserDetails(${manager.userId})">
+              <img src="${manager.managerDTO.managerImage}" class="card-img-top" alt="매니저 이미지">
+              <div class="card-body">
+                <h4 class="card-title">${manager.name}</h4>
+                <p class="card-text">연락처: <span>${manager.pn}</span></p>
+              </div>
+            </a>
+          </div>
+        </div>
+      `;
+      container.append(card);
+    }
+  }
+
+  // 매니저 목록 검색 함수
+  function searchManagers() {
+    var searchText = $('#searchInput').val().toUpperCase();
+    var cards = $('.row .col-md-4');
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var cardTitle = card.querySelector('.card-title');
+      var cardContact = card.querySelector('.card-text span');
+      var cardAssignedGames = card.querySelector('.card-text:last-child span');
+
+      // 카드의 텍스트 가져오기
+      var titleText = cardTitle.textContent.toUpperCase();
+      var contactText = cardContact.textContent.toUpperCase();
+      var assignedGamesText = cardAssignedGames.textContent.toUpperCase();
+
+      // 검색어와 일치하는 텍스트가 있는지 확인
+      if (titleText.includes(searchText) || contactText.includes(searchText) || assignedGamesText.includes(searchText)) {
+        card.style.display = "inline-block";
+      } else {
+        card.style.display = "none";
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

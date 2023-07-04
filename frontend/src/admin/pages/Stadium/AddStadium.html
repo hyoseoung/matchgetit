@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구장추가</title>
+    <link rel="stylesheet" href="../../styles/stadium.css">
+</head>
+<body>
+    <header id="admin-header"></header>
+    <div id="admin-nb"></div>
+    <div class="std_addForm">
+        <div class="addForm_left">
+            <fieldset>
+            <form action="" method="get">
+                <h1> Register </h1>
+                <br>
+                <label for="std_name">구장명:</label>
+                <input type="text" name="std_name" id="std_name" required /><br>
+                <label for="std_address">주소:</label>
+                <input type="text" name="std_address" id="std_address" placeholder="불러오기 버튼을 클릭해주세요." required /> <br>
+                <label for="std_url">URL:</label>
+                <input type="url" name="std_url" id="std_url" size="20" required /> <br>
+                <label for="std_num">전화번호:</label>
+                <input type="tel" name="std_num" id="std_num" placeholder="ex)02-1234-5678" pattern="/^(\d{2,3})-(\d{3,4})(\d{4})$" required /><br><br>
+                <label for="std_img">구장이미지:</label><br>
+                <img src="../../styles/img/soccer-488700_1280.jpg"><br><br>
+                <input type="url" name="std_img" id="std_img" size="20" required>
+                <input type="button" value="불러오기" id="std_addImgBtn">
+                <h4>이용가능여부</h4>
+                <label class="rad-label">
+                    <input type="radio" value="가능" checked="checked" class="rad-input" name="rad"/>
+                    <div class="rad-design"></div>
+                    <div class="rad-text">가능</div>
+                </label>
+                <label class="rad-label">
+                    <input type="radio" value="불가능" class="rad-input" name="rad" />
+                    <div class="rad-design"></div>
+                    <div class="rad-text">불가능</div>
+                </label>
+                <br><br><br><br>
+                <input type="submit" value="구장등록" id="std_addBtn" onclick='addStadium()'>
+            </form>
+            </fieldset>
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../components/js/loadAdminNB.js"></script>
+    <script>
+        function addStadium() {
+            if (confirm("구장을 등록하시겠습니까?")) {
+                // 거절 처리를 수행하는 코드 작성
+                // 해당 유저를 삭제하는 등 필요한 작업 수행
+                alert("구장이 등록되었습니다.");
+                window.location.href = "stadiumMgmt.html";
+            }
+        }
+    </script>
+</body>
+</html>
+
+<div class="row">
+    <div class="col-md-12">
+
+    </div>
+</div>

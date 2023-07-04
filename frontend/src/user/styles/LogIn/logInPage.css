@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+.backgroundImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  background-size: contain;
+  /*background-repeat: no-repeat;*/
+  background-position: center;
+  background-color: #00BFFF; /* 배경색상 추가 */
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  /* 다른 요소들의 위치 및 스타일을 여기에 추가하세요 */
+}
+.LogInContainer {
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+  position: relative;
+}
+
+.LogInContainer .title {
+font-size: 60%;
+margin-bottom: 1%;
+font-weight: bolder;
+color:white;
+}
+
+.LogInContainer .logoMark {
+font-size: 60%;
+color: white;
+font-weight: bolder;
+text-align: center;
+  margin: 10px;
+}
+
+.LogInContainer .inputBlock {
+margin-top: 1%;
+text-align: center;
+width:100%;
+}
+.LogInContainer .logInInput {
+  font-size: 40%;
+  margin: 1%;
+  width: 72%;
+  border-radius: 15px;
+  padding: 20px;
+  /*caret-color: black;*/
+  background-color: #FFFFFF;
+  transition: box-shadow 0.3s ease; /* 포커스 효과의 애니메이션 설정 */
+  /*outline: 1px solid black;*/
+  /*color:black;*/
+}
+.LogInContainer .logInInput::placeholder {
+  color: gray;
+}
+
+.LogInContainer .logInInput:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px gray;
+}
+.LogInContainer .btnArea{
+width:50%;
+}
+
+.tabMenu {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 30%;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    border-bottom: 1px solid #cfcfcf;
+  }
+  
+  .tabMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 30%;
+    width: 80%;
+    font-family: 'Montserrat', sans-serif;
+    border-bottom: 1px solid #cfcfcf;
+  }
+  
+  .tabButton{
+    white-space: nowrap;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /*background-color: transparent;*/
+    border-radius: 0.6em;
+    border: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+    /*background-image: linear-gradient(45deg, #00BFFF 50%, transparent 50%);*/
+    background-position: 100%;
+    background-size: 400%;
+    background-color: rgba(255, 255, 255, 0.32);
+    transition: background-position 0.3s ease-in-out;
+    margin-bottom: 3%;
+  }
+  .findIDPW{
+    padding: 1.2em 10%;
+    margin-right: 4%;
+  }
+  .signUp{
+    
+    padding: 1.2em 15%;
+  }
+
+  
+  .findIDPW:hover,
+  .signUp:hover,
+  .logInBtn:hover {
+    background-position: 0;
+  }
+
+  .LogInContainer.full {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #59ADEB;
+    color: #fff;
+    z-index: 4;
+  }
+
+  @media (max-width: 767px) {
+    .findIDPW{
+      padding: 1.2em 0.5%;
+      margin-right: 4%;
+      width: 45%;
+    }
+    .signUp{
+      padding: 1.2em 12%;
+      width: 45%;
+    }
+  }

@@ -1,0 +1,108 @@
+.swiper-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.swiper-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.swiper-container video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+
+/* background-image: repeating-linear-gradient(135deg, #2b3284 0px, #2b3284 100px, #4177bc 100px, #4177bc 105px, #2b3284 105px, #2b3284 130px, #4177bc 130px, #4177bc 260px, #ffffff 260px, #ffffff 265px, #4177bc 265px, #4177bc 270px, #ffffff 270px, #ffffff 330px);
+background-size: 300% 300%;
+animation: slideBackground 10s linear infinite; */
+/* @keyframes slideBackground {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  50%{
+    transform: translate(0%, 0%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+} */
+/*여러색상 줄줄이 넘어가는 효과*/
+
+.swiper-wrapper {
+  height:89%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 3rem;
+  position: relative;
+}
+
+.slideContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 78%;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  top:10%;
+}
+.slide-page {
+  /*background-color: rgba(255, 255, 255, 0.7);*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.errorText{
+  white-space: nowrap;
+  font-weight:bold;
+  color: #e75959;
+  position: absolute;
+  top:50%;
+  left:39%;
+  font-size:20px;
+}
+.fade{
+  opacity: 0;
+  animation: fade-in 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .swiper-wrapper{
+    height:85.4%;
+  }
+  .errorText {
+  left:10%;
+  }
+}

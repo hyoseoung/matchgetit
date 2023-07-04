@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/admin/styles/layouts/AdminpageLayout}">
+
+<head>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style>
+		input {
+			border: 1px solid #bbb;
+			font-size: 12px;
+			height: 10px;
+			border-radius: 8px;
+			padding: 10px 12px;
+			margin-bottom: 15px;
+		}
+		button {
+			text-align: center;
+			border: 1px solid #cccccc;
+			height: 20px;
+			width: 20px;
+		}
+		#img1 {
+			background-image: url("https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png");
+			background-size: 30px;
+			width: 30px;
+			height: 30px;
+
+		}
+		#addBtn{
+			float: right;
+			width: 70px;
+			height: 35px;
+			text-align: center;
+			font-size: 12px;
+			background-color: #00BFFF;
+			border: 1px solid rgba(154, 154, 154, 0.35);
+			border-radius: 25px;
+			color: #FFFFFF;
+			transform: rotate(-0.02deg);
+			margin-right: 100px;
+
+		}
+		#std_search{
+			width: 150px;
+		}
+
+
+		.searchbar {
+			display:inline-block;
+			width:90%;
+			margin-left:10px;
+			margin-top: 10px;
+		}
+
+		.list .std_list{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			margin: 50px 100px 100px 100px;
+
+		}
+
+		.list .std_list .card{
+			border: 1px solid #eee;
+			border-radius: 5px;
+			height:300px;
+			width: 300px;
+			padding: 5px;
+			margin-bottom: 10px;
+		}
+
+		.list .std_list .card img{
+			height: 250px;
+			width: 300px;
+
+		}
+
+		.list .std_list .card .text p{
+			font-size: 14px;
+			opacity: .8;
+			text-align: center;
+		}
+
+		a{
+			text-decoration: none;
+		}
+
+		body {
+			font-family: 'Nunito', sans-serif;
+			color: #384047;
+		}
+
+		form {
+			max-width: 300px;
+			margin: 10px auto;
+			padding: 10px 20px;
+			background: #f4f7f8;
+			border-radius: 8px;
+		}
+
+		h1 {
+			margin: 0 0 30px 0;
+			text-align: center;
+		}
+
+		input[type="text"],
+		textarea,
+		select {
+			background: rgba(255,255,255,0.1);
+			border: none;
+			font-size: 16px;
+			height: auto;
+			margin: 0;
+			outline: 0;
+			padding: 15px;
+			width: 70%;
+			background-color: #e8eeef;
+			color: #8a97a0;
+			box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+			margin-bottom: 30px;
+		}
+
+		button {
+			padding: 19px 39px 18px 39px;
+			color: #FFF;
+			background-color: #4bc970;
+			font-size: 18px;
+			text-align: center;
+			font-style: normal;
+			border-radius: 5px;
+			width: 100%;
+			border: 1px solid #3ac162;
+			border-width: 1px 1px 3px;
+			box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+
+<section layout:fragment="content">
+	<div>
+		<div class="list" style="padding-left:255px;">
+			<form th:action="@{/matchGetIt/stadium}" method="get" class="searchbar">
+				<input type="text" name="search" id="std_search" placeholder="search">
+				<input type="submit"  id="img1" value="">
+			</form>
+			<input type="button" value="추가" placeholder="추가" id="addBtn" onclick='location.href="AddStadium.html"' th:onclick="|location.href='@{/matchGetIt/stadium/add}'|">
+
+			<div class="std_list">
+				<div class="card" id="stadiumCard" th:each="list : ${stadiums}">
+					<div class="std">
+						<a href="StadiumInfo.html" th:href="@{/matchGetIt/stadium/{stdName}(stdName=${list.stdName})}"><img th:src="${list.stdImgUrl}"></a>
+					</div>
+					<div class="text">
+						<a href="StadiumInfo.html"  th:href="@{/matchGetIt/stadium/{stdName}(stdName=${list.stdName})}"><p th:text="${list.stdName}"></p></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="page">
+				<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+					<a class="num" th:if="${page != nowPage}" th:href="@{/matchGetIt/stadium(page=${page}-1)}" th:text="${page}"></a>
+					<strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+				</th:block>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<th:block layout:fragment="script">
+
+</th:block>
+</html>
+

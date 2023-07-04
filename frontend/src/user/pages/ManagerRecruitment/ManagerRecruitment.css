@@ -1,0 +1,64 @@
+.recruitment-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.recruitment-info {
+  margin-bottom: 10px;
+}
+
+.recruitment-info label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.recruitment-info input[type="text"],
+.recruitment-info textarea {
+  width: 100%;
+  height: 100px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.recruitment-info input[type="submit"] {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #07b4f8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.recruitment-popup {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.label-text {
+     margin-top: 5px;
+   }
+
+   input[type=submit] {
+     display: flex;
+     padding: 12px 24px;
+     font-size: 12px;
+     font-weight: 600;
+     text-align: center;
+     text-decoration: none;
+     border-radius: 12px;
+     cursor: pointer;
+     background-color: #07b4f8;
+     color: #ffffff;
+     border: none;
+     transition: background-color 0.3s ease;
+     margin-bottom: 5px;
+     justify-content: center;
+     align-items: center;
+   }

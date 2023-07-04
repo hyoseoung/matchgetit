@@ -1,0 +1,74 @@
+
+select {
+    min-width: 150px;
+    box-shadow: 0 4px 5px 0 #00000026;
+    position: relative;
+    z-index: 10;
+    list-style-type: none;
+    height: 30px;
+}
+
+.creditWithdraw {
+    text-align: center;
+}
+
+.WithdrawBtn {
+    background-color: #FFE001;
+    border: 1px solid #FFE001;
+    width: 50px;
+    border-radius: 20px;
+    height: 23px;
+    font-weight: bold;
+}
+
+
+input[type=text] {
+    height: 20px;
+}
+
+
+.withdrawable_Amount, .account_Info {
+    background-color:  #E6ECF1;
+    border: 1px solid #6B6B6B;
+    width: 60%;
+    min-width: 300px;
+    max-width: 500px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 40px auto 0;
+}
+
+h2 {
+    display: inline-block;
+}
+
+.WithdrawBtn {
+    margin-left: 10%;
+}
+
+.account_Info h4 {
+    display: inline-block;
+}
+.account_Info input, select {
+    margin-left: 8%;
+}
+
+.withdrawCompBtn{
+    text-align: center;
+    width: 100px;
+    background-color: #00BFFF;
+    border-radius: 20px;
+    height: 40px;
+    color: white;
+    border: 1px solid #CFCFCF
+}
+
+
+
+.withdrawComp{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+

@@ -1,0 +1,85 @@
+div.logInOutBtnArea{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+    position: fixed;
+    height:auto;
+    top: 0;
+    right: 1rem;
+    z-index: 4;
+  font-size: 18px;
+  font-weight: bold;
+}
+.sessionIdArea{
+  margin: 10px;
+  padding: 0.5em 1em;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border-radius: 0.6em;
+  border: transparent;
+  /*cursor: pointer;*/
+  display: flex;
+  align-self: center;
+  line-height: 1;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  /* background-image: linear-gradient(45deg, #3e57e6 50%, transparent 50%); */
+  background-color: #f87171;
+  background-position: 100%;
+  background-size: 400%;
+  transition: background 300ms ease-in-out;
+}
+.logInOutBtnAccount {
+  background-color: #00BFFF;
+  color: white;
+  padding: 0.1em 1.0em;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+.logInOutBtn {
+    box-sizing: border-box;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border-radius: 0.6em;
+  border: transparent;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 1em;
+  padding: 1.2em 2.8rem;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  margin: 10px;
+  padding: 0.5em 1.0em;
+  font-size: 0.9rem;
+    color: #ffffff;
+    background-image: linear-gradient(45deg, #3e57e6 50%, transparent 50%);
+    background-color: #00BFFF;
+    background-position: 100%;
+    background-size: 400%;
+    transition: background 300ms ease-in-out;
+  }
+  .logInOutBtn:hover {
+    background-position: 0;
+  }
+  @media (max-width: 767px) {
+    .logInOutBtn {
+      margin: 10px;
+      padding: 0.5em 1.0em;
+      font-size: 0.9rem;
+    }
+  }

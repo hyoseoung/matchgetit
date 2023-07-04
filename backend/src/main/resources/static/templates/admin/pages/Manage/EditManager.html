@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/styles/layouts/AdminpageLayout}">
+
+<head>
+  <style>
+    .form-container {
+      max-width: 500px;
+    }
+
+    .form-container h2 {
+      color: #336633;
+    }
+
+    .form-container label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .form-container label > span {
+      flex-basis: 150px;
+      margin-right: 10px;
+    }
+
+    .form-container input[type="text"],
+    .form-container select,
+    .form-container textarea {
+      flex-grow: 1;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+
+    .form-container textarea {
+      height: 100px;
+      width: 100%
+    }
+
+    .form-container button {
+      padding: 8px 20px;
+      background-color: #99cc99;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<section layout:fragment="content">
+  <div>
+    <div class="form-container">
+
+      <div class="managerEntity-info-title">
+        <h2>매니저 정보 수정</h2>
+      </div>
+      <form id="editForm">
+        <p>매니저 번호: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span th:text="${manager.managerDTO.managerId}"></span></p><br>
+
+        <label>
+          <span>매니저 이름:</span>
+          <input type="text" id="name" name="name" placeholder="매니저 이름" th:value="${manager.name}" readonly>
+        </label>
+
+        <label>
+          <span>연락처:</span>
+          <input type="text" id="contact" name="contact" th:value="${manager.pn}" readonly>
+        </label>
+
+        <label>
+          <span>성별:</span>
+          <label><input type="radio" name="gender" value="남자" th:checked="${manager.gender == 'MALE'}" onclick="updateGender('MALE')"> 남자</label>
+          <label><input type="radio" name="gender" value="여자" th:checked="${manager.gender == 'FEMALE'}" onclick="updateGender('FEMALE')"> 여자</label>
+        </label>
+
+        <label for="status">
+          <span>상태:</span>
+          <select id="status" name="status" required>
+            <option value="active" th:selected="${manager.managerDTO.employmentStatus.name() == 'active'}">활동 중</option>
+            <option value="leave" th:selected="${manager.managerDTO.employmentStatus.name() == 'leave'}">휴직</option>
+          </select>
+        </label>
+
+        <div id="leave-info">
+          <h3>휴직 기간</h3>
+
+          <label>
+            <span>휴직 시작일:</span>
+            <input type="date" id="leaveStartDate" name="leaveStartDate" th:value="${manager.managerDTO.leaveStartDate}">
+          </label>
+
+          <label>
+            <span>휴직 종료일:</span>
+            <input type="date" id="leaveEndDate" name="leaveEndDate" th:value="${manager.managerDTO.leaveEndDate}">
+          </label>
+
+          <label for="leaveReason">휴직 사유:</label>
+          <textarea id="leaveReason" name="leaveReason" th:text="${manager.managerDTO.leaveReason}"></textarea>
+        </div>
+
+        <div class="button-container">
+          <button type="submit" style="margin-right: 10px;">수정사항 저장</button>
+          <button onclick="goBack()" style="margin-right: 10px;">뒤로가기</button>
+          <button onclick="confirmDelete()" data-manager-id="${manager.userId}">매니저 삭제</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<th:block layout:fragment="script">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  $(document).ready(function () {
+  if ('[[${manager.gender}]]' === 'MALE') {
+    $('input[name="gender"][value="남자"]').prop('checked', true);
+  } else {
+    $('input[name="gender"][value="여자"]').prop('checked', true);
+  }
+});
+
+
+  $(document).ready(function () {
+  // 폼 제출 이벤트 리스너 추가
+  $('#editForm').on('submit', function (event) {
+    event.preventDefault(); // 폼 제출 이벤트의 기본 동작 방지
+
+    // 수정된 매니저 정보를 담을 객체 생성
+    var updatedManager = {
+      user: {
+        name: $('#name').val(),
+        pn: $('#contact').val(),
+        gender: $('input[name="gender"]:checked').val()
+      },
+      employmentStatus: $('#status').val(),
+      leaveStartDate: $('#leaveStartDate').val(),
+      leaveEndDate: $('#leaveEndDate').val(),
+      leaveReason: $('#leaveReason').val()
+    };
+
+    // 서버로 수정된 매니저 정보 전송
+    var managerId = [[${manager.managerDTO.managerId}]];
+    $.ajax({
+      type: 'PUT',
+      url: '/matchGetIt/manager/EditManager/updateManager/' + managerId,
+      data: JSON.stringify(updatedManager),
+      contentType: 'application/json',
+      success: function (response) {
+        if (response === "success") {
+          alert("수정사항이 저장되었습니다.");
+          // 필요한 처리 작업 수행
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+        alert("수정사항 저장 중 오류가 발생했습니다.");
+
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      }
+    });
+  });
+});
+
+$(document).ready(function () {
+  var statusSelect = $('#status');
+  var leaveInfoContainer = $('#leave-info');
+
+  // 초기 휴직 정보 표시 여부 설정
+  updateLeaveInfoDisplay();
+
+  // 상태 변경 시 휴직 정보 표시 여부 업데이트
+  statusSelect.on('change', function () {
+    updateLeaveInfoDisplay();
+  });
+
+  function updateLeaveInfoDisplay() {
+    if (statusSelect.val() === 'leave') {
+      leaveInfoContainer.show();
+    } else {
+      leaveInfoContainer.hide();
+    }
+  }
+
+  // 페이지 로드 시에도 초기 휴직 정보 표시 여부 설정
+  $(window).on('load', function() {
+    updateLeaveInfoDisplay();
+  });
+});
+
+console.log(statusSelect.val());
+console.log(leaveInfoContainer.is(":visible"));
+
+
+// 뒤로가기
+function goBack() {
+  event.preventDefault();
+  window.history.back();
+}
+
+// 매니저 삭제 버튼
+function confirmDelete() {
+  var managerId = [[${manager.userId}]];
+  if (confirm("정말 삭제하시겠습니까?")) {
+    $.ajax({
+      type: 'PUT',
+      url: '/matchGetIt/manager/deactivate/' + managerId,
+      success: function (response) {
+        if (response === "매니저 삭제하였습니다.") {
+          alert("매니저가 성공적으로 탈퇴되었습니다.");
+          window.location.href = "http://localhost:8081/matchGetIt/manager/managers"; // 매니저 목록 페이지로 이동
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+        alert("매니저 탈퇴 중 오류가 발생했습니다.");
+      }
+    });
+  }
+}
+
+</script>
+</th:block>
+
+</html>
+

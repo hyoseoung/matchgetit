@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/styles/layouts/AdminpageLayout}">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        input {
+            border: 1px solid #bbb;
+            font-size: 12px;
+            height: 10px;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            text-align: center;
+            border: 1px solid #cccccc;
+            height: 20px;
+            width: 20px;
+        }
+
+        #edit_stdBtn, #delete_stdBtn{
+            text-align: center;
+            font-size: 12px;
+            width: 80px;
+            height: 35px;
+            background-color: #00BFFF;
+            border: 1px solid rgba(154, 154, 154, 0.35);
+            border-radius: 25px;
+            color: #FFFFFF;
+            transform: rotate(-0.02deg);
+            margin-left: 20px;
+        }
+
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: #384047;
+        }
+
+        h1 {
+            margin: 0 0 30px 0;
+            text-align: center;
+        }
+
+        button {
+            padding: 19px 39px 18px 39px;
+            color: #FFF;
+            background-color: #4bc970;
+            font-size: 18px;
+            text-align: center;
+            font-style: normal;
+            border-radius: 5px;
+            width: 100%;
+            border: 1px solid #3ac162;
+            border-width: 1px 1px 3px;
+            box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+            margin-bottom: 10px;
+        }
+        fieldset {
+            margin-bottom: 30px;
+            border: none;
+        }
+    </style>
+</head>
+
+<section layout:fragment="content">
+    <div>
+        <div class="std_Info" >
+            <div class="std_InfoForm">
+                <h2 th:text="${list.stdName}"></h2>
+                <img th:src="${list.stdImgUrl}" style="height: 400px; width: 500px">
+                <fieldset>
+                    <p th:text="${list.stdAddress}"></p>
+                    <p th:text="${list.stdLink}"></p>
+                    <p th:text="${list.stdPn}"></p>
+                </fieldset>
+            </div>
+            <div class="std_InfoBtn">
+                <input type="button" value="수정" placeholder="수정" id="edit_stdBtn" onclick='location.href="EditStadium.html"' th:onclick="|location.href='@{/matchGetIt/stadium/{stdName}/edit(stdName=${list.stdName})}'|"></input>
+                <input type="button" value="삭제" placeholder="삭제" id="delete_stdBtn" th:attr="data-stdName=${list.stdName}" onclick="deleteStadium()">
+                <!--          <input type="button" value="삭제" placeholder="삭제" id="delete_stdBtn" onclick="deleteStadium()" th:onclick="|location.href='@{/stadium/{stdName}/delete(stdName=${list.stdName})}'|" ></input>-->
+            </div>
+        </div>
+    </div>
+</section>
+
+<th:block layout:fragment="script">
+    <script>
+        function deleteStadium() {
+            var stdName = document.getElementById('delete_stdBtn').getAttribute('data-stdName');
+            if (confirm("삭제하시겠습니까?")) {
+                alert("구장정보가 삭제되었습니다.");
+                redirectToUrl(stdName);
+            }
+        }
+
+        function redirectToUrl(stdName) {
+            location.href = '/matchGetIt/stadium/' + stdName + '/delete';
+        }
+    </script>
+</th:block>
+</html>
+

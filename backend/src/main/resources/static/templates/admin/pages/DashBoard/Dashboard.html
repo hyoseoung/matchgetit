@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>매치기릿 관리자 페이지</title>
+
+    <link rel="stylesheet" th:href="@{/css/AdminHeader.css}" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        .info-tile {
+            /* border: 1px solid gray; */
+            /* background-color: rgb(180, 236, 255); */
+            box-shadow: 0 0 7px gray;
+            padding: 20px;
+            border-radius: 7px;
+            margin: 20px;
+            /*width: 250px; height: 250px;*/
+            overflow: auto;
+        }
+
+        .flexbox {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flexbox-row {
+            display: flex;
+        }
+
+        .flexItem {
+            text-align: center;
+            /*border: 1px solid lightgray;*/
+        }
+
+        .tile-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            /*margin-bottom: 10px;*/
+        }
+
+        .tile-body {
+            flex: 1;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .tile-body2 {
+            flex: 1;
+            padding-top: 10px;
+            justify-content: space-around;
+        }
+
+        .container {
+            padding: 50px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /*grid-template-rows: repeat(2, 1fr);*/
+            grid-auto-rows: 320px;
+            padding-right: 20px;
+        }
+
+        .stadium .flexbox {
+            background-color: #f1f1f1;
+            padding: 5px 10px;
+        }
+
+        .stadium .flexbox span:first-child {
+            margin-bottom: 5px;
+        }
+
+        .msgtile {
+            overflow: auto;
+            justify-content: flex-start;
+        }
+
+        .msgbox {
+            padding: 5px;
+            border: 1px solid lightgray;
+            border-radius: 7px;
+            margin: 5px 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .msgtitle {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .msgtile .tile-body {
+            align-items: normal;
+        }
+
+        .weather .flexbox {
+            padding: 5px;
+            border: 1px solid lightgray;
+        }
+
+        .weather .flexbox img {
+            margin: 3px 0;
+        }
+
+        .notify {
+            grid-row: 1/span 2;
+            grid-column: 4;
+            /*border: 1px solid gray;*/
+            margin-left: 20px;
+            box-shadow: 0 0 7px gray;
+        }
+
+        .notify-header {
+            padding: 20px;
+            padding-bottom: 0;
+            font-size: 1.5rem;
+        }
+
+        .notify-content {
+            padding: 5px 20px;
+            overflow: auto;
+        }
+
+        .notify-content div {
+            padding: 5px;
+            border: 1px solid lightgray;
+        }
+
+        .notify-content span:first-child {
+            color: #a6a6a6;
+        }
+
+        .notify-content span:last-child {
+            color: #a6a6a6;
+            font-size: 0.9rem;
+        }
+
+        .user {
+            grid-column: 1/span 3;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .user canvas {
+            /*flex: 2;*/
+        }
+
+        .user .tile-header {
+            width: 150px;
+        }
+
+        .user .flexItem {
+            background-color: #f1f1f1;
+            width: 300px;
+            padding: 7px;
+        }
+
+        .manager .flexItem, .match .flexItem {
+            background-color: #f1f1f1;
+            width: 300px;
+            padding: 3px;
+        }
+
+        #test {
+            position: absolute;
+            top: 130px;
+            right: 30px;
+        }
+    </style>
+    <!-- <th:block th:replace="~{admin/AdminHeader.html::style}"></th:block> -->
+</head>
+<body>
+<!--<div th:replace="~{admin/AdminHeaderSimple.html::header}"></div>-->
+
+<header th:replace="~{/admin/components/Header/AdminHeader.html::header}"></header>
+<nav th:replace="~{/admin/components/Sidebar/NavigationBar.html::nav}"></nav>
+
+<section class="container">
+    <div class="info-tile flexbox user">
+        <div class="tile-header">
+            <span>유저</span>
+        </div>
+        <canvas id="userChart"></canvas>
+        <div class="flexbox tile-body">
+            <div class="flexItem">
+                <span>총 회원 수: <span th:text="${userCounts.get('allUsers')}">00</span>명</span>
+            </div>
+            <div class="flexItem">
+                <span>금일 신규 회원 수: <span th:text="${userCounts.get('signUpToday')}">00</span>명</span>
+            </div>
+            <div class="flexItem">
+                <span>현재 매칭 중인 회원: <span :text="${userCounts.get('signUpToday')}">00</span>명</span>
+            </div>
+            <div class="flexItem">
+                <span>금일 탈퇴 회원 수: <span :text="${userCounts.get('signUpToday')}">00</span>명</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-tile flexbox manager">
+        <div class="tile-header">
+            <span>매니저</span>
+        </div>
+        <div class="flexbox tile-body">
+            <div class="flexItem">
+                <span>총 매니저 수: <span th:text="${managerCounts.get('allManagers')}">00</span>명</span>
+            </div>
+            <div class="flexItem">
+                <span>배정된 매니저 수: <span th:text="${managerCounts.get('assigned')}">00</span>명</span>
+            </div>
+            <div class="flexItem">
+                <span>미배정 매니저 수: <span th:text="${managerCounts.get('notAssigned')}">00</span>명</span>
+            </div>
+            <div class="flexItem">
+                <span>금일 휴무 매니저 수: <span th:text="${managerCounts.get('leftManagers')}">00</span>명</span>
+            </div>
+            <div class="flexItem">
+                <span>정지 매니저 수: <span th:text="${managerCounts.get('bannedManagers')}">00</span>명</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-tile flexbox msgtile">
+        <div class="tile-header">
+            <span>채팅 상담</span>
+        </div>
+        <div class="flexbox-row" style="margin: 10px 0;">
+            <span>전체: 00</span>
+            <span style="white-space: pre">&#9;</span>
+            <span>접수 대기/처리 중: 00</span>
+        </div>
+        <div class="flexbox tile-body">
+            <div class="msgbox">
+                <span class="msgtitle">상담 012347</span><br>
+                <span>임유진: 경기를 취소하고 싶은데요</span>
+            </div>
+            <div class="msgbox">
+                <span class="msgtitle">상담 012345</span><br>
+                <span>상담사: 네 잠시만 기다려주세요</span>
+            </div>
+            <div class="msgbox">
+                <span class="msgtitle">상담 012346</span><br>
+                <span>김선명: 결제가 자꾸 오류나요</span>
+            </div>
+            <div class="msgbox">
+                <span class="msgtitle">상담 012341</span><br>
+                <span>김준현: (이미지)</span>
+            </div>
+            <div class="msgbox">
+                <span class="msgtitle">상담 012341</span><br>
+                <span>000: 내용이 기이이이이이이이이이이이인 메시지</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-tile flexbox stadium">
+        <div class="tile-header">
+            <span>구장</span>
+        </div>
+        <div class="flexbox-row tile-body2">
+            <div class="flexbox">
+                <span>매칭 중</span>
+                <span>00구장</span>
+                <span>00구장</span>
+            </div>
+            <div class="flexbox">
+                <span>매칭 가능</span>
+                <span>00구장</span>
+                <span>00구장</span>
+            </div>
+            <div class="flexbox">
+                <span>매칭 불가</span>
+                <span>00구장</span>
+                <span>00구장</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-tile flexbox match">
+        <div class="tile-header">
+            <span>경기</span>
+        </div>
+        <div class="flexbox tile-body">
+            <div class="flexItem">
+                <span>오늘 예약된 경기: 00개</span>
+            </div>
+            <div class="flexItem">
+                <span>진행 중인 경기: 00개</span>
+            </div>
+            <div class="flexItem">
+                <span>진행 예정인 경기: 00개</span>
+            </div>
+            <div class="flexItem">
+                <span>오늘 완료된 경기: 00개</span>
+            </div>
+            <div class="flexItem">
+                <span>오늘 취소된 경기: 00개</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-tile flexbox weather">
+        <div class="tile-header">
+            <span>날씨</span>
+        </div>
+        <div style="margin-top: 5px">
+            <span>서울시 금천구</span>
+        </div>
+        <div class="flexbox-row tile-body2">
+            <div class="flexbox">
+                <span>6/1</span>
+                <img src="/templates/admin/styles/img/mainball.png" alt="Match Get it 로고" style="width: 50px; height: auto;">
+                <span>00~00도</span>
+                <span>강수 확률<br>00%</span>
+            </div>
+            <div class="flexbox">
+                <span>6/2</span>
+                <img src="/templates/admin/styles/img/mainball.png" alt="Match Get it 로고" style="width: 50px; height: auto;">
+                <span>00~00도</span>
+                <span>강수 확률<br>00%</span>
+            </div>
+            <div class="flexbox">
+                <span>6/3</span>
+                <img src="/templates/admin/styles/img/mainball.png" alt="Match Get it 로고" style="width: 50px; height: auto;">
+                <span>00~00도</span>
+                <span>강수 확률<br>00%</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="test" onclick="$('.notify').show(); $('#test').hide();">
+        <b style="font-size: 1.2rem">알림창 열기</b>
+    </div>
+
+    <div class="notify" style="display: none;">
+        <div class="notify-header">
+            알림
+            <span style="float: right;" onclick="$('.notify').hide(); $('#test').show();"> > </span>
+            <hr>
+        </div>
+
+        <div class="notify-content">
+            <div>
+                <span>경기 취소</span><br>
+                <span>경기 취소 요청이 있습니다.</span><br>
+                <span>2023년 00월 00일</span>
+            </div>
+        </div>
+
+        <div class="notify-content">
+            <div>
+                <span>채팅 상담</span><br>
+                <span>000 회원이 채팅 상담을 요청했습니다.</span><br>
+                <span>2023년 00월 00일</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const userChartArea = document.getElementById("userChart").getContext("2d");
+    // var userChart =
+    new Chart(userChartArea, {
+        type: 'line',
+        data: {
+            labels: ['06/20', '06/21', '06/22', '06/23', '06/24', '06/25', '06/26'],
+            datasets: [{
+                label: '총 회원 수 현황',
+                data: [188, 193, 200, 210, 225, 232, 240],
+                borderWidth: 1
+            }]
+        },
+        // options: {
+        //     scales: {
+        //         y: {
+        //             beginAtZero: true
+        //         }
+        //     }
+        // }
+    });
+</script>
+
+<th:block th:replace="~{/admin/components/Sidebar/NavigationBar.html::navFunc}" th:inline="javascript"></th:block>
+
+</body>
+</html>

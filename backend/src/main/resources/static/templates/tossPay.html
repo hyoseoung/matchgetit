@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://js.tosspayments.com/v1/payment"></script>
+</head>
+<body>
+<script>
+    var clientKey = 'test_ck_YZ1aOwX7K8mxZAXgEzQryQxzvNPG'
+    var tossPayments = TossPayments(clientKey)
+    tossPayments.requestPayment('카드', {
+        amount: [[${payment}]],
+        orderId: 'AD8aZDpbzXs4EQa-UkIX6',
+        orderName: '매치기릿 포인트 충전',
+        customerName: '[[${user.name}]]',
+        successUrl: 'http://localhost:8081/matchGetIt/pay/success',
+        failUrl: 'http://localhost:3000/',
+    })
+        .catch(function (error) {
+            if (error.code === 'USER_CANCEL') {
+                location.href='http://localhost:8081/matchGetIt/pay/fail';//취소 시 네이버 사이트
+            } else if (error.code === 'INVALID_CARD_COMPANY') {
+                location.href='http://localhost:8081/matchGetIt/pay/fail';//에러날 시 다음 사이트
+            }
+        });
+
+    // 성공 시 결제 정보를 POST로 전달
+    function onSuccess(amount, paymentMethod) {
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', 'http://localhost:8081/matchGetIt/pay/success');
+
+        var amountField = document.createElement('input');
+        amountField.setAttribute('type', 'hidden');
+        amountField.setAttribute('name', 'amount');
+        amountField.setAttribute('value', amount);
+
+        var paymentMethodField = document.createElement('input');
+        paymentMethodField.setAttribute('type', 'hidden');
+        paymentMethodField.setAttribute('name', 'paymentMethod');
+        paymentMethodField.setAttribute('value', paymentMethod);
+        form.appendChild(amountField);
+        form.appendChild(paymentMethodField);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+</body>
+</html>
+
+
+
+

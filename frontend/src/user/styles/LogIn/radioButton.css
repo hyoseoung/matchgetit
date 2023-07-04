@@ -1,0 +1,50 @@
+input[type=radio] {display:none;}
+.radio-label {
+  display:inline-block;
+  width:auto;
+  height:30px;
+  padding:0 20px;
+  border:1px solid rgba(0,0,0,0.08);
+  margin-right:20px;
+  background:#ddd;
+  line-height:30px;
+  cursor:pointer;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.radio-label i {
+  margin-right:10px;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-out;
+  -moz-transition: opacity 0.3s ease-out;
+  -ms-transition: opacity 0.3s ease-out;
+  -o-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+.radio:checked + .radio-label {background:rgba(4, 120, 193,0.1);
+}
+.radio:checked + .radio-label i { opacity: 1;}
+.radio + .radio-label span {
+    display:inline-block;
+    font-size:13px;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+  -webkit-transform:translateX(-13px);
+  -moz-transform:translateX(-13px);
+  -ms-transform:translateX(-13px);
+  -o-transform:translateX(-13px);
+  transform:translateX(-13px);
+}
+.radio:checked + .radio-label span {
+  -webkit-transform:translateX(0);
+  -moz-transform:translateX(0);
+  -ms-transform:translateX(0);
+  -o-transform:translateX(0);
+  transform:translateX(0);
+}

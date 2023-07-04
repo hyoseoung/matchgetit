@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/styles/layouts/AdminpageLayout}">
+
+<head>
+    <title>ManagerApplicantDetailsView</title>
+    <style>
+    .managerEntity-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .user-info-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .user-info-title h2 {
+        font-size: 1.5em;
+        color: #336633;
+    }
+
+    .user-info-title button {
+        margin-left: 10px;
+        padding: 5px 10px;
+        font-size: 1em;
+        background-color: #99cc99;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    </style>
+</head>
+
+<section layout:fragment="content">
+    <div id="user-info">
+
+        <div class="user-info-title">
+            <!-- 매니저 지원자 유저 정보를 표시할 부분 -->
+            <h2>
+                <span th:text="${member.name}"></span>지원자의 정보
+                <button onclick="registerManager()" style="margin-left: 100px;">등록</button>
+                <button onclick="rejectRegistration()">등록 거절</button>
+            </h2>
+        </div>
+        <p>유저 번호: <span th:text="${member.userId}"></span></p><br>
+        <p>지원자 이름: <span th:text="${member.name}"></span></p>
+        <p>연락처: <span th:text="${member.pn}"></span></p>
+        <p>성별: <span th:text="${member.gender}"></span></p><br>
+        <p>숙련도: <span th:text="${member.rating}"></span></p><br>
+        <p>가입일: <span th:text="${member.regDate}"></span></p><br>
+        <!-- managerSupportRecordDTO의 activityZone 표시 -->
+        <p>희망 활동 지역: <span th:text="${member.managerSupportRecordDTO != null ? member.managerSupportRecordDTO.activityZone : '-'}"></span></p>
+        <p>지원일: <span th:text="${member.managerSupportRecordDTO != null ? member.managerSupportRecordDTO.submissionDate : '-'}"></span></p><br>
+    </div>
+</section>
+
+<th:block layout:fragment="script">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../components/js/loadAdminNB.js"></script>
+    <script>
+    function registerManager() {
+        var userId = [[${member.userId}]];
+        if (confirm("등록하시겠습니까?")) {
+            // 서버로 데이터 전송
+            $.ajax({
+                type: 'PUT',
+                url: `/matchGetIt/registerManager/${userId}`,
+                success: function(response) {
+                    alert(response);
+                    // 등록 완료 메시지 출력
+                    alert("등록이 완료되었습니다.");
+                    // ManagerApplicantsList 페이지로 이동하는 코드 작성
+                    window.location.href = "http://localhost:8081/matchGetIt/getSupportedUsers";
+                },
+                error: function(error) {
+                    console.error(error);
+                    alert("등록 중 오류가 발생했습니다.");
+                }
+            });
+        }
+    }
+
+    function rejectRegistration() {
+        var userId = [[${member.userId}]];
+        if (confirm("등록을 거절하시겠습니까?")) {
+            // 서버로 데이터 전송
+            $.ajax({
+                type: 'PUT',
+                url: `/matchGetIt/rejectRegistration/${userId}`,
+                success: function(response) {
+                    alert(response);
+                    // 등록 완료 메시지 출력
+                    alert("등록이 거절되었습니다.");
+                    // ManagerApplicantsList 페이지로 이동하는 코드 작성
+                    window.location.href = "http://localhost:8081/matchGetIt/getSupportedUsers";
+                },
+                error: function(error) {
+                    console.error(error);
+                    alert("등록 중 오류가 발생했습니다.");
+                }
+            });
+        }
+    }
+</script>
+</th:block>
+
+</html>
+
+
+

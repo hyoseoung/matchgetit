@@ -1,0 +1,63 @@
+.socialButton {
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 1%;
+    cursor: pointer;
+    transition: background-color, border 0.3s ease;
+    border: 1px solid transparent; /* 초기에는 테두리가 없도록 설정 */
+    background-color: transparent;
+    width: 40%;
+    height: 20%;
+  }
+
+/*.buttonImage {*/
+/*    width: 100%; !* 원하는 이미지 너비로 조정하세요 *!*/
+/*    height: 10%; !* 원하는 이미지 높이로 조정하세요 *!*/
+/*    border-radius: 0.6em;*/
+/*    background-color: transparent;*/
+/*}*/
+/*.buttonImage:hover {*/
+/*    width: 100%; !* 원하는 이미지 너비로 조정하세요 *!*/
+/*    height: 10%; !* 원하는 이미지 높이로 조정하세요 *!*/
+/*    border-radius: 0.6em;*/
+/*    border: 1px solid gray; !* 호버 시 회색 테두리 추가 *!*/
+/*}*/
+
+
+  .kakaoButton {
+      background-color: rgb(254,229,0);
+      border-radius: 0.6em;
+      width: 80%;
+
+  }
+
+  .kakaoButton:hover {
+    background-color: rgb(254,229,0);
+    border-color: grey; /* 호버 시 테두리 색상 추가 */
+  }
+
+  .googleButton {
+      border-radius: 0.6em;
+      width: 80%;
+      height: 10%;
+      background-color: #ffffff;
+  }
+
+  .googleButton:hover {
+    background-color: #cfcfcf;
+    border-color: grey; /* 호버 시 테두리 색상 추가 */
+  }
+
+  .naverButton {
+      border-radius: 0.6em;
+      width: 80%;
+      height: 10%;
+      background-color: #1ec800;
+
+  }
+
+  .naverButton:hover {
+    background-color: rgba(30, 200, 0);
+    border-color: grey; /* 호버 시 테두리 색상 추가 */
+  }
