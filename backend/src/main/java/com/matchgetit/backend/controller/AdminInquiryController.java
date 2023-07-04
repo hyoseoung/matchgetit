@@ -27,12 +27,13 @@ public class AdminInquiryController {
     private final String path = "admin/pages/Inquiry/";
     private final String alertViewPath = "admin/components/Utils/alert";
 
-    @PostConstruct
-    public void createInquiries() {
-        inquiryService.createInquiries();
-    }
+//    @PostConstruct
+//    public void createInquiries() {
+//        inquiryService.createInquiries();
+//    }
 
 
+    // 문의 게시판
     @GetMapping({"/inquiryBoard", "/inquiryBoard/{page}"})
     public String board(Model model, @PathVariable("page") Optional<Integer> page, SearchInquiryDTO searchInquiryDTO) {
         Integer temp = searchInquiryDTO.getPageSize();
@@ -40,7 +41,7 @@ public class AdminInquiryController {
 
         Pageable pageable = PageRequest.of(page.orElse(0), pageSize);
         Page<InquiryDTO> inquiryList = inquiryService.getPageableInquiryList(searchInquiryDTO, pageable);
-        System.out.println(inquiryList.getContent().get(0));
+//        System.out.println(inquiryList.getContent().get(0));
 
 //        List<InquiryDTO> inquiryList = inquiryService.getInquiryList();
         model.addAttribute("inquiryList", inquiryList);
@@ -49,6 +50,7 @@ public class AdminInquiryController {
         return path + "InquiryBoard";
     }
 
+    // 선택한 게시물 삭제
     @DeleteMapping("/inquiryBoard")
     @ResponseBody
     public ResponseEntity<String> deleteInquiry(@RequestParam(value = "arr[]") String[] inquiries) {
@@ -59,29 +61,36 @@ public class AdminInquiryController {
     }
 
 
-
+    // 개별 게시글 조회
     @GetMapping("/inquiry/{inquiryId}")
     public String view(Model model, @PathVariable Long inquiryId) {
         try {
             InquiryDTO inquiryDTO = inquiryService.getInquiry(inquiryId);
             model.addAttribute("post", inquiryDTO);
+            model.addAttribute("commentDTO", new InquiryCommentDTO());
+            return path + "InquiryPost";
         }
         catch (EntityNotFoundException e) {
-            model.addAttribute("post", new InquiryDTO());
+            model.addAttribute("msg", "존재하지 않는 게시물입니다.");
+            model.addAttribute("url", "/matchGetIt/admin/inquiryBoard");
+            return alertViewPath;
         }
-        model.addAttribute("commentDTO", new InquiryCommentDTO());
-        return path + "InquiryPost";
     }
 
+    // 개별 게시글 삭제
     @GetMapping("/deleteInquiry/{inquiryId}")
-    public String deleteInquiry(@PathVariable Long inquiryId) {
+    public String deleteInquiry(@PathVariable Long inquiryId, Model model) {
 //        System.out.println(">>>>>>>>>>>>"+inquiryId);
         inquiryService.deleteInquiry(inquiryId);
-        return "redirect:/matchGetIt/admin/inquiryBoard";
+//        return "redirect:/matchGetIt/admin/inquiryBoard";
+        model.addAttribute("msg", "삭제하였습니다.");
+        model.addAttribute("url", "/matchGetIt/admin/inquiryBoard");
+        return alertViewPath;
     }
 
 
 
+    // 댓글 작성
     @PostMapping("/inquiry/{inquiryId}")
     public String writeComment(InquiryCommentDTO commentDTO, @PathVariable Long inquiryId) {
 //        System.out.println(">>>>>>>>>>>>"+commentDTO);
@@ -89,6 +98,7 @@ public class AdminInquiryController {
         return "redirect:/matchGetIt/admin/inquiry/"+inquiryId;
     }
 
+    // 댓글 수정
     @PatchMapping("/inquiry/editComment")
     public @ResponseBody ResponseEntity<String> editComment(@RequestParam String content, @RequestParam Long commentId) {
 //        System.out.println(">>>>>>>>>>>>"+commentDTO);
@@ -97,6 +107,7 @@ public class AdminInquiryController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // 댓글 삭제
     @DeleteMapping("/inquiry/deleteComment")
     public @ResponseBody ResponseEntity<String> deleteComment(@RequestParam Long commentId) {
         System.out.println(">>>>>>>>>>>>"+commentId);

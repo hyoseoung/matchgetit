@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Controller
@@ -29,7 +31,7 @@ public class AdminUserController {
 
     @PostConstruct
     public void createUsers() {
-        userService.createUsers();
+//        userService.createUsers();
     }
 
 //    @GetMapping(value = "")
@@ -123,8 +125,42 @@ public class AdminUserController {
     }
 
 
+
     @GetMapping("/banUser/{userId}")
-    public String banUser(@PathVariable("userId") Long userId) {
-        return path + "UserBan";
+    public String banUserPage(Model model, @PathVariable Long userId) {
+        try {
+            AdminPageUserDTO userDto = userService.getUserInfo(userId);
+            model.addAttribute("user", userDto);
+//            System.out.println(userDto.getBanDateStart().substring(0, 16));
+            return path + "UserBan";
+        }
+        catch (EntityNotFoundException e) {
+            model.addAttribute("msg", "존재하지 않는 회원입니다.");
+            model.addAttribute("url", "/matchGetIt/admin/userList");
+            return alertViewPath;
+        }
+    }
+
+    @PostMapping("/banUser/{userId}")
+    @ResponseBody
+    public ResponseEntity<String> banUser(@PathVariable("userId") Long userId, @RequestParam HashMap<String, String> params) {
+        try {
+            Date banDateStart = Date.valueOf(params.get("banDateStart"));
+            Date banDateEnd = Date.valueOf(params.get("banDateEnd"));
+            userService.banUser(userId, banDateStart, banDateEnd, params.get("banReason"));
+            return new ResponseEntity<>("", HttpStatus.OK);
+        }
+        catch (EntityNotFoundException e) {
+            return new ResponseEntity<>("존재하지 않는 회원입니다.", HttpStatus.NOT_FOUND);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/cancelBan/{userId}")
+    public String cancelBan(@PathVariable("userId") Long userId) {
+        userService.cancelBan(userId);
+        return "redirect:/matchGetIt/admin/userInfo?userId="+userId;
     }
 }

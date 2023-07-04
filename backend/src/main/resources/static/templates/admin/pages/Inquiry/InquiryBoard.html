@@ -143,13 +143,14 @@
             $.ajax({
                 url: "/matchGetIt/admin/inquiryBoard",
                 type: "DELETE",
-                beforeSend: function(xhr) { //XHR : XmlHttpRequest
-                    /* 데이터를 전송하기 전에 헤더에 csrf 값을 설정 */
-                    // xhr.setRequestHeader(header, token);
-                },
                 data: {arr: arr},
                 // dataType : "json",
                 cache: false,
+
+                beforeSend: function(xhr) { //XHR : XmlHttpRequest
+                    /* 데이터를 전송하기 전에 헤더에 csrf 값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
 
                 success: function() {
                     alert("삭제하였습니다.");

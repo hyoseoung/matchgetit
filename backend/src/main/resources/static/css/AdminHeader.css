@@ -1,7 +1,7 @@
 .admin-info {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    /*position: absolute;*/
+    /*top: 20px;*/
+    /*right: 20px;*/
     display: flex;
     align-items: center;
 }
@@ -15,11 +15,23 @@
     color: #333;
     text-decoration: none;
 }
+
 .logo {
     padding-left: 10px;
+    display: flex;
+    /*align-items: center;*/
+    justify-content: space-between;
 }
+
+.logo h3 a {
+    display: flex;
+    align-items: center;
+}
+
+/*.logo h3 a*/
+
 .logo-a {
-    text-decoration: none;
+    /*text-decoration: none;*/
 }
 
 /* 내비게이션 바 스타일 */

@@ -47,8 +47,11 @@ public class MemberService {
         else if(proficiency == Proficiency.MIDDLE)member.setRating(500L);
         else member.setRating(300L);
         member.setRegDate(new Date());
+        member.setLastConnectionDate(new Date());
+        member.setAccountState(AccountState.ACTIVE);
         memberRepository.save(member);
     }
+
     public void socialSignUp(String email, String name, String pn, String birthDay, Gender gender, Proficiency proficiency,AccountType accountType,LogInType logInType) {
         // 이미 존재하는 사용자인지 확인
         if (memberRepository.findByEmail(email) != null) {
@@ -69,6 +72,8 @@ public class MemberService {
         if(proficiency == Proficiency.ADVANCED)member.setRating(800L);
         else if(proficiency == Proficiency.MIDDLE)member.setRating(500L);
         else member.setRating(300L);
+        member.setLastConnectionDate(new Date());
+        member.setAccountState(AccountState.ACTIVE);
         memberRepository.save(member);
     }
     public void googleSignUp(String email, String name,String pn, String birthday, Gender gender, Proficiency proficiency, AccountType accountType, LogInType logInType) {
@@ -108,21 +113,27 @@ public class MemberService {
         }
         return new ModelMapper().map(member, MemberDTO.class);
     }
+
+
     public MemberDTO findMemberById(Long userId){
         MemberEntity memberEntity= memberRepository.findByUserId(userId);
         if(memberEntity ==null) return null;
         else return modelMapper.map(memberEntity,MemberDTO.class);
     }
+
     public MemberDTO findMemberByEmail(String email){
         MemberEntity memberEntity= memberRepository.findByEmail(email);
         if(memberEntity ==null) return null;
         else return modelMapper.map(memberEntity,MemberDTO.class);
     }
+
     public MemberDTO findMemberByPhoneNumber(String pn){
         MemberEntity memberEntity= memberRepository.findByPn(pn);
         if(memberEntity ==null) return null;
         else return modelMapper.map(memberEntity,MemberDTO.class);
     }
+
+
     public void updateParty(Long userId, PartyDTO partyDTO) {
         MemberEntity member = memberRepository.findByUserId(userId);
         if (member == null) {
@@ -136,6 +147,7 @@ public class MemberService {
         member.setParty(partyEntity);
         memberRepository.save(member);
     }
+
     public void deleteParty(Long userId) {
         MemberEntity member = memberRepository.findByUserId(userId);
         if (member == null) {
@@ -145,11 +157,13 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+
     public void updateCredit(Long userId, int value) {
         MemberEntity member = memberRepository.findByUserId(userId);
         member.setOwnedCrd(member.getOwnedCrd()!=null?member.getOwnedCrd():0+value);
         memberRepository.save(member);
     }//결제 시 사용하는 메소드
+
 
     public List<MemberDTO> getAllMembers() {
         List<MemberEntity> memberEntities = memberRepository.findAll();

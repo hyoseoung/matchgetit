@@ -31,6 +31,15 @@
             margin-left: 0;
             margin-top: 10px;
         }
+
+        #cancelBan {
+            padding: 3px 6px;
+            background-color: #99cc99;
+            border: none;
+            color: white;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
     </style>
 
     <script>
@@ -44,9 +53,9 @@
         }
 
         function banUser(userId) {
-            let left = (window.screen.width / 2) - (400/2);
+            let left = (window.screen.width / 2) - (500/2);
             let top = (window.screen.height / 4) - 100;
-            open('banUser/'+userId, '계정 정지', 'width=400, height=500, top='+top+', left='+left);
+            open('banUser/'+userId, '계정 정지', 'width=500, height=600, top='+top+', left='+left);
         }
     </script>
 </head>
@@ -77,10 +86,13 @@
     <div th:if="${user.accountState.name() == 'BANNED'}">
         <p>
             정지 기간:
-            <span th:text="${user.banDateStart}">2023-00-00</span> ~
-            <span th:text="${user.banDateEnd}">2023-00-00</span>
+            <span th:text="${user.banDateStart.substring(0, 10)}">2023-00-00</span> ~
+            <span th:text="${user.banDateEnd.substring(0, 10)}">2023-00-00</span>
         </p>
         정지 사유: <span style="white-space: pre-line;" th:text="${user.banReason}">테스트</span>
+        <p>
+            <button id="cancelBan" th:onclick="|location.href='/matchGetIt/admin/cancelBan/${user.id}';|">정지 해제하기</button>
+        </p>
     </div>
     <br>
     <button type="button" id="back-btn" onclick="location.href='/matchGetIt/admin/userList';">목록으로 돌아가기</button> <!-- history.back(); -->
