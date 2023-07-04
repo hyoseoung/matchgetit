@@ -21,7 +21,7 @@ public class MatchEntity{
     @JoinColumn(name="PARTY_ID")
     private PartyEntity party;
     @ManyToOne
-    @JoinColumn(name="STD_ID",nullable = true)
+    @JoinColumn(name="STD_ID", nullable = true)
     private StadiumEntity stadium;
     @Enumerated(EnumType.STRING)
     @Column(name="ACCEPT")

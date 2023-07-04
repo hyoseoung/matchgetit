@@ -31,7 +31,7 @@ public class AdminDashboardService {
             ManagerEntity manager = new ManagerEntity();
             member.setName("테스터"+i);
             member.setEmail("tester"+i+"@test.com");
-            member.setPn("010-1234-567"+i);
+            member.setPn("010-9876-43"+i);
             member.setPw("1234");
             member.setGender((i%2==0) ? Gender.FEMALE : Gender.MALE);
             member.setBDay(Date.valueOf("1998-06-"+i));

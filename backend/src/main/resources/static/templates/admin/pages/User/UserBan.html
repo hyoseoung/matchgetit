@@ -2,46 +2,120 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>유저 계정 정지</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script>
         $(function() {
-            console.log($("#date-setting button"))
+            // console.log(window.opener)
             $("#date-setting button").on('click', function () {
-                console.log(this)
-                let banDateStart = $("#banDateStart")
-                console.log("시작일: "+banDateStart.val())
-                if (banDateStart.val()) {
-                    console.log("시작일: "+banDateStart);
+                // console.log(this)
+                if (!$("#banDateStart").val()) {
+                    return;
                 }
+                let banDateStart = new Date($("#banDateStart").val())
+                console.log("시작일: "+banDateStart)
+                let period = Array.from(this.value);
+                let banDateEnd;
+                console.log("기간: "+period[0]);
+                switch (period[1]) {
+                    case 'w':
+                        banDateEnd = new Date(banDateStart.setDate(banDateStart.getDate() + 7));
+                        break;
+                    case 'y':
+                        banDateEnd = new Date(banDateStart.setFullYear(banDateStart.getFullYear() + 1));
+                        break;
+                    case 'm':
+                        banDateEnd = new Date(banDateStart.setMonth(banDateStart.getMonth() + parseInt(period[0])));
+                        break;
+                }
+                console.log("종료일: "+banDateEnd);
+                console.log(banDateEnd.toISOString().slice(0, 10));
+                $("#banDateEnd").val(banDateEnd.toISOString().slice(0, 10));
+            });
+
+            $("#today").click(function () {
+                let today = new Date();
+                $("#banDateStart").val(today.toISOString().slice(0, 10))
+            });
+
+            $("#banForm").submit(function () {
+                let token = $("meta[name='_csrf']").attr("content");
+                let header = $("meta[name='_csrf_header']").attr("content");
+                let userId = [[${user.id}]];
+
+                $.ajax({
+                    url: "/matchGetIt/admin/banUser/"+userId,
+                    type: "POST",
+                    data: $(this).serialize(),
+                    // dataType : "json",
+                    cache: false,
+
+                    beforeSend: function(xhr) { //XHR : XmlHttpRequest
+                        /* 데이터를 전송하기 전에 헤더에 csrf 값을 설정 */
+                        xhr.setRequestHeader(header, token);
+                    },
+
+                    success: function(result, status) {
+                        console.log("성공")
+                        alert("계정 정지하였습니다.");
+                        window.opener.location.reload();
+                        self.close();
+                    },
+
+                    error: function(jqXHR, status, error) {
+                        if (jqXHR.status === 401) {
+                            alert("로그인 후 이용해주세요");
+                            // location.href='/members/login';
+                        }
+                        else {
+                            alert(jqXHR.responseText);
+                            if (jqXHR.status === 404) self.close();
+                        }
+                    }
+                });
             })
-        })
+        });
     </script>
+    <style>
+        body > div {
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            margin-right: 30px;
+        }
+    </style>
 </head>
 <body>
-    <h2>계정 정지</h2>
-    <form>
-        <p>
-            <label for="banDateStart">시작일</label>
-            <input type="date" id="banDateStart" name="banDateStart" />
-        </p>
-        <p>
-            <label for="banDateEnd">종료일</label>
-            <input type="date" id="banDateEnd" name="banDateEnd" />
-        </p>
-        <div id="date-setting">
-            <button type="button">1주일</button>
-            <button type="button">1개월</button>
-            <button type="button">3개월</button>
-            <button type="button">6개월</button>
-            <button type="button">1년</button>
-        </div>
-        <br><br>
-        <label for="ban-reason">정지 사유</label><br>
-        <textarea id="ban-reason" rows="5" cols="30"></textarea>
-        <br>
-        <button type="submit">확인</button>
-        <button type="button" onclick="self.close()">취소</button>
-    </form>
+    <div>
+        <form id="banForm">
+            <h2>계정 정지</h2>
+            <p>
+                <label for="banDateStart">시작일</label>
+                <input type="date" id="banDateStart" name="banDateStart" th:value="${user.banDateStart==null ? null : user.banDateStart.substring(0, 10)}" required />&nbsp;
+                <button type="button" id="today">오늘</button>
+            </p>
+            <p>
+                <label for="banDateEnd">종료일</label>
+                <input type="date" id="banDateEnd" name="banDateEnd" th:value="${user.banDateEnd==null ? null : user.banDateEnd.substring(0, 10)}" required />
+            </p>
+            <div id="date-setting">
+                <button type="button" value="1w">1주일</button>
+                <button type="button" value="1m">1개월</button>
+                <button type="button" value="3m">3개월</button>
+                <button type="button" value="6m">6개월</button>
+                <button type="button" value="1y">1년</button>
+            </div>
+            <br><br>
+            <label for="banReason">정지 사유</label><br>
+            <textarea id="banReason" name="banReason" rows="5" cols="30"></textarea>
+            <br>
+            <button type="submit">확인</button>
+            <button type="button" onclick="self.close()">취소</button>
+        </form>
+    </div>
 </body>
 </html>

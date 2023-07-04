@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/styles/layouts/AdminpageLayout}">
+
+<head>
+    <style>
+        #container {
+            display: flex;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 70px
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .match-info-container {
+            display: flex;
+            flex-direction: column;
+            width: fit-content;
+            min-width: 40%;
+            min-height: 30%;
+            margin: 0 50px;
+        }
+
+        .match-info-container > div{
+            border: 1px solid #a6a6a6;
+            padding: 5px 10px;
+        }
+
+        .match-info-container > div:nth-child(2) {
+            display: flex;
+            align-items: center;
+        }
+
+        .match-team td {
+            padding: 2px 5px;
+            text-align: center;
+            /*height: 20px;*/
+            /*width: 40px;*/
+        }
+
+        .match-team td:first-child {
+            border-right: 1px solid #a6a6a6;
+        }
+
+        .match-team th {
+            padding: 5px;
+        }
+
+        .match-info-item {
+            margin-right: 20px;
+        }
+
+        .match-info-label {
+            font-weight: bold;
+        }
+
+        .match-manager button {
+            margin-left: 40px;
+        }
+
+        button {
+            padding: 2px 6px;
+            background-color: #eaeaea;
+            border: 1px solid #a6a6a6;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<section layout:fragment="content">
+    <h2 class="title">경기 관리 상세 페이지</h2>
+    <div id="container">
+    <div class="match-info-container">
+        <div class="match-manager">
+            <span class="match-info-label">매니저:</span>
+            <span>공승환</span>
+            <button>매니저 변경</button>
+        </div>
+        <div>
+            <div class="match-info-item">
+                <span class="match-info-label">날짜:</span>
+                <span>2023-05-21</span>
+            </div>
+            <div class="match-info-item">
+                <span class="match-info-label">구장:</span>
+                <span>한라 원앤원 구장 (구장ID: 123)</span>
+            </div>
+            <div class="match-info-item">
+                <span class="match-info-label">상태:</span>
+                <span>대기 중</span>
+            </div>
+        </div>
+        <div class="match-team">
+            <table>
+                <tr>
+                    <th style="border-right: 1px solid #a6a6a6;">팀 A</th><th>팀 B</th>
+                </tr>
+                <tr>
+                    <td>테스터1 (레벨: A)</td><td>테스터2 (레벨: A)</td>
+                </tr>
+                <tr>
+                    <td>테스터3</td><td>테스터4</td>
+                </tr>
+                <tr>
+                    <td>테스터5</td><td>테스터6</td>
+                </tr>
+                <tr>
+                    <td>테스터7</td><td>테스터8</td>
+                </tr>
+                <tr>
+                    <td>테스터9</td><td>테스터10</td>
+                </tr>
+                <tr>
+                    <td>테스터11</td><td>테스터12</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="match-info-container">
+        <div style="display: flex; justify-content: center">
+            <b>환불 규정</b>
+        </div>
+        <div>
+            <span>내용</span>
+        </div>
+        <div style="display: flex; justify-content: center">
+            <button>일괄 환불</button>
+        </div>
+    </div>
+    </div>
+</section>
+
+<th:block layout:fragment="script">
+    <script>
+
+    </script>
+</th:block>
+
+</html>

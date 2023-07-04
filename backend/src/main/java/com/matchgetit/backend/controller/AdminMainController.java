@@ -1,6 +1,7 @@
 package com.matchgetit.backend.controller;
 
 import com.matchgetit.backend.service.AdminDashboardService;
+import com.matchgetit.backend.service.AdminPageUserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,15 +14,16 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AdminMainController {
     private final AdminDashboardService dashboardService;
-//    private final AdminPageUserService userService;
+    private final AdminPageUserService userService;
 
     @PostConstruct
     public void createUsers() {
+        userService.createUsers();
         dashboardService.createManagers();
     }
 
 
-    @GetMapping(value = {"/matchGetIt/admin"})
+    @GetMapping(value = {"/matchGetIt/admin", "/"})
     public String mainPage(Model model) {
         Map<String, Long> userCounts = dashboardService.getUserCounts();
         model.addAttribute("userCounts", userCounts);
